@@ -1,14 +1,15 @@
-import Logo from "./logo";
-import ThemeToggle from "./theme-toggle";
+import GlobalSearch from "./GlobalSearch";
+import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
-const navbar = () => {
+const Navbar = () => {
   return (
-    <nav className="flex-between background-light900_dark200 shadow-light-300 fixed z-50 w-full p-6 dark:shadow-none">
+    <nav className="flex-between background-light900_dark200 shadow-light-300 fixed z-50 w-full p-6 max-sm:p-4 dark:shadow-none">
       <Logo />
-
+      <GlobalSearch />
       <ThemeToggle />
     </nav>
   );
 };
 
-export default navbar;
+export default Navbar;

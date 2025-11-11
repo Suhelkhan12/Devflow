@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 import ThemeProvider from "@/context/Theme";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const inter = localFont({
   src: "./fonts/inter.ttf",

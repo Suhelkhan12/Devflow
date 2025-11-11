@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
-const logo = () => {
+const Logo = () => {
   return (
     <Link href={"/"} className="font-space-grotesk flex items-center gap-1">
       <img src={"/icons/logo.svg"} alt="Devoverflow logo which is like a sun" className="size-7" />
@@ -12,4 +12,4 @@ const logo = () => {
   );
 };
 
-export default logo;
+export default Logo;

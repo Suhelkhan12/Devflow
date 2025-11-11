@@ -10,7 +10,7 @@ const ThemeToggle = () => {
   return (
     <Button
       size={"icon"}
-      className="hover:bg-dark-400 dark:text-light-900 text-dark-100 hover:text-light-900 cursor-pointer"
+      className="dark:hover:bg-dark-400 hover:bg-primary-500 dark:text-light-900 text-dark-100 hover:text-light-900 cursor-pointer rounded-xl"
       onClick={onClick}
     >
       <svg
