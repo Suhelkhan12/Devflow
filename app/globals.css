@@ -14,6 +14,7 @@
   --color-dark-300: #151821;
   --color-dark-400: #212734;
   --color-dark-500: #3f4354;
+  --color-dark-border: #101012;
 
   --color-light-400: #858ead;
   --color-light-500: #d0d5dd;
@@ -149,6 +150,10 @@
 
 @utility text-dark400_light900 {
   @apply text-dark-400! dark:text-light-900!;
+}
+
+@utility text-dark-light100_light-dark900 {
+  @apply text-dark-100 dark:text-light-900;
 }
 
 @utility light-border {
