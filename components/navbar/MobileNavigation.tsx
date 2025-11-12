@@ -1,5 +1,15 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "../ui/button";
+import Logo from "./Logo";
+import MobileNavlink, { MOBILENAVLINKS } from "./MobileNavLink";
 
 const MobileNavigation = () => {
   return (
@@ -28,14 +38,38 @@ const MobileNavigation = () => {
             </svg>
           </Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent side={"left"} className="background-light900_dark200 flex flex-col justify-between border-0">
           <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your account and remove your data from our
-              servers.
-            </SheetDescription>
+            <SheetTitle className="hidden">Navigation</SheetTitle>
+            <Logo isMobile={true} />
           </SheetHeader>
+          <SheetDescription asChild>
+            <SheetClose asChild>
+              <section className="flex flex-col gap-3.5">
+                {MOBILENAVLINKS.map((link) => (
+                  <MobileNavlink key={link.id} {...link} />
+                ))}
+              </section>
+            </SheetClose>
+          </SheetDescription>
+          <div className="flex flex-col gap-3 px-4 pb-4">
+            <SheetClose asChild>
+              <Button
+                variant={"default"}
+                className="background-light800_dark400! text-primary-500 cursor-pointer hover:shadow-sm"
+              >
+                Log in
+              </Button>
+            </SheetClose>
+            <SheetClose asChild>
+              <Button
+                variant={"default"}
+                className="background-light700_dark300 border-light-700 dark:border-dark-400 cursor-pointer border hover:shadow-sm"
+              >
+                Sign up
+              </Button>
+            </SheetClose>
+          </div>
         </SheetContent>
       </Sheet>
     </div>
