@@ -1,5 +1,6 @@
 import GlobalSearch from "./GlobalSearch";
 import Logo from "./Logo";
+import MobileNavigation from "./MobileNavigation";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
@@ -8,6 +9,7 @@ const Navbar = () => {
       <Logo />
       <GlobalSearch />
       <ThemeToggle />
+      <MobileNavigation />
     </nav>
   );
 };
