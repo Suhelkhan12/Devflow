@@ -1,26 +1,23 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-
-type MobileNavlinkProps = {
-  id: string;
-  href: string;
-  label: string;
-  icon: string;
-};
-
-export const MOBILENAVLINKS: MobileNavlinkProps[] = [
-  { id: "Home", href: "/about", label: "Home", icon: "/icons/home.svg" },
-  { id: "Community", href: "/features", label: "Community", icon: "/icons/users.svg" },
-  { id: "Collections", href: "/pricing", label: "Collections", icon: "/icons/star.svg" },
-  { id: "Find Jobs", href: "/contact", label: "Find Jobs", icon: "/icons/suitcase.svg" },
-  { id: "Tags", href: "/contact", label: "Tags", icon: "/icons/tag.svg" },
-  { id: "Communities", href: "/contact", label: "Communities", icon: "/icons/community.svg" },
-  { id: "Ask a Question", href: "/contact", label: "Ask a Question", icon: "/icons/question.svg" },
-];
+import { MobileNavlinkProps } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 export default function MobileNavlink({ id, href, label, icon }: MobileNavlinkProps) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  console.log(isActive);
   return (
-    <Link href={href} className="rounded-2 text-dark-light100_light-dark900 flex items-center gap-4 p-3 font-medium">
+    <Link
+      href={href}
+      className={cn(
+        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 base-medium flex items-center gap-4 p-3 transition",
+        isActive && "primary-gradient base-semibold"
+      )}
+    >
       <Image src={icon} alt={id} width={20} height={20} preload className="invert-colors" />
       {label}
     </Link>
