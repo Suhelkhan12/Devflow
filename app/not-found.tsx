@@ -18,7 +18,7 @@ const NotFound = () => {
           The page you’re looking for doesn’t exist or may have been moved. Double-check the URL or go back to the
           homepage.
         </p>
-        <Button asChild className="primary-gradient base-medium text-white">
+        <Button asChild variant={"primary"}>
           <Link href={"/"}>Go Home</Link>
         </Button>
       </div>

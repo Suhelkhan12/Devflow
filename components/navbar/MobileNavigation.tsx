@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import Logo from "./Logo";
 import MobileNavlink from "./MobileNavLink";
 import { MobileNavlinkProps } from "@/lib/types";
+import AuthButton from "../auth/auth-button";
 
 const MOBILENAVLINKS: MobileNavlinkProps[] = [
   { id: "Home", href: "/", label: "Home", icon: "/icons/home.svg" },
@@ -54,30 +55,34 @@ const MobileNavigation = () => {
             <Logo isMobile={true} />
           </SheetHeader>
           <SheetDescription asChild>
-            <SheetClose asChild>
-              <section className="flex flex-col gap-3.5">
-                {MOBILENAVLINKS.map((l) => (
-                  <MobileNavlink key={l.id} {...l} />
-                ))}
-              </section>
-            </SheetClose>
+            <section className="flex flex-col gap-3.5">
+              {MOBILENAVLINKS.map((l) => (
+                <SheetClose key={l.id}>
+                  <MobileNavlink {...l} />
+                </SheetClose>
+              ))}
+            </section>
           </SheetDescription>
           <div className="flex flex-col gap-3 px-4 pb-4">
             <SheetClose asChild>
-              <Button
-                variant={"default"}
-                className="background-light800_dark400! text-primary-500 cursor-pointer hover:shadow-sm"
-              >
-                Log in
-              </Button>
+              <AuthButton route="/auth/log-in">
+                <Button
+                  variant={"default"}
+                  className="background-light800_dark400! text-primary-500 w-full cursor-pointer hover:shadow-sm"
+                >
+                  Log in
+                </Button>
+              </AuthButton>
             </SheetClose>
             <SheetClose asChild>
-              <Button
-                variant={"default"}
-                className="background-light700_dark300 border-light-700 dark:border-dark-400 cursor-pointer border hover:shadow-sm"
-              >
-                Sign up
-              </Button>
+              <AuthButton route="/auth/sign-in">
+                <Button
+                  variant={"default"}
+                  className="background-light700_dark300 border-light-700 dark:border-dark-400 w-full cursor-pointer border hover:shadow-sm"
+                >
+                  Sign in
+                </Button>
+              </AuthButton>
             </SheetClose>
           </div>
         </SheetContent>

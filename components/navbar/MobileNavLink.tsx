@@ -14,7 +14,7 @@ export default function MobileNavlink({ id, href, label, icon }: MobileNavlinkPr
     <Link
       href={href}
       className={cn(
-        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 base-medium flex items-center gap-4 p-3 transition",
+        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 base-medium flex items-center gap-2 p-3 transition",
         isActive && "primary-gradient base-semibold"
       )}
     >
