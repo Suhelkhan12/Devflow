@@ -1,15 +1,23 @@
 "use client";
 
+import { useEffect, useState, useTransition } from "react";
+
 import CardWrapper from "./card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import * as z from "zod";
-import { LoginFormSchema } from "@/schemas";
+import { LoginActionTypes, LoginFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { login } from "@/actions/login";
+import { Spinner } from "../ui/spinner";
+import { toast } from "sonner";
 
 const LoginForm = () => {
+  const [serverMessage, setServerMessage] = useState<LoginActionTypes | undefined>(undefined);
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -18,8 +26,22 @@ const LoginForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (!serverMessage) return;
+
+    if (serverMessage.responsetype === "error") {
+      toast.error(serverMessage.message);
+    } else {
+      toast.success(serverMessage.message);
+    }
+  }, [serverMessage]);
+
   const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-    console.log(values);
+    setServerMessage(undefined);
+
+    startTransition(async () => {
+      login(values).then((data) => setServerMessage(data));
+    });
   };
 
   return (
@@ -44,6 +66,7 @@ const LoginForm = () => {
                       {...field}
                       placeholder="Enter your email"
                       type="email"
+                      disabled={isPending}
                       className="caret-primary-500 focus-visible:ring-primary-500 background-light800_dark300 light-border-2 py-5 focus-visible:ring-1"
                     />
                   </FormControl>
@@ -62,6 +85,7 @@ const LoginForm = () => {
                       {...field}
                       placeholder="*********"
                       type="password"
+                      disabled={isPending}
                       className="caret-primary-500 focus-visible:ring-primary-500 background-light800_dark300 light-border-2 py-5 focus-visible:ring-1"
                     />
                   </FormControl>
@@ -70,8 +94,14 @@ const LoginForm = () => {
               )}
             />
 
-            <Button type="submit" size={"lg"} variant={"primary"} className="w-full cursor-pointer">
-              Login
+            <Button
+              type="submit"
+              size={"lg"}
+              variant={"primary"}
+              disabled={isPending}
+              className="w-full cursor-pointer"
+            >
+              {isPending ? <Spinner /> : "Login"}
             </Button>
           </div>
         </form>
