@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ThemeProvider from "@/context/Theme";
 import Navbar from "@/components/navbar/Navbar";
+import { Toaster } from "sonner";
 
 const inter = localFont({
   src: "./fonts/inter.ttf",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem disableTransitionOnChange>
           <Navbar />
           {children}
+          <Toaster position="top-right" richColors />
         </ThemeProvider>
       </body>
     </html>

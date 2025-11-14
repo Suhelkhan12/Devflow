@@ -22,7 +22,7 @@ const CardWrapper = ({
   showSocials,
 }: CardWrapperProps) => {
   return (
-    <Card className="shadow-light100_dark100 background-light800_dark200 w-full max-w-xl border-0">
+    <Card className="shadow-light100_dark100 background-light800_dark200 light-border-2 w-full max-w-xl">
       <CardHeader>
         <Header label={headerLabel} description={headerDescription} />
       </CardHeader>
@@ -30,8 +30,8 @@ const CardWrapper = ({
         {showSocials && <Socials />}
         {children}
       </CardContent>
-      <CardFooter>
-        <Button variant={"link"} size={"sm"} className="w-full font-normal" asChild>
+      <CardFooter className="flex-center">
+        <Button variant={"link"} size={"sm"} className="font-normal" asChild>
           <Link href={backBtnHref}>{backBtnLabel}</Link>
         </Button>
       </CardFooter>

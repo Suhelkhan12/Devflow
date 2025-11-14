@@ -8,10 +8,18 @@ import { FaGithub } from "react-icons/fa";
 const Socials = () => {
   return (
     <div className="flex w-full gap-x-2">
-      <Button size={"lg"} className="dark:border-dark-500 cursor-pointer" variant={"outline"}>
+      <Button
+        size={"lg"}
+        className="hover:ring-primary-500 light-border-2 cursor-pointer hover:ring-1"
+        variant={"outline"}
+      >
         <FcGoogle />
       </Button>
-      <Button size={"lg"} className="dark:border-dark-500 cursor-pointer" variant={"outline"}>
+      <Button
+        size={"lg"}
+        className="hover:ring-primary-500 light-border-2 cursor-pointer hover:ring-1"
+        variant={"outline"}
+      >
         <FaGithub />
       </Button>
     </div>
