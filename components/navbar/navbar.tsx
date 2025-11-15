@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "flex-between background-light900_dark200 shadow-light-300 fixed z-50 w-full p-6 max-sm:p-4 dark:shadow-none"
+        "flex-between background-light900_dark200 shadow-light-300 dark:border-dark-300 fixed z-100 w-full border-b p-6 max-sm:p-4 dark:shadow-none"
       )}
     >
       <Logo isMobile={false} />

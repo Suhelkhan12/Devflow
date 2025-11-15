@@ -7,12 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import * as z from "zod";
-import { LoginActionTypes, LoginFormSchema } from "@/schemas";
+import { LoginFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
+import { LoginActionTypes } from "@/lib/types";
 
 const LoginForm = () => {
   const [serverMessage, setServerMessage] = useState<LoginActionTypes | undefined>(undefined);
@@ -67,7 +68,7 @@ const LoginForm = () => {
                       placeholder="Enter your email"
                       type="email"
                       disabled={isPending}
-                      className="caret-primary-500 focus-visible:ring-primary-500 background-light800_dark300 light-border-2 py-5 focus-visible:ring-1"
+                      className="caret-primary-500 background-light800_dark300 py-5"
                     />
                   </FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -86,7 +87,7 @@ const LoginForm = () => {
                       placeholder="*********"
                       type="password"
                       disabled={isPending}
-                      className="caret-primary-500 focus-visible:ring-primary-500 background-light800_dark300 light-border-2 py-5 focus-visible:ring-1"
+                      className="caret-primary-500 background-light800_dark300 py-5"
                     />
                   </FormControl>
                   <FormMessage className="text-red text-xs" />

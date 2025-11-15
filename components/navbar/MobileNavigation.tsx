@@ -2,8 +2,8 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Button } from "../ui/button";
 import Logo from "./Logo";
 import NavLink from "./NavLink";
-import AuthButton from "../auth/auth-button";
 import { Navlinks } from "@/lib/data-object";
+import LoginSigninButtons from "../auth/login-signin-button";
 
 const MobileNavigation = () => {
   return (
@@ -32,7 +32,10 @@ const MobileNavigation = () => {
             </svg>
           </Button>
         </SheetTrigger>
-        <SheetContent side={"left"} className="background-light900_dark200 flex flex-col justify-between border-0">
+        <SheetContent
+          side={"left"}
+          className="background-light900_dark200 z-200 flex flex-col justify-between border-0"
+        >
           <SheetHeader>
             <SheetTitle className="hidden">Navigation</SheetTitle>
             <Logo isMobile={true} />
@@ -44,24 +47,7 @@ const MobileNavigation = () => {
               ))}
             </section>
           </SheetDescription>
-          <div className="flex flex-col gap-3 px-4 pb-4">
-            <AuthButton route="/auth/log-in">
-              <Button
-                variant={"default"}
-                className="background-light800_dark400! text-primary-500 w-full cursor-pointer hover:shadow-sm"
-              >
-                Log in
-              </Button>
-            </AuthButton>
-            <AuthButton route="/auth/sign-in">
-              <Button
-                variant={"default"}
-                className="background-light700_dark300 border-light-700 dark:border-dark-400 w-full cursor-pointer border hover:shadow-sm"
-              >
-                Sign in
-              </Button>
-            </AuthButton>
-          </div>
+          <LoginSigninButtons />
         </SheetContent>
       </Sheet>
     </div>

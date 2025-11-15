@@ -6,7 +6,7 @@ const GlobalSearch = () => {
     <div className={cn("min-w-lg max-lg:hidden")}>
       <Input
         placeholder="Seach globally..."
-        className="border-light-700 placeholder:text-light-400 dark:dark-gradient rounded-[10px] p-6 tracking-wide focus-visible:ring-0 dark:border-0"
+        className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 rounded-[10px] p-6 tracking-wide focus-visible:ring-0"
         type={"search"}
       />
     </div>

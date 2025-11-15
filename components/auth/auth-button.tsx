@@ -3,14 +3,14 @@ import { useRouter } from "next/navigation";
 
 interface AuthButtonProps {
   children: React.ReactNode;
-  route: string;
+  route?: string;
 }
 
 const AuthButton = ({ children, route }: AuthButtonProps) => {
   const router = useRouter();
 
   const onClick = () => {
-    router.push(route);
+    router.push(route!);
   };
   return (
     <span onClick={onClick} className="w-full cursor-pointer">
