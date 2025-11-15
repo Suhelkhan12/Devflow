@@ -1,5 +1,6 @@
 "use client";
 
+import UserProfile from "../user-profile/user-profle";
 import GlobalSearch from "./GlobalSearch";
 import Logo from "./Logo";
 import MobileNavigation from "./MobileNavigation";
@@ -17,7 +18,10 @@ const Navbar = () => {
     >
       <Logo isMobile={false} />
       <GlobalSearch />
-      <ThemeToggle />
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        <UserProfile />
+      </div>
       <MobileNavigation />
     </nav>
   );

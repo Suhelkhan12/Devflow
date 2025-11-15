@@ -3,15 +3,22 @@
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { MobileNavlinkProps } from "@/lib/types";
+import { NavLinkProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "../ui/sheet";
 
-export default function MobileNavlink({ id, href, label, icon }: MobileNavlinkProps) {
+export default function NavLink({ id, href, label, icon }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href;
+
+  const isProfile = href.includes("profile");
+  //user id will need to be fetched here.
+  const userId = 1298174927;
+  const profileLink = href + "/" + userId;
+  console.log(pathname);
+
   return (
-    <Link href={href}>
+    <Link href={isProfile ? profileLink : href}>
       <SheetClose asChild>
         <div
           className={cn(
