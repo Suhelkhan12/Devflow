@@ -99,7 +99,7 @@ const LoginForm = () => {
               size={"lg"}
               variant={"primary"}
               disabled={isPending}
-              className="w-full cursor-pointer"
+              className="tarnsition w-full cursor-pointer hover:opacity-80"
             >
               {isPending ? <Spinner /> : "Login"}
             </Button>

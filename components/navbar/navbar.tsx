@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import GlobalSearch from "./GlobalSearch";
 import Logo from "./Logo";
 import MobileNavigation from "./MobileNavigation";
@@ -8,13 +7,12 @@ import ThemeToggle from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
-  const pathname = usePathname();
-  const isHidden = pathname?.includes("/auth/");
+  // const pathname = usePathname();
+  // const isHidden = pathname?.includes("/auth/");
   return (
     <nav
       className={cn(
-        "flex-between background-light900_dark200 shadow-light-300 fixed z-50 w-full p-6 max-sm:p-4 dark:shadow-none",
-        isHidden && "hidden"
+        "flex-between background-light900_dark200 shadow-light-300 fixed z-50 w-full p-6 max-sm:p-4 dark:shadow-none"
       )}
     >
       <Logo isMobile={false} />

@@ -47,8 +47,8 @@ const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Hey 👋"
-      headerDescription="create an account on DevOverflow"
+      headerLabel="Join DevFlow"
+      headerDescription="let's start your journey"
       backBtnHref="/auth/log-in"
       backBtnLabel="Already have an account?"
       showSocials
@@ -119,7 +119,7 @@ const RegisterForm = () => {
               size={"lg"}
               variant={"primary"}
               disabled={isPending}
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer transition-normal hover:opacity-80"
             >
               {isPending ? <Spinner /> : "Create account"}
             </Button>
