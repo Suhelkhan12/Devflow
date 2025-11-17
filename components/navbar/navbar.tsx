@@ -1,7 +1,7 @@
 "use client";
 
 import UserProfile from "../user-profile/user-profle";
-import GlobalSearch from "./GlobalSearch";
+import LocalSearch from "../search/LocalSearch";
 import Logo from "./Logo";
 import MobileNavigation from "./MobileNavigation";
 import ThemeToggle from "./ThemeToggle";
@@ -17,7 +17,7 @@ const Navbar = () => {
       )}
     >
       <Logo isMobile={false} />
-      <GlobalSearch />
+      <LocalSearch placeholder="Search anything globally" route="/" />
       <div className="flex items-center gap-4">
         <ThemeToggle />
         <UserProfile />

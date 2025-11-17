@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 import CardWrapper from "./card-wrapper";
 import { useForm } from "react-hook-form";
@@ -12,11 +13,9 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
-import { toast } from "sonner";
-import { LoginActionTypes } from "@/lib/types";
 
 const LoginForm = () => {
-  const [serverMessage, setServerMessage] = useState<LoginActionTypes | undefined>(undefined);
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -27,22 +26,11 @@ const LoginForm = () => {
     },
   });
 
-  useEffect(() => {
-    if (!serverMessage) return;
-
-    if (serverMessage.responsetype === "error") {
-      toast.error(serverMessage.message);
-    } else {
-      toast.success(serverMessage.message);
-    }
-  }, [serverMessage]);
-
   const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-    setServerMessage(undefined);
-
     startTransition(async () => {
-      login(values).then((data) => setServerMessage(data));
+      await login(values);
     });
+    router.push("/");
   };
 
   return (

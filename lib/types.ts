@@ -17,7 +17,8 @@ export type HotNetworkLinkProps = {
   text: string;
 };
 
-export type LoginActionTypes = {
-  responsetype: "error" | "success";
-  message: string;
+export type LocalSearchProps = {
+  route: string;
+  placeholder: string;
+  otherProps?: string;
 };

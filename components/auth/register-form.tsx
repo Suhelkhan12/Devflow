@@ -12,11 +12,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { register } from "@/actions/register";
 import { Spinner } from "../ui/spinner";
-import { toast } from "sonner";
-import { LoginActionTypes } from "@/lib/types";
 
 const RegisterForm = () => {
-  const [serverMessage, setServerMessage] = useState<LoginActionTypes | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -28,21 +25,9 @@ const RegisterForm = () => {
     },
   });
 
-  useEffect(() => {
-    if (!serverMessage) return;
-
-    if (serverMessage.responsetype === "error") {
-      toast.error(serverMessage.message);
-    } else {
-      toast.success(serverMessage.message);
-    }
-  }, [serverMessage]);
-
   const onSubmit = (values: z.infer<typeof RegisterFormSchema>) => {
-    setServerMessage(undefined);
-
     startTransition(async () => {
-      register(values).then((data) => setServerMessage(data));
+      await register(values);
     });
   };
 

@@ -34,13 +34,13 @@ const MobileNavigation = () => {
         </SheetTrigger>
         <SheetContent
           side={"left"}
-          className="background-light900_dark200 z-200 flex flex-col justify-between border-0"
+          className="background-light900_dark200 z-200 flex flex-col justify-between border-0 px-4 pb-4"
         >
           <SheetHeader>
             <SheetTitle className="hidden">Navigation</SheetTitle>
             <Logo isMobile={true} />
           </SheetHeader>
-          <SheetDescription asChild>
+          <SheetDescription asChild className="p-0">
             <section className="flex flex-col gap-3.5">
               {Navlinks.map((l) => (
                 <NavLink key={l.id} {...l} />

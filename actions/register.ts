@@ -1,13 +1,14 @@
 "use server";
 
+import { RegisterFormSchema } from "@/schemas";
 import * as z from "zod";
-import { LoginActionTypes, RegisterFormSchema } from "@/schemas";
 
-export const register = async (values: z.infer<typeof RegisterFormSchema>): Promise<LoginActionTypes> => {
+export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   const validatedFields = RegisterFormSchema.safeParse(values);
+  await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate async operation
   if (!validatedFields.success) {
-    return { responsetype: "error", message: "Something went wrong." };
+    return { error: "Invalid input fields" };
   }
 
-  return { responsetype: "success", message: "Signin successful." };
+  return { success: "Login successfull" };
 };

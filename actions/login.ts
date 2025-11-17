@@ -2,13 +2,13 @@
 
 import * as z from "zod";
 import { LoginFormSchema } from "@/schemas";
-import { LoginActionTypes } from "@/lib/types";
 
-export const login = async (values: z.infer<typeof LoginFormSchema>): Promise<LoginActionTypes> => {
+export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   const validatedFields = LoginFormSchema.safeParse(values);
+  await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate async operation
   if (!validatedFields.success) {
-    return { responsetype: "error", message: "Invalid input fields." };
+    return { error: "Invalid input fields" };
   }
 
-  return { responsetype: "success", message: "Login successful." };
+  return { success: "Login successfull" };
 };
