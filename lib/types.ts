@@ -8,7 +8,6 @@ export type NavLinkProps = {
 
 export type SidebarProps = {
   children: React.ReactNode;
-  side: "left" | "right";
 };
 
 export type HotNetworkLinkProps = {

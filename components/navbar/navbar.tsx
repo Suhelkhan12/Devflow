@@ -17,7 +17,7 @@ const Navbar = () => {
       )}
     >
       <Logo isMobile={false} />
-      <LocalSearch placeholder="Search anything globally" route="/" />
+      <LocalSearch placeholder="Search anything globally..." route="/" />
       <div className="flex items-center gap-4">
         <ThemeToggle />
         <UserProfile />

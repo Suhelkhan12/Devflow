@@ -5,10 +5,12 @@ import { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main>
+    <main className="flex justify-between">
       <Navbar />
       <LeftSidebar />
-      <div className="background-light850_dark100 min-h-screen">{children}</div>
+      <section className="background-light850_dark100 mx-auto h-[11232px] min-h-screen max-w-5xl flex-1 px-10 pt-32">
+        {children}
+      </section>
       <RightSidebar />
     </main>
   );

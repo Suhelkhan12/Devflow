@@ -5,7 +5,7 @@ import LeftSidebarButton from "./leftsidebar-button";
 
 const LeftSidebar = () => {
   return (
-    <SidebarWrapper side="left">
+    <SidebarWrapper>
       <div className="flex flex-col gap-4">
         {Navlinks.map((l) => (
           <NavLink key={l.id} {...l} />
