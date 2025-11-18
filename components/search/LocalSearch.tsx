@@ -40,7 +40,7 @@ const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {
   }, [searchQuery, router, route]);
 
   return (
-    <div className={cn("flex min-w-lg flex-col gap-10 max-lg:hidden")}>
+    <div className={cn("min-w-lg max-lg:hidden")}>
       <Input
         value={searchQuery}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
@@ -48,10 +48,6 @@ const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {
         className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 rounded-[10px] p-6 tracking-wide focus-visible:ring-0"
         type={"search"}
       />
-      <div className="flex flex-col gap-6">
-        <p>SearchQuery: {searchQuery.toString()}</p>
-        <p>SearchParams: {searchParams.toString()}</p>
-      </div>
     </div>
   );
 };
