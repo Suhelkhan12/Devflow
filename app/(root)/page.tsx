@@ -1,3 +1,4 @@
+import HomeFilters from "@/components/filters/home-filters";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -95,13 +96,19 @@ interface searchParams {
 }
 
 const page = async ({ searchParams }: searchParams) => {
-  const { query = "" } = await searchParams;
+  const { query = "", filter = "" } = await searchParams;
 
-  const filteredQuestions = QUESTIONS.filter((q) => q.title.toLowerCase().includes((query as string).toLowerCase()));
+  const filteredQuestions = QUESTIONS.filter((q) => {
+    const matchesQuery = q.title.toLowerCase().includes((query as string).toLowerCase());
+    const matchesFilter = filter
+      ? q.tags.some((tag) => tag.name.toLowerCase() === (filter as string).toLowerCase())
+      : true;
+    return matchesQuery && matchesFilter;
+  });
 
   // here we can filter QUESTIONS based on the params if needed
   return (
-    <div className="flex flex-col">
+    <div className="font-inter flex flex-col">
       <div className="flex flex-col gap-7.5">
         <div className="flex-between">
           <h1 className="h1-bold">All question</h1>
@@ -110,13 +117,14 @@ const page = async ({ searchParams }: searchParams) => {
           </Button>
         </div>
         <LocalSearch route="/" placeholder="Search for questions here..." />
-        <div className="mt-10 flex flex-col gap-4">
-          {filteredQuestions.map((q) => (
-            <h1 className="body-medium" key={q._id}>
-              {q.title}
-            </h1>
-          ))}
-        </div>
+        <HomeFilters />
+      </div>
+      <div className="mt-10 flex flex-col gap-4">
+        {filteredQuestions.map((q) => (
+          <h1 className="body-medium" key={q._id}>
+            {q.title}
+          </h1>
+        ))}
       </div>
     </div>
   );
