@@ -1,5 +1,29 @@
 import qs from "query-string";
 
-export const formUrlQuery = () => {};
+type FormUrlQueryTypes = {
+  params: string;
+  key: string;
+  value: string;
+};
+export const formUrlQuery = ({ params, key, value }: FormUrlQueryTypes): string => {
+  const parsedParams = qs.parse(params);
+  parsedParams[key] = value;
+  return qs.stringifyUrl({
+    url: window.location.pathname,
+    query: parsedParams,
+  });
+};
 
-export const removeKeysFromQuery = () => {};
+type FemoveKeysFromQueryTypes = {
+  params: string;
+  keysToRemove: string[];
+};
+
+export const removeKeysFromQuery = ({ params, keysToRemove }: FemoveKeysFromQueryTypes): string => {
+  const parsedParams = qs.parse(params);
+  keysToRemove.forEach((k) => delete parsedParams[k]);
+  return qs.stringifyUrl({
+    url: window.location.pathname,
+    query: parsedParams,
+  });
+};
