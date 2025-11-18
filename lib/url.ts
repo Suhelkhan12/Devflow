@@ -22,8 +22,13 @@ type FemoveKeysFromQueryTypes = {
 export const removeKeysFromQuery = ({ params, keysToRemove }: FemoveKeysFromQueryTypes): string => {
   const parsedParams = qs.parse(params);
   keysToRemove.forEach((k) => delete parsedParams[k]);
-  return qs.stringifyUrl({
-    url: window.location.pathname,
-    query: parsedParams,
-  });
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: parsedParams,
+    },
+    {
+      skipNull: true,
+    }
+  );
 };

@@ -16,21 +16,27 @@ const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {
   const [searchQuery, setSearchQuery] = useState<string>(query);
 
   useEffect(() => {
-    if (searchQuery) {
-      const newUrl = formUrlQuery({
-        params: searchParams.toString(),
-        key: "query",
-        value: searchQuery,
-      });
+    const debounceTimeout = setTimeout(() => {
+      if (searchQuery) {
+        const newUrl = formUrlQuery({
+          params: searchParams.toString(),
+          key: "query",
+          value: searchQuery,
+        });
 
-      router.push(newUrl);
-    } else {
-      const newUrl = removeKeysFromQuery({
-        params: searchParams.toString(),
-        keysToRemove: ["query"],
-      });
-      router.push(newUrl);
-    }
+        router.push(newUrl);
+      } else {
+        const newUrl = removeKeysFromQuery({
+          params: searchParams.toString(),
+          keysToRemove: ["query"],
+        });
+        router.push(newUrl);
+      }
+    }, 300);
+
+    // clearing the timeout
+    return () => clearTimeout(debounceTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, router, route]);
 
   return (
