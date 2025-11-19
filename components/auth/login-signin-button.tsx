@@ -17,7 +17,7 @@ const LoginSigninButtons = () => {
           variant={"default"}
           className="background-light700_dark300 border-light-700 dark:border-dark-400 w-full cursor-pointer border hover:shadow-sm"
         >
-          Sign in
+          Sign up
         </Button>
       </AuthButton>
     </div>

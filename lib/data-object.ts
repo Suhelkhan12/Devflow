@@ -1,27 +1,33 @@
 import { NavLinkProps } from "./types";
-
+import { ROUTES } from "./routes";
 export const Navlinks: NavLinkProps[] = [
-  { id: "Home", href: "/", label: "Home", icon: "/icons/home.svg" },
-  { id: "Collections", href: "/collections", label: "Collections", icon: "/icons/star.svg" },
-  { id: "Find Jobs", href: "/jobs", label: "Find Jobs", icon: "/icons/suitcase.svg" },
-  { id: "Tags", href: "/tags", label: "Tags", icon: "/icons/tag.svg" },
-  { id: "Communities", href: "/community", label: "Communities", icon: "/icons/community.svg" },
-  { id: "Ask a Question", href: "/ask-a-question", label: "Ask a Question", icon: "/icons/question.svg" },
-  { id: "Profile", href: "/profile", label: "Profile", icon: "/icons/user.svg" },
+  { _id: "Home", href: `${ROUTES.HOME}`, label: "Home", icon: "/icons/home.svg" },
+  { _id: "Collections", href: `${ROUTES.COLLECTIONS}`, label: "Collections", icon: "/icons/star.svg" },
+  { _id: "Find Jobs", href: `${ROUTES.JOBS}`, label: "Find Jobs", icon: "/icons/suitcase.svg" },
+  { _id: "Tags", href: `${ROUTES.TAGS}`, label: "Tags", icon: "/icons/tag.svg" },
+  { _id: "Communities", href: `${ROUTES.COMMUNITIES}`, label: "Communities", icon: "/icons/community.svg" },
+  { _id: "Ask a Question", href: `${ROUTES.ASK_QUESTION}`, label: "Ask a Question", icon: "/icons/question.svg" },
+  { _id: "Profile", href: "PROFILE", label: "Profile", icon: "/icons/user.svg" },
 ];
 
 export const NavlinksDesktop: NavLinkProps[] = [
-  { id: "Home", href: "/", label: "Home", icon: "/icons/home.svg", isMobile: true },
-  { id: "Collections", href: "/collections", label: "Collections", icon: "/icons/star.svg", isMobile: true },
-  { id: "Find Jobs", href: "/jobs", label: "Find Jobs", icon: "/icons/suitcase.svg", isMobile: true },
-  { id: "Tags", href: "/tags", label: "Tags", icon: "/icons/tag.svg", isMobile: true },
-  { id: "Communities", href: "/community", label: "Communities", icon: "/icons/community.svg", isMobile: true },
+  { _id: "Home", href: `${ROUTES.HOME}`, label: "Home", icon: "/icons/home.svg", isMobile: true },
+  { _id: "Collections", href: `${ROUTES.COLLECTIONS}`, label: "Collections", icon: "/icons/star.svg", isMobile: true },
+  { _id: "Find Jobs", href: `${ROUTES.JOBS}`, label: "Find Jobs", icon: "/icons/suitcase.svg", isMobile: true },
+  { _id: "Tags", href: `${ROUTES.TAGS}`, label: "Tags", icon: "/icons/tag.svg", isMobile: true },
   {
-    id: "Ask a Question",
-    href: "/ask-a-question",
+    _id: "Communities",
+    href: `${ROUTES.COMMUNITIES}`,
+    label: "Communities",
+    icon: "/icons/community.svg",
+    isMobile: true,
+  },
+  {
+    _id: "Ask a Question",
+    href: `${ROUTES.ASK_QUESTION}`,
     label: "Ask a Question",
     icon: "/icons/question.svg",
     isMobile: true,
   },
-  { id: "Profile", href: "/profile", label: "Profile", icon: "/icons/user.svg", isMobile: true },
+  { _id: "Profile", href: "PROFILE", label: "Profile", icon: "/icons/user.svg", isMobile: true },
 ];

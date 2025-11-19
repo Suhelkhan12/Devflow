@@ -74,6 +74,7 @@ const HomeFilters = () => {
           key={ftr.name}
           className={cn(
             "bg-light-800 dark:bg-dark-300 text-light-500 body-medium cursor-pointer rounded-lg",
+            "hover:bg-primary-100 dark:hover:bg-dark-400",
             activeFilter === ftr.value && "text-primary-500 bg-primary-100 dark:bg-dark-400"
           )}
           onClick={() => handleFilterChange(ftr.value)}

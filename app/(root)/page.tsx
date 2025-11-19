@@ -1,9 +1,11 @@
 import HomeFilters from "@/components/filters/home-filters";
+import QuestionCard from "@/components/question/question-card";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
+import { Question } from "@/lib/types";
 import Link from "next/link";
 
-const QUESTIONS = [
+const QUESTIONS: Question[] = [
   {
     _id: "1",
     title: "What is Next.js?",
@@ -15,11 +17,12 @@ const QUESTIONS = [
     author: {
       _id: "1",
       name: "John Doe",
+      image: "https://github.com/shadcn.png",
     },
     upvotes: 10,
     answers: 2,
     views: 150,
-    createdAt: new Date(),
+    createdAt: "2025-01-12T10:15:00.000Z",
   },
   {
     _id: "2",
@@ -32,11 +35,12 @@ const QUESTIONS = [
     author: {
       _id: "2",
       name: "Emily Carter",
+      image: "https://github.com/shadcn.png",
     },
     upvotes: 25,
     answers: 5,
     views: 480,
-    createdAt: new Date(),
+    createdAt: "2025-01-12T10:15:00.000Z",
   },
   {
     _id: "3",
@@ -49,11 +53,12 @@ const QUESTIONS = [
     author: {
       _id: "3",
       name: "Michael Lee",
+      image: "https://github.com/shadcn.png",
     },
     upvotes: 18,
     answers: 3,
     views: 320,
-    createdAt: new Date(),
+    createdAt: "2025-03-18T14:45:00.000Z",
   },
   {
     _id: "4",
@@ -66,11 +71,12 @@ const QUESTIONS = [
     author: {
       _id: "4",
       name: "Sophia Williams",
+      image: "https://github.com/shadcn.png",
     },
     upvotes: 12,
     answers: 1,
     views: 210,
-    createdAt: new Date(),
+    createdAt: "2025-04-01T19:20:00.000Z",
   },
   {
     _id: "5",
@@ -83,11 +89,12 @@ const QUESTIONS = [
     author: {
       _id: "5",
       name: "David Johnson",
+      image: "https://github.com/shadcn.png",
     },
     upvotes: 40,
     answers: 7,
     views: 900,
-    createdAt: new Date(),
+    createdAt: "2025-05-10T06:55:00.000Z",
   },
 ];
 
@@ -109,7 +116,7 @@ const page = async ({ searchParams }: searchParams) => {
   // here we can filter QUESTIONS based on the params if needed
   return (
     <div className="font-inter flex flex-col">
-      <div className="flex flex-col gap-7.5">
+      <section className="flex flex-col gap-7.5">
         <div className="flex-between">
           <h1 className="h1-bold">All question</h1>
           <Button variant={"primary"} asChild>
@@ -118,14 +125,12 @@ const page = async ({ searchParams }: searchParams) => {
         </div>
         <LocalSearch route="/" placeholder="Search for questions here..." />
         <HomeFilters />
-      </div>
-      <div className="mt-10 flex flex-col gap-4">
+      </section>
+      <section className="mt-10 flex flex-col gap-4">
         {filteredQuestions.map((q) => (
-          <h1 className="body-medium" key={q._id}>
-            {q.title}
-          </h1>
+          <QuestionCard key={q._id} {...q} />
         ))}
-      </div>
+      </section>
     </div>
   );
 };

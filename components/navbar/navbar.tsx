@@ -12,11 +12,11 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "flex-between background-light900_dark200 shadow-light-300 dark:border-dark-300 fixed z-100 w-full border-b p-6 max-sm:p-4 dark:shadow-none"
+        "flex-between background-light900_dark200 shadow-light-300 dark:border-dark-300 fixed z-100 w-full border-b p-4 md:p-5 dark:shadow-none"
       )}
     >
       <Logo isMobile={false} />
-      <p>Global search bar comes here</p>
+      <p className="max-md:hidden">Global search bar comes here</p>
       <div className="flex items-center gap-4">
         <ThemeToggle />
         <UserProfile />

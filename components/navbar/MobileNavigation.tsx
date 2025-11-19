@@ -43,7 +43,7 @@ const MobileNavigation = () => {
           <SheetDescription asChild className="p-0">
             <section className="flex flex-col gap-3.5">
               {Navlinks.map((l) => (
-                <NavLink key={l.id} {...l} />
+                <NavLink key={l._id} {...l} />
               ))}
             </section>
           </SheetDescription>

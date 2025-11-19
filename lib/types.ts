@@ -1,5 +1,5 @@
 export type NavLinkProps = {
-  id: string;
+  _id: string;
   href: string;
   label: string;
   icon: string;
@@ -8,6 +8,7 @@ export type NavLinkProps = {
 
 export type SidebarProps = {
   children: React.ReactNode;
+  side: "left" | "right";
 };
 
 export type HotNetworkLinkProps = {
@@ -20,4 +21,27 @@ export type LocalSearchProps = {
   route: string;
   placeholder: string;
   otherProps?: string;
+};
+
+type Tag = {
+  _id: string;
+  name: string;
+};
+
+type Author = {
+  _id: string;
+  name: string;
+  image: string;
+};
+
+export type Question = {
+  _id: string;
+  title: string;
+  description?: string;
+  tags: Tag[];
+  author: Author;
+  createdAt: string;
+  upvotes: number;
+  answers: number;
+  views: number;
 };

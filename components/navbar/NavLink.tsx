@@ -6,15 +6,20 @@ import Link from "next/link";
 import { NavLinkProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "../ui/sheet";
+import { ROUTES } from "@/lib/routes";
 
-export default function NavLink({ id, href, label, icon, isMobile = false }: NavLinkProps) {
+export default function NavLink({ _id, href, label, icon, isMobile = false }: NavLinkProps) {
   const pathname = usePathname();
 
-  const isProfile = href.includes("profile");
   //user id will need to be fetched here.
   const userId = 1298174927;
-  if (isProfile) {
-    href = href + "/" + userId;
+
+  const isProfile = _id === "Profile";
+
+  // for dynamic contents
+  let finalHref = href;
+  if (finalHref === "PROFILE") {
+    finalHref = ROUTES.PROFILE(userId.toFixed());
   }
   const isActive = pathname === href;
 
@@ -28,7 +33,7 @@ export default function NavLink({ id, href, label, icon, isMobile = false }: Nav
     >
       <Image
         src={icon}
-        alt={id}
+        alt={_id}
         width={20}
         height={20}
         preload
@@ -38,5 +43,5 @@ export default function NavLink({ id, href, label, icon, isMobile = false }: Nav
     </div>
   );
 
-  return <Link href={href}>{isMobile ? <SheetClose asChild>{linkComponent}</SheetClose> : linkComponent}</Link>;
+  return <Link href={finalHref}>{isMobile ? <SheetClose asChild>{linkComponent}</SheetClose> : linkComponent}</Link>;
 }
