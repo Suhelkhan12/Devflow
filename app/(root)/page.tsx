@@ -126,7 +126,7 @@ const page = async ({ searchParams }: searchParams) => {
         <LocalSearch route="/" placeholder="Search for questions here..." />
         <HomeFilters />
       </section>
-      <section className="mt-10 flex flex-col gap-4">
+      <section className="mt-10 flex flex-col gap-6">
         {filteredQuestions.map((q) => (
           <QuestionCard key={q._id} {...q} />
         ))}

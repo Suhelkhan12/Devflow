@@ -45,3 +45,15 @@ export type Question = {
   answers: number;
   views: number;
 };
+
+export type MetricProps = {
+  imgUrl: string;
+  alt: string;
+  value: string | number;
+  title: string;
+  href?: string; // for user only
+  textStyles?: string;
+  imgStyles?: string;
+  isAuthor?: boolean;
+  titleStyles?: string;
+};

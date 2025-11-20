@@ -10,4 +10,5 @@ export const ROUTES = {
   PROFILE: (id: string) => `/profile/${id}`,
   QUESTION: (id: string) => `/questions/${id}`,
   TAG: (tag: string) => `/tags/${tag}`,
+  USER: (id: string) => `/profile/${id}`,
 };
