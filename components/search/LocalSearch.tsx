@@ -45,7 +45,7 @@ const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {
         value={searchQuery}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
         placeholder={placeholder}
-        className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 rounded-[10px] p-6 tracking-wide focus-visible:ring-0"
+        className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 rounded-[10px] tracking-wide focus-visible:ring-0"
         type={"search"}
       />
     </div>

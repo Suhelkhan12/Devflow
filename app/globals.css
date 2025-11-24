@@ -5,6 +5,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scrollbar-gutter: stable;
+}
+
 @theme {
   --color-primary-100: #fff1e6;
   --color-primary-500: #ff7000;

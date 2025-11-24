@@ -42,7 +42,7 @@ const POPULARTAGS = [
 const PopularTags = () => {
   return (
     <div className="flex flex-col justify-between gap-6">
-      <h2 className="h3-semibold">Popular tags</h2>
+      <h2 className="h3-semibold font-space-grotesk">Popular tags</h2>
       <div className="flex flex-col gap-4">
         {POPULARTAGS.map((tg) => (
           <div key={tg.id} className="flex items-center justify-between">

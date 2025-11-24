@@ -41,7 +41,7 @@ const HotNetworkLink = ({ href, text }: HotNetworkLinkProps) => {
 const HotNetwork = () => {
   return (
     <div className="flex flex-col justify-between gap-6">
-      <h2 className="h3-semibold">Hot network</h2>
+      <h2 className="h3-semibold font-space-grotesk">Hot network</h2>
       <div className="flex flex-col gap-6">
         {HOTNETWORKS.map((ht) => (
           <HotNetworkLink key={ht.id} {...ht} />

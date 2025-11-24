@@ -5,9 +5,9 @@ import PopularTags from "./popular-tags";
 
 const RightSidebar = () => {
   return (
-    <SidebarWrapper>
+    <SidebarWrapper side={"right"}>
       <HotNetwork />
-      <Separator />
+      <Separator className="bg-primary-100 my-6" />
       <PopularTags />
     </SidebarWrapper>
   );

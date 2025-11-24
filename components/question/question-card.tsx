@@ -14,13 +14,15 @@ const QuestionCard = ({ _id, title, tags, author, createdAt, upvotes, answers, v
         </Link>
         <div className="w-ful rounded-1 flex flex-wrap gap-2">
           {tags.map((tg) => (
-            <Badge key={tg._id} className="background-light800_dark300 font-medium">
-              <span className="text-light-500 text-xs">{tg.name}</span>
+            <Badge key={tg._id} className="background-light800_dark300 font-medium" asChild>
+              <Link href={ROUTES.TAG(_id)}>
+                <span className="text-light-500 text-xs">{tg.name}</span>
+              </Link>
             </Badge>
           ))}
         </div>
       </div>
-      <div className="flex-between mt-6 flex-wrap">
+      <div className="flex-between mt-6 flex-wrap gap-3">
         <Metric
           imgUrl={author.image}
           alt={author.name}
