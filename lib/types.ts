@@ -58,3 +58,14 @@ export type MetricProps = {
   isAuthor?: boolean;
   titleStyles?: string;
 };
+
+export type TagCardProps = {
+  _id: string;
+  name: string;
+  numberOfQuestions?: number;
+  showCount?: boolean;
+  compact?: boolean;
+  removeTag?: boolean;
+  isButton?: boolean;
+  handleRemove?: () => void;
+};

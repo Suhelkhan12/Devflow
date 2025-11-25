@@ -120,7 +120,7 @@ const page = async ({ searchParams }: searchParams) => {
         <div className="flex-between">
           <h1 className="h1-bold font-space-grotesk">All question</h1>
           <Button variant={"primary"} asChild>
-            <Link href={"/ask-a-question"}>Ask a question</Link>
+            <Link href={"/ask-question"}>Ask a question</Link>
           </Button>
         </div>
         <LocalSearch route="/" placeholder="Search for questions here..." />

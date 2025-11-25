@@ -4,9 +4,10 @@ import { AskQuestionFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import QuestionTags from "./question-tag";
 
 const QuestionForm = () => {
   const form = useForm<z.infer<typeof AskQuestionFormSchema>>({
@@ -14,13 +15,15 @@ const QuestionForm = () => {
     defaultValues: {
       questionExplaination: "",
       questionTitle: "",
-      // tags: [],
+      questionTags: [],
     },
   });
 
   function onSubmit(data: z.infer<typeof AskQuestionFormSchema>) {
     console.log(data);
+    form.reset();
   }
+
   return (
     <form id="form-ask-question" onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup className="flex flex-col gap-9">
@@ -42,6 +45,7 @@ const QuestionForm = () => {
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Be specific and imagine you’re asking a question to another person.
                 </FieldDescription>
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
               </div>
             </Field>
           )}
@@ -64,12 +68,31 @@ const QuestionForm = () => {
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Introduce the problem and expand on what you put in the title. Minimum 20 characters.
                 </FieldDescription>
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
+              </div>
+            </Field>
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="questionTags"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="question-title" className="body-regular font-medium">
+                Tags<span className="text-red-500">*</span>
+              </FieldLabel>
+              <div className="space-y-2">
+                <QuestionTags id="form-ask-question-tags" ariaInvalid={fieldState.invalid} fieldd={field} />
+                <FieldDescription className="text-light-500 body-regular mt-0.5">
+                  Add up to 5 tags to describe what your question is about. Start typing to see suggestions.
+                </FieldDescription>
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
               </div>
             </Field>
           )}
         />
       </FieldGroup>
-      <Field className="mt-20" orientation={"horizontal"}>
+      <Field className="mt-20 flex justify-end" orientation={"horizontal"}>
         <Button type="submit" variant={"primary"} form="form-ask-question">
           Ask Question
         </Button>
