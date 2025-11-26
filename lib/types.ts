@@ -24,7 +24,7 @@ export type LocalSearchProps = {
   otherProps?: string;
 };
 
-type Tag = {
+export type Tag = {
   _id: string;
   name: string;
 };
@@ -67,5 +67,5 @@ export type TagCardProps = {
   compact?: boolean;
   removeTag?: boolean;
   isButton?: boolean;
-  handleRemove?: () => void;
+  handleRemove?: (_id: string) => void;
 };

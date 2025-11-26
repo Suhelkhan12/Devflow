@@ -14,5 +14,12 @@ export const RegisterFormSchema = z.object({
 export const AskQuestionFormSchema = z.object({
   questionTitle: z.string().min(30, "Title must be at least 30 characters long"),
   questionExplaination: z.string().min(100, "Explaination must be at least 100 characters long"),
-  questionTags: z.array(z.string()).min(3, "Add atleast 3 tags"),
+  questionTags: z
+    .array(
+      z.object({
+        _id: z.string(),
+        name: z.string(),
+      })
+    )
+    .min(3, "Add atleast 3 tags"),
 });

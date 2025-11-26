@@ -9,6 +9,7 @@ import { ROUTES } from "@/lib/routes";
 const TagCard = (props: TagCardProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    props.handleRemove!(props._id);
   };
 
   const content = (

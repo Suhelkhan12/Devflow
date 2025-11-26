@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { AskQuestionFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -8,6 +9,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import QuestionTags from "./question-tag";
+import { toast } from "sonner";
 
 const QuestionForm = () => {
   const form = useForm<z.infer<typeof AskQuestionFormSchema>>({
@@ -21,6 +23,7 @@ const QuestionForm = () => {
 
   function onSubmit(data: z.infer<typeof AskQuestionFormSchema>) {
     console.log(data);
+    toast.success("Question submitted successfully.");
     form.reset();
   }
 
@@ -42,10 +45,10 @@ const QuestionForm = () => {
                   aria-invalid={fieldState.invalid}
                   className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 rounded tracking-wide focus-visible:ring-0"
                 />
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Be specific and imagine you’re asking a question to another person.
                 </FieldDescription>
-                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
               </div>
             </Field>
           )}
@@ -65,10 +68,10 @@ const QuestionForm = () => {
                   aria-invalid={fieldState.invalid}
                   className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 rounded tracking-wide focus-visible:ring-0"
                 />
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Introduce the problem and expand on what you put in the title. Minimum 20 characters.
                 </FieldDescription>
-                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
               </div>
             </Field>
           )}
@@ -83,10 +86,10 @@ const QuestionForm = () => {
               </FieldLabel>
               <div className="space-y-2">
                 <QuestionTags id="form-ask-question-tags" ariaInvalid={fieldState.invalid} fieldd={field} />
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Add up to 5 tags to describe what your question is about. Start typing to see suggestions.
                 </FieldDescription>
-                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
               </div>
             </Field>
           )}
