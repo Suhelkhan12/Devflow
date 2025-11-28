@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { AskQuestionFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -8,10 +7,15 @@ import z from "zod";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import QuestionTags from "./question-tag";
 import { toast } from "sonner";
+import { Tag } from "@/lib/types";
+import { KeyboardEventHandler, useState } from "react";
+import TagCard from "../tag/tag-card";
 
 const QuestionForm = () => {
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [inputVal, setInputVal] = useState<string>("");
+
   const form = useForm<z.infer<typeof AskQuestionFormSchema>>({
     resolver: zodResolver(AskQuestionFormSchema),
     defaultValues: {
@@ -21,11 +25,52 @@ const QuestionForm = () => {
     },
   });
 
+  function syncTags(newTags: Tag[]) {
+    setTags(newTags);
+    form.setValue("questionTags", newTags);
+  }
+
   function onSubmit(data: z.infer<typeof AskQuestionFormSchema>) {
     console.log(data);
     toast.success("Question submitted successfully.");
     form.reset();
+    setTags([]);
+    setInputVal("");
   }
+
+  // to enter multile tags related to the question
+  const handleKeyPress: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      // geting input value form state
+      const value = inputVal.trim();
+      if (!value) return;
+
+      //formating the value
+      const formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
+
+      //checking for duplicate tag
+      const isDuplicate = tags.some((tg) => tg.name.toLocaleLowerCase() === formattedValue.toLocaleLowerCase());
+      if (isDuplicate) {
+        toast.error("Tags already present in the list.");
+        setInputVal("");
+        return;
+      }
+
+      //creating new tag and changing field value
+      const newTag = { _id: crypto.randomUUID(), name: formattedValue };
+      const updatedTags = [...tags, newTag];
+      syncTags(updatedTags);
+      setInputVal("");
+    }
+  };
+
+  // to remove a specific tag
+  const handleRemove = (_id: string) => {
+    const updatedTags = tags.filter((tg) => tg._id !== _id);
+    syncTags(updatedTags);
+  };
 
   return (
     <form id="form-ask-question" onSubmit={form.handleSubmit(onSubmit)}>
@@ -85,7 +130,23 @@ const QuestionForm = () => {
                 Tags<span className="text-red-500">*</span>
               </FieldLabel>
               <div className="space-y-2">
-                <QuestionTags id="form-ask-question-tags" ariaInvalid={fieldState.invalid} fieldd={field} />
+                <div className="flex flex-col gap-2">
+                  <Input
+                    {...field}
+                    id={"form-ask-question-tags"}
+                    value={inputVal}
+                    onChange={(e) => setInputVal(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 rounded tracking-wide focus-visible:ring-0"
+                  />
+                  {tags.length > 0 && (
+                    <div className="flex items-center gap-x-1.5">
+                      {tags.map((tg) => (
+                        <TagCard key={tg._id} {...tg} isButton compact removeTag handleRemove={handleRemove} />
+                      ))}
+                    </div>
+                  )}
+                </div>
                 {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Add up to 5 tags to describe what your question is about. Start typing to see suggestions.
