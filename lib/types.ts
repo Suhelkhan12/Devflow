@@ -1,41 +1,50 @@
-export type NavLinkProps = {
+export interface NavLinkProps {
   _id: string;
   href: string;
   label: string;
   icon: string;
   isMobile?: boolean;
-};
+}
 
-export type SidebarProps = {
+export interface SidebarProps {
   children: React.ReactNode;
   side: "left" | "right";
   additionalClasses?: string;
-};
+}
 
-export type HotNetworkLinkProps = {
+export interface HotNetworkLinkProps {
   id: string;
   href: string;
   text: string;
-};
+}
 
-export type LocalSearchProps = {
+export interface CardWrapperProps {
+  children: React.ReactNode;
+  headerLabel: string;
+  backBtnLabel: string;
+  backBtnHref: string;
+  socialsDisabled: boolean;
+  showSocials?: boolean;
+}
+
+export interface LocalSearchProps {
   route: string;
   placeholder: string;
   otherProps?: string;
-};
+}
 
-export type Tag = {
+export interface Tag {
   _id: string;
   name: string;
-};
+}
 
-type Author = {
+interface Author {
   _id: string;
   name: string;
   image: string;
-};
+}
 
-export type Question = {
+export interface Question {
   _id: string;
   title: string;
   description?: string;
@@ -45,9 +54,9 @@ export type Question = {
   upvotes: number;
   answers: number;
   views: number;
-};
+}
 
-export type MetricProps = {
+export interface MetricProps {
   imgUrl: string;
   alt: string;
   value: string | number;
@@ -57,9 +66,9 @@ export type MetricProps = {
   imgStyles?: string;
   isAuthor?: boolean;
   titleStyles?: string;
-};
+}
 
-export type TagCardProps = {
+export interface TagCardProps {
   _id: string;
   name: string;
   numberOfQuestions?: number;
@@ -68,4 +77,4 @@ export type TagCardProps = {
   removeTag?: boolean;
   isButton?: boolean;
   handleRemove?: (_id: string) => void;
-};
+}

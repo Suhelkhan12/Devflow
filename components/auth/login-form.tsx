@@ -4,15 +4,16 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 import CardWrapper from "./card-wrapper";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import * as z from "zod";
 import { LoginFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -28,61 +29,66 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
     startTransition(async () => {
-      await login(values);
+      const data = await login(values);
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success(data.success);
+      }
     });
-    router.push("/");
   };
 
   return (
     <CardWrapper
       headerLabel="Welcome"
-      headerDescription="log in to DevOverflow"
-      backBtnHref="/auth/sign-in"
+      backBtnHref="/auth/sign-up"
       backBtnLabel="Don't have an account?"
+      socialsDisabled={isPending}
       showSocials
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name={"email"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mb-2">Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter your email"
-                      type="email"
-                      disabled={isPending}
-                      className="caret-primary-500 background-light800_dark300 py-5"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={"password"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mb-2">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="*********"
-                      type="password"
-                      disabled={isPending}
-                      className="caret-primary-500 background-light800_dark300 py-5"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red text-xs" />
-                </FormItem>
-              )}
-            />
+      <form id="form-login" onSubmit={form.handleSubmit(onSubmit)}>
+        <FieldGroup>
+          <Controller
+            control={form.control}
+            name={"email"}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-login-email">Email</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-login-email"
+                  aria-invalid={fieldState.invalid}
+                  type={"email"}
+                  disabled={isPending}
+                  placeholder="Enter your email"
+                  className="caret-primary-500 background-light800_dark300 py-5"
+                />
+                {fieldState.error && <FieldError errors={[fieldState.error]} className="text-xs text-red-500" />}
+              </Field>
+            )}
+          />
 
+          <Controller
+            control={form.control}
+            name={"password"}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-login-password">Password</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-login-email"
+                  aria-invalid={fieldState.invalid}
+                  type={"password"}
+                  disabled={isPending}
+                  placeholder="*********"
+                  className="caret-primary-500 background-light800_dark300 py-5"
+                />
+                {fieldState.error && <FieldError errors={[fieldState.error]} className="text-xs text-red-500" />}
+              </Field>
+            )}
+          />
+
+          <Field>
             <Button
               type="submit"
               size={"lg"}
@@ -92,9 +98,9 @@ const LoginForm = () => {
             >
               {isPending ? <Spinner /> : "Login"}
             </Button>
-          </div>
-        </form>
-      </Form>
+          </Field>
+        </FieldGroup>
+      </form>
     </CardWrapper>
   );
 };

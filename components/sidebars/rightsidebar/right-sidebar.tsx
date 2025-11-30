@@ -7,7 +7,7 @@ const RightSidebar = () => {
   return (
     <SidebarWrapper side={"right"}>
       <HotNetwork />
-      <Separator className="bg-primary-100 my-6" />
+      <Separator className="background-light700_dark400 my-6" />
       <PopularTags />
     </SidebarWrapper>
   );

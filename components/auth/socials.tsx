@@ -5,13 +5,14 @@ import { Button } from "../ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
-const Socials = () => {
+const Socials = ({ disabled }: { disabled: boolean }) => {
   return (
     <div className="flex w-full gap-x-2">
       <Button
         size={"lg"}
         className="hover:ring-primary-500 light-border-2 cursor-pointer hover:ring-1"
         variant={"outline"}
+        disabled={disabled}
       >
         <FcGoogle />
       </Button>
@@ -19,6 +20,7 @@ const Socials = () => {
         size={"lg"}
         className="hover:ring-primary-500 light-border-2 cursor-pointer hover:ring-1"
         variant={"outline"}
+        disabled={disabled}
       >
         <FaGithub />
       </Button>

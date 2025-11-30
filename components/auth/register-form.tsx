@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useTransition } from "react";
 
 import CardWrapper from "./card-wrapper";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import * as z from "zod";
 import { RegisterFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { register } from "@/actions/register";
 import { Spinner } from "../ui/spinner";
+import { FieldGroup, Field, FieldLabel, FieldError } from "../ui/field";
+import { toast } from "sonner";
 
 const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -27,91 +28,98 @@ const RegisterForm = () => {
 
   const onSubmit = (values: z.infer<typeof RegisterFormSchema>) => {
     startTransition(async () => {
-      await register(values);
+      const data = await register(values);
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success(data.success);
+      }
     });
   };
 
   return (
     <CardWrapper
       headerLabel="Join DevFlow"
-      headerDescription="let's start your journey"
       backBtnHref="/auth/log-in"
       backBtnLabel="Already have an account?"
+      socialsDisabled={isPending}
       showSocials
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name={"name"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mb-2">Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter your name"
-                      type="text"
-                      disabled={isPending}
-                      className="caret-primary-500 background-light800_dark300 py-5"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={"email"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mb-2">Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter your email"
-                      type="email"
-                      disabled={isPending}
-                      className="caret-primary-500 background-light800_dark300 py-5"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={"password"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mb-2">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="*********"
-                      type="password"
-                      disabled={isPending}
-                      className="caret-primary-500 background-light800_dark300 py-5"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red text-xs" />
-                </FormItem>
-              )}
-            />
+      <form id="form-login" onSubmit={form.handleSubmit(onSubmit)}>
+        <FieldGroup>
+          <Controller
+            control={form.control}
+            name={"name"}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-login-name">Name</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-login-email"
+                  aria-invalid={fieldState.invalid}
+                  type={"text"}
+                  disabled={isPending}
+                  placeholder="Enter your name"
+                  className="caret-primary-500 background-light800_dark300 py-5"
+                />
+                {fieldState.error && <FieldError errors={[fieldState.error]} className="text-xs text-red-500" />}
+              </Field>
+            )}
+          />
 
+          <Controller
+            control={form.control}
+            name={"email"}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-login-email">Email</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-login-email"
+                  aria-invalid={fieldState.invalid}
+                  type={"email"}
+                  disabled={isPending}
+                  placeholder="Enter your email"
+                  className="caret-primary-500 background-light800_dark300 py-5"
+                />
+                {fieldState.error && <FieldError errors={[fieldState.error]} className="text-xs text-red-500" />}
+              </Field>
+            )}
+          />
+
+          <Controller
+            control={form.control}
+            name={"password"}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-login-password">Password</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-login-password"
+                  aria-invalid={fieldState.invalid}
+                  type={"password"}
+                  disabled={isPending}
+                  placeholder="*********"
+                  className="caret-primary-500 background-light800_dark300 py-5"
+                />
+                {fieldState.error && <FieldError errors={[fieldState.error]} className="text-xs text-red-500" />}
+              </Field>
+            )}
+          />
+
+          <Field>
             <Button
               type="submit"
               size={"lg"}
               variant={"primary"}
               disabled={isPending}
-              className="w-full cursor-pointer transition-normal hover:opacity-80"
+              className="tarnsition w-full cursor-pointer hover:opacity-80"
             >
-              {isPending ? <Spinner /> : "Create account"}
+              {isPending ? <Spinner /> : "Sign Up"}
             </Button>
-          </div>
-        </form>
-      </Form>
+          </Field>
+        </FieldGroup>
+      </form>
     </CardWrapper>
   );
 };

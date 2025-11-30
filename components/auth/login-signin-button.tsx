@@ -12,7 +12,7 @@ const LoginSigninButtons = () => {
           Log in
         </Button>
       </AuthButton>
-      <AuthButton route="/auth/sign-in">
+      <AuthButton route="/auth/sign-up">
         <Button
           variant={"default"}
           className="background-light700_dark300 border-light-700 dark:border-dark-400 w-full cursor-pointer border hover:shadow-sm"

@@ -10,5 +10,5 @@ export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
     return { error: "Invalid input fields" };
   }
 
-  return { success: "Login successfull" };
+  return { success: "Signed up successfully" };
 };

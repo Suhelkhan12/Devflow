@@ -4,30 +4,25 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Header from "./header";
 import Socials from "./socials";
+import { Separator } from "../ui/separator";
+import { CardWrapperProps } from "@/lib/types";
 
-interface CardWrapperProps {
-  children: React.ReactNode;
-  headerLabel: string;
-  headerDescription: string;
-  backBtnLabel: string;
-  backBtnHref: string;
-  showSocials?: boolean;
-}
 const CardWrapper = ({
   children,
-  headerDescription,
   headerLabel,
   backBtnHref,
   backBtnLabel,
+  socialsDisabled,
   showSocials,
 }: CardWrapperProps) => {
   return (
     <Card className="shadow-light100_dark100 background-light800_dark200 light-border-2 w-full max-w-xl">
       <CardHeader>
-        <Header label={headerLabel} description={headerDescription} />
+        <Header label={headerLabel} />
       </CardHeader>
-      <CardContent className="space-y-7">
-        {showSocials && <Socials />}
+      <CardContent>
+        {showSocials && <Socials disabled={socialsDisabled} />}
+        <Separator className="background-light700_dark400 my-4" />
         {children}
       </CardContent>
       <CardFooter className="flex-center">

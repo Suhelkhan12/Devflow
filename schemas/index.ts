@@ -1,14 +1,22 @@
 import * as z from "zod";
 
 export const LoginFormSchema = z.object({
-  email: z.email().min(1, "Email is required"),
+  email: z.email({
+    error: "Email is required",
+  }),
   password: z.string().min(1, "Password is required"),
 });
 
 export const RegisterFormSchema = z.object({
-  name: z.string(),
-  email: z.email(),
-  password: z.string(),
+  name: z
+    .string({
+      error: "Name is required",
+    })
+    .min(3, "Name should be atleast 3 characters long"),
+  email: z.email({
+    error: "Email is required",
+  }),
+  password: z.string().min(1, "Password is required"),
 });
 
 export const AskQuestionFormSchema = z.object({

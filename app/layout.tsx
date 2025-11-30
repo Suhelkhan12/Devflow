@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
         <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
-          <Toaster position="top-center" richColors />
+          <Toaster position="bottom-center" richColors />
         </ThemeProvider>
       </body>
     </html>
