@@ -15,12 +15,34 @@ import {
   toolbarPlugin,
   imagePlugin,
   InsertImage,
+  CodeToggle,
+  InsertCodeBlock,
+  Separator,
+  codeBlockPlugin,
+  linkDialogPlugin,
+  codeMirrorPlugin,
 } from "@mdxeditor/editor";
 import { FC } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
+// Import Prism themes and all languages
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-ruby";
+import "prismjs/components/prism-php";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-bash";
+
 interface EditorProps {
-  key: string;
+  resetKey: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<any, string>;
   editorRef?: React.MutableRefObject<MDXEditorMethods | null>;
@@ -30,33 +52,42 @@ interface EditorProps {
  * Extend this Component further with the necessary plugins or props you need.
  * proxying the ref is necessary. Next.js dynamically imported components don't support refs.
  */
-const Editor: FC<EditorProps> = ({ key, field, editorRef }) => {
+const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
   const toolbar = toolbarPlugin({
     toolbarClassName: "dark:bg-dark-200! bg-light-900!",
     toolbarContents: () => (
       <>
         <UndoRedo />
+        <Separator />
         <BoldItalicUnderlineToggles />
-        <CreateLink />
+        <Separator />
         <ListsToggle />
+        <Separator />
+        <CreateLink />
         <InsertImage />
+        <Separator />
+        <CodeToggle />
+        <InsertCodeBlock />
       </>
     ),
   });
 
   const plugins = [
+    codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
+    codeMirrorPlugin({ codeBlockLanguages: { js: "Javascript", css: "CSS" } }),
     headingsPlugin(),
     listsPlugin(),
     quotePlugin(),
     thematicBreakPlugin(),
     markdownShortcutPlugin(),
+    linkDialogPlugin(),
     toolbar,
     imagePlugin(),
   ];
 
   return (
     <MDXEditor
-      key={key}
+      key={resetKey}
       onChange={(val) => field.onChange(val)}
       ref={editorRef}
       markdown={field.value}

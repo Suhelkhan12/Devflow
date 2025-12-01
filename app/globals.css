@@ -418,11 +418,20 @@ html {
   width: 100%;
 }
 
+._linkDialogPopoverContent_1e2ox_601 {
+  background-color: #fff;
+}
+
 ._multiFieldForm_1e2ox_1214 {
   width: 100%;
 }
 
 .dark ._dialogContent_1e2ox_603 {
+  border-color: #212734;
+  background-color: #0f1117;
+}
+
+.dark ._linkDialogPopoverContent_1e2ox_601 {
   border-color: #212734;
   background-color: #0f1117;
 }

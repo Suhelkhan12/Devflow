@@ -116,7 +116,7 @@ const QuestionForm = () => {
               </FieldLabel>
               <div className="space-y-2">
                 <Suspense fallback={<EditorSkeleton />}>
-                  <EditorComp key={editorKey} editorRef={ref} field={field} />
+                  <EditorComp resetKey={editorKey} editorRef={ref} field={field} />
                 </Suspense>
                 <Input
                   {...field}
