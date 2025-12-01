@@ -76,7 +76,7 @@ const LoginForm = () => {
                 <FieldLabel htmlFor="form-login-password">Password</FieldLabel>
                 <Input
                   {...field}
-                  id="form-login-email"
+                  id="form-login-password"
                   aria-invalid={fieldState.invalid}
                   type={"password"}
                   disabled={isPending}

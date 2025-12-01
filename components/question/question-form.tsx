@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { AskQuestionFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -9,12 +10,18 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Tag } from "@/lib/types";
-import { KeyboardEventHandler, useState } from "react";
+import { KeyboardEventHandler, Suspense, useRef, useState } from "react";
 import TagCard from "../tag/tag-card";
+import { Skeleton } from "../ui/skeleton";
+
+const EditorComp = dynamic(() => import("./editor"), { ssr: false });
 
 const QuestionForm = () => {
+  const ref = useRef(null);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [inputVal, setInputVal] = useState<string>("");
+  const [tagsInputVal, setTagsInputVal] = useState<string>("");
+  // this key will be used to reset our editor value on submit
+  const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
 
   const form = useForm<z.infer<typeof AskQuestionFormSchema>>({
     resolver: zodResolver(AskQuestionFormSchema),
@@ -35,7 +42,8 @@ const QuestionForm = () => {
     toast.success("Question submitted successfully.");
     form.reset();
     setTags([]);
-    setInputVal("");
+    setTagsInputVal("");
+    setEditorKey(crypto.randomUUID());
   }
 
   // to enter multile tags related to the question
@@ -44,7 +52,7 @@ const QuestionForm = () => {
       e.preventDefault();
 
       // geting input value form state
-      const value = inputVal.trim();
+      const value = tagsInputVal.trim();
       if (!value) return;
 
       //formating the value
@@ -54,7 +62,7 @@ const QuestionForm = () => {
       const isDuplicate = tags.some((tg) => tg.name.toLocaleLowerCase() === formattedValue.toLocaleLowerCase());
       if (isDuplicate) {
         toast.error("Tags already present in the list.");
-        setInputVal("");
+        setTagsInputVal("");
         return;
       }
 
@@ -62,7 +70,7 @@ const QuestionForm = () => {
       const newTag = { _id: crypto.randomUUID(), name: formattedValue };
       const updatedTags = [...tags, newTag];
       syncTags(updatedTags);
-      setInputVal("");
+      setTagsInputVal("");
     }
   };
 
@@ -107,11 +115,15 @@ const QuestionForm = () => {
                 Detailed explanation of your problem?<span className="text-red-500">*</span>
               </FieldLabel>
               <div className="space-y-2">
+                <Suspense fallback={<EditorSkeleton />}>
+                  <EditorComp key={editorKey} editorRef={ref} field={field} />
+                </Suspense>
                 <Input
                   {...field}
-                  id={"form-ask-question-title"}
+                  value={"markdownVal"}
+                  id={"form-ask-question-explaination"}
                   aria-invalid={fieldState.invalid}
-                  className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 rounded tracking-wide focus-visible:ring-0"
+                  className="hidden"
                 />
                 {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
@@ -134,8 +146,8 @@ const QuestionForm = () => {
                   <Input
                     {...field}
                     id={"form-ask-question-tags"}
-                    value={inputVal}
-                    onChange={(e) => setInputVal(e.target.value)}
+                    value={tagsInputVal}
+                    onChange={(e) => setTagsInputVal(e.target.value)}
                     onKeyDown={handleKeyPress}
                     className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 rounded tracking-wide focus-visible:ring-0"
                   />
@@ -164,5 +176,14 @@ const QuestionForm = () => {
     </form>
   );
 };
+
+function EditorSkeleton() {
+  return (
+    <Skeleton className="flex h-full min-h-96 flex-col gap-2">
+      <div className="background-light800_dark300 min-h-10 rounded-sm"></div>
+      <div className="background-light800_dark300 min-h-80 rounded-sm"></div>
+    </Skeleton>
+  );
+}
 
 export default QuestionForm;

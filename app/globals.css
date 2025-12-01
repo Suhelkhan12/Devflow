@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@mdxeditor/editor/style.css";
 
 @plugin "@tailwindcss/typography";
 
@@ -381,7 +382,7 @@ html {
 }
 
 .dark .mdxeditor-toolbar {
-  background: #151821 !important;
+  background: #0f1117 !important;
 }
 
 .dark .mdxeditor-toolbar button svg {
@@ -398,6 +399,53 @@ html {
 
 .markdown a {
   color: #1da1f2;
+}
+
+.mdxeditor-popup-container {
+  z-index: 1000;
+}
+
+._dialogOverlay_1e2ox_870 {
+  background-color: #0f1117;
+}
+
+._dialogContent_1e2ox_603 {
+  border-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  max-width: 520;
+  width: 100%;
+}
+
+._multiFieldForm_1e2ox_1214 {
+  width: 100%;
+}
+
+.dark ._dialogContent_1e2ox_603 {
+  border-color: #212734;
+  background-color: #0f1117;
+}
+
+._textInput_1e2ox_1206 {
+  background-color: #f4f6f8;
+  border: 0.1px solid #ccc;
+}
+
+.dark ._textInput_1e2ox_1206 {
+  background-color: #151821;
+  border: 0.1px solid #212734;
+}
+
+._primaryButton_1e2ox_507 {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  border: 0px;
+  cursor: pointer;
+}
+
+._secondaryButton_1e2ox_508 {
+  border: 0px;
+  cursor: pointer;
 }
 
 .markdown a,
