@@ -10,11 +10,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Tag } from "@/lib/types";
-import { KeyboardEventHandler, Suspense, useRef, useState } from "react";
+import { KeyboardEventHandler, useRef, useState } from "react";
 import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";
 
-const EditorComp = dynamic(() => import("./editor"), { ssr: false });
+const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
 const QuestionForm = () => {
   const ref = useRef(null);
@@ -115,9 +115,7 @@ const QuestionForm = () => {
                 Detailed explanation of your problem?<span className="text-red-500">*</span>
               </FieldLabel>
               <div className="space-y-2">
-                <Suspense fallback={<EditorSkeleton />}>
-                  <EditorComp resetKey={editorKey} editorRef={ref} field={field} />
-                </Suspense>
+                <EditorComp resetKey={editorKey} editorRef={ref} field={field} />
                 <Input
                   {...field}
                   value={"markdownVal"}

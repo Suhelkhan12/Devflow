@@ -456,6 +456,20 @@ html {
   border: 0px;
   cursor: pointer;
 }
+._tableColumnEditorTrigger_1e2ox_744 {
+  opacity: 1 !important;
+}
+
+.markdown-editor table th,
+.markdown-editor table td {
+  padding: 0.5rem 0.75rem; /* adjust padding */
+  line-height: 1.2; /* controls height */
+  vertical-align: middle; /* aligns text vertically */
+}
+
+.markdown-editor table th {
+  font-weight: bold; /* keep bold for headers */
+}
 
 .markdown a,
 code {

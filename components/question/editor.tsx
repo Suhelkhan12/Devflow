@@ -21,6 +21,9 @@ import {
   codeBlockPlugin,
   linkDialogPlugin,
   codeMirrorPlugin,
+  InsertTable,
+  tablePlugin,
+  InsertThematicBreak,
 } from "@mdxeditor/editor";
 import { FC } from "react";
 import { ControllerRenderProps } from "react-hook-form";
@@ -65,9 +68,12 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
         <Separator />
         <CreateLink />
         <InsertImage />
+        <InsertTable />
         <Separator />
         <CodeToggle />
         <InsertCodeBlock />
+        <Separator />
+        <InsertThematicBreak />
       </>
     ),
   });
@@ -80,7 +86,9 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
     quotePlugin(),
     thematicBreakPlugin(),
     markdownShortcutPlugin(),
+    tablePlugin(),
     linkDialogPlugin(),
+    thematicBreakPlugin(),
     toolbar,
     imagePlugin(),
   ];
@@ -92,7 +100,7 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
       ref={editorRef}
       markdown={field.value}
       plugins={plugins}
-      className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 dark:border-dark-400 focus-visible:border-primary-500 dark:focus-visible:border-primary-500 markdown-editor rounded border tracking-wide focus-visible:ring-0"
+      className="placeholder:text-light-400 dark:dark-gradient caret-primary-500 background-light800_dark300 dark:border-dark-400 focus-visible:border-primary-500 dark:focus-visible:border-primary-500 markdown-editor dark-editor rounded border tracking-wide focus-visible:ring-0"
     />
   );
 };

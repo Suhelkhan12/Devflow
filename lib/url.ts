@@ -5,6 +5,7 @@ type FormUrlQueryTypes = {
   key: string;
   value: string;
 };
+
 export const formUrlQuery = ({ params, key, value }: FormUrlQueryTypes): string => {
   const parsedParams = qs.parse(params);
   parsedParams[key] = value;
