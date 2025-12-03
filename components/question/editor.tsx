@@ -15,7 +15,6 @@ import {
   toolbarPlugin,
   imagePlugin,
   InsertImage,
-  CodeToggle,
   InsertCodeBlock,
   Separator,
   codeBlockPlugin,
@@ -24,25 +23,10 @@ import {
   InsertTable,
   tablePlugin,
   InsertThematicBreak,
+  diffSourcePlugin,
 } from "@mdxeditor/editor";
 import { FC } from "react";
 import { ControllerRenderProps } from "react-hook-form";
-
-// Import Prism themes and all languages
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-css";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-c";
-import "prismjs/components/prism-cpp";
-import "prismjs/components/prism-go";
-import "prismjs/components/prism-ruby";
-import "prismjs/components/prism-php";
-import "prismjs/components/prism-json";
-import "prismjs/components/prism-bash";
 
 interface EditorProps {
   resetKey: string;
@@ -70,7 +54,6 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
         <InsertImage />
         <InsertTable />
         <Separator />
-        <CodeToggle />
         <InsertCodeBlock />
         <Separator />
         <InsertThematicBreak />
@@ -80,7 +63,25 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
 
   const plugins = [
     codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
-    codeMirrorPlugin({ codeBlockLanguages: { js: "Javascript", css: "CSS" } }),
+    codeMirrorPlugin({
+      codeBlockLanguages: {
+        // Web & Scripting
+        html: "HTML",
+        css: "CSS",
+        js: "JavaScript",
+        javascript: "JavaScript",
+        ts: "TypeScript",
+        typescript: "TypeScript",
+        jsx: "JavaScript (React)",
+        tsx: "TypeScript (React)",
+        py: "Python",
+
+        // Catch-all fallback
+        "": "Unspecified",
+      },
+      autoLoadLanguageSupport: true,
+    }),
+    diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "" }),
     headingsPlugin(),
     listsPlugin(),
     quotePlugin(),

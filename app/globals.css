@@ -471,6 +471,25 @@ html {
   font-weight: bold; /* keep bold for headers */
 }
 
+._tooltipTrigger_1e2ox_677,
+._tooltipTrigger_1e2ox_677 button {
+  background-color: #ccc;
+  color: #000;
+}
+
+/* The dropdown content */
+[data-radix-select-content] {
+  max-height: 200px !important;
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+/* Optional: the viewport inside it */
+[data-radix-select-viewport] {
+  max-height: inherit;
+  overflow-y: auto;
+}
+
 .markdown a,
 code {
   /* These are technically the same, but use both */
