@@ -1,14 +1,45 @@
 "use server";
 
 import { RegisterFormSchema } from "@/schemas";
+import db from "@/lib/prisma";
+import bcrypt from "bcrypt";
 import * as z from "zod";
+import { getUserByEmail } from "@/lib/user";
 
 export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
+  //safe parsing using zod method
   const validatedFields = RegisterFormSchema.safeParse(values);
-  await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate async operation
+
   if (!validatedFields.success) {
     return { error: "Invalid input fields" };
   }
+
+  // getting the validated fields
+  const { name, email, password } = validatedFields.data;
+
+  // encrypting the password here using bcrypt package
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // checking if the user with the entered email in the register form is already existing in our db
+  // fetching the user here
+  try {
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) return { error: "User with this email already registered." };
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong. Please try again later." };
+  }
+
+  //creating the user in db
+  await db.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword,
+    },
+  });
+
+  //TODO send verification token email for user to verify the email
 
   return { success: "Signed up successfully" };
 };
