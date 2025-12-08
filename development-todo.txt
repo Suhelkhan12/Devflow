@@ -1,0 +1,40 @@
+1. Implement rate limiting in the authencationi logic
+    Rate limiting in authentication is a security technique used to restrict how many login attempts a user or IP address can make within a specific time period.
+
+    🔹 Why is it used?
+
+    To prevent brute-force attacks, where an attacker tries many usernames/passwords quickly to guess the right one.
+
+    🔹 How it works (simple)
+
+    Example rules:
+
+    5 login attempts per minute per IP
+
+    3 OTP requests per hour per phone number
+
+    Account lock for 15 minutes after repeated failures
+
+    If someone exceeds the limit:
+
+    Requests are blocked, delayed, or throttled
+
+    User may get a CAPTCHA or temporary lockout
+
+    🔹 What it protects against
+
+    Password guessing
+
+    Credential stuffing
+
+    Bot attacks
+
+    Excessive OTP/email requests
+
+    🔹 Examples in real systems
+
+    GitHub: limit failed logins
+
+    Google: limit OTP or recovery attempts
+
+    APIs: restrict login endpoint calls

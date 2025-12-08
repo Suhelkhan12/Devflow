@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 import CardWrapper from "./card-wrapper";
@@ -16,7 +15,6 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { toast } from "sonner";
 
 const LoginForm = () => {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({

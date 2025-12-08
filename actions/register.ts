@@ -24,7 +24,7 @@ export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   // fetching the user here
   try {
     const existingUser = await getUserByEmail(email);
-    if (existingUser) return { error: "User with this email already registered." };
+    if (existingUser) return { error: "Account already exists. Please login." };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong. Please try again later." };
