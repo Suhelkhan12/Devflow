@@ -1,5 +1,4 @@
 "use server";
-
 import { RegisterFormSchema } from "@/schemas";
 import db from "@/lib/prisma";
 import bcrypt from "bcrypt";

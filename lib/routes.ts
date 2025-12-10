@@ -8,7 +8,7 @@ export const ROUTES = {
   SING_UP: "/signup",
   LOGIN: "/login",
   PROFILE: (id: string) => `/profile/${id}`,
-  QUESTION: (id: string) => `/questions/${id}`,
+  QUESTION: (id: string) => `/question/${id}`,
   TAG: (tag: string) => `/tags/${tag}`,
   USER: (id: string) => `/profile/${id}`,
 };
@@ -18,7 +18,7 @@ export const ROUTES = {
  * Users can access these paths without being logged in.
  * @type {string[]}
  */
-export const PUBLICROUTES = ["/"];
+export const PUBLICROUTES = ["/", "/question"];
 
 /**
  * List of routes that will take user to home page.

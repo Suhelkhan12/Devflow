@@ -24,6 +24,7 @@ export default auth((req) => {
   }
 
   // public routes can also be visited by not authenticated user
+  // || /^\/question\/[^\/]+$/.test(nextUrl.pathname)
   const isPublicRoute = PUBLICROUTES.includes(nextUrl.pathname);
   if (!isLoggedIn && !isPublicRoute) {
     return Response.redirect(new URL("/auth/log-in", nextUrl));
