@@ -1,13 +1,14 @@
 import Image from "next/image";
 import LoginSigninButtons from "@/components/auth/login-signin-button";
 import { Button } from "@/components/ui/button";
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 
-const LeftSidebarButton = () => {
-  const isLoggedInUser = false;
+const LeftSidebarButton = async () => {
+  const session = await auth();
+
   return (
     <>
-      {isLoggedInUser ? (
+      {session ? (
         <form
           action={async () => {
             "use server";

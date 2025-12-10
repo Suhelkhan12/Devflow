@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
-import { PrismaClient } from "@/app/generated/prisma/client";
+import { PrismaClient, UserRole } from "@/app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { getUserById } from "./lib/user";
@@ -15,21 +15,27 @@ const prisma = new PrismaClient({
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
+    async signIn({ user }) {
+      const existingUser = await getUserById(user.id!);
+
+      // it will not allow a non-verified email from loggin in.
+      if (!existingUser || !existingUser.emailVerified) return false;
+
+      // allow to sign in
+      return true;
+    },
+
     async session({ token, session }) {
       /**
        * We are sending the id created by our database to the session that has been created otherwise we will not have
        * id field assosiated with the user
        */
-      console.log(session.user);
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
 
-      /**
-       * todo here typescript error will have to be resolved
-       */
       if (token.role && session.user) {
-        session.user.role = token.role as "ADMIN" | "USER";
+        session.user.role = token.role as UserRole;
       }
 
       return session;

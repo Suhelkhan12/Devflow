@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -26,7 +27,10 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
     startTransition(async () => {
-      await login(values);
+      const data = await login(values);
+      if (data?.error) {
+        toast.error(data.error);
+      }
     });
   };
 
