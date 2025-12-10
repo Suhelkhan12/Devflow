@@ -9,7 +9,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import { Tag } from "@/lib/types";
+import { Tag } from "@/types/types";
 import { KeyboardEventHandler, useRef, useState } from "react";
 import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";

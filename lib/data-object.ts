@@ -1,4 +1,4 @@
-import { NavLinkProps } from "./types";
+import { NavLinkProps } from "../types/types";
 import { ROUTES } from "./routes";
 export const Navlinks: NavLinkProps[] = [
   { _id: "Home", href: `${ROUTES.HOME}`, label: "Home", icon: "/icons/home.svg" },

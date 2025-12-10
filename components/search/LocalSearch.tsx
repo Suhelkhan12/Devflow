@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LocalSearchProps } from "@/lib/types";
+import { LocalSearchProps } from "@/types/types";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
 
 const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {

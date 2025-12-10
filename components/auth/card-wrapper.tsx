@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Header from "./header";
 import Socials from "./socials";
 import { Separator } from "../ui/separator";
-import { CardWrapperProps } from "@/lib/types";
+import { CardWrapperProps } from "@/types/types";
 
 const CardWrapper = ({
   children,

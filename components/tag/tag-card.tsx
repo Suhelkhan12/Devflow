@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { TagCardProps } from "@/lib/types";
+import { TagCardProps } from "@/types/types";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { ROUTES } from "@/lib/routes";

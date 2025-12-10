@@ -3,7 +3,7 @@ import HomeFilters from "@/components/filters/home-filters";
 import QuestionCard from "@/components/question/question-card";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
-import { Question } from "@/lib/types";
+import { Question } from "@/types/types";
 import Link from "next/link";
 
 const QUESTIONS: Question[] = [

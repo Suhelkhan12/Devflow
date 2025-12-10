@@ -20,6 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
        * We are sending the id created by our database to the session that has been created otherwise we will not have
        * id field assosiated with the user
        */
+      console.log(session.user);
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -28,7 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
        * todo here typescript error will have to be resolved
        */
       if (token.role && session.user) {
-        session.user.role = token.role;
+        session.user.role = token.role as "ADMIN" | "USER";
       }
 
       return session;

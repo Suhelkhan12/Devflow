@@ -1,4 +1,4 @@
-import { SidebarProps } from "@/lib/types";
+import { SidebarProps } from "@/types/types";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 

@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { NavLinkProps } from "@/lib/types";
+import { NavLinkProps } from "@/types/types";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "../ui/sheet";
 import { ROUTES } from "@/lib/routes";

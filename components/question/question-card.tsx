@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTimeStamp } from "@/lib/utils";
-import { Question } from "@/lib/types";
+import { Question } from "@/types/types";
 import { ROUTES } from "@/lib/routes";
 import Metric from "../Metric";
 import TagCard from "../tag/tag-card";

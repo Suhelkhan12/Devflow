@@ -1,4 +1,4 @@
-import { HotNetworkLinkProps } from "@/lib/types";
+import { HotNetworkLinkProps } from "@/types/types";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
