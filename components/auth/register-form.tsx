@@ -13,13 +13,13 @@ import { register } from "@/actions/register";
 import { Spinner } from "../ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "../ui/field";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import FormError from "./form-error";
+import FormSuccess from "./form-success";
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>(undefined);
+  const [success, setSuccess] = useState<string | undefined>(undefined);
 
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
@@ -37,8 +37,7 @@ const RegisterForm = () => {
         setError(data.error);
       } else {
         form.reset();
-        toast.success(data.success);
-        router.push("/auth/log-in");
+        setSuccess(data.success);
       }
     });
   };
@@ -114,6 +113,7 @@ const RegisterForm = () => {
           />
 
           <FormError message={error} />
+          <FormSuccess message={success} />
 
           <Field>
             <Button
