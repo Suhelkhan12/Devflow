@@ -4,6 +4,7 @@ import { PrismaClient, UserRole } from "@/app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { getUserById } from "./lib/user";
+import db from "./lib/prisma";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
@@ -14,12 +15,31 @@ const prisma = new PrismaClient({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  pages: {
+    signIn: "/auth/log-in",
+    error: "/auth/error",
+  },
+  events: {
+    // this will be used to auto verify email when user is signing in using OAuth providers
+    async linkAccount({ user }) {
+      // update emailVerified field of user to current date
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
+      // allow all OAuth provider logins
+      if (account?.provider !== "credentials") {
+        return true;
+      }
+
       const existingUser = await getUserById(user.id!);
 
       // it will not allow a non-verified email from loggin in.
-      // if (!existingUser || !existingUser.emailVerified) return false;
+      if (!existingUser || !existingUser.emailVerified) return false;
 
       // allow to sign in
       return true;
@@ -40,6 +60,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return session;
     },
+
     async jwt({ token }) {
       /**
        * sending token to the session for role based access

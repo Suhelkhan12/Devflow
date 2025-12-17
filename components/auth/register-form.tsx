@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 import CardWrapper from "./card-wrapper";
 import { Controller, useForm } from "react-hook-form";
@@ -13,9 +13,13 @@ import { register } from "@/actions/register";
 import { Spinner } from "../ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "../ui/field";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import FormError from "./form-error";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
@@ -30,10 +34,11 @@ const RegisterForm = () => {
     startTransition(async () => {
       const data = await register(values);
       if (data.error) {
-        toast.error(data.error);
+        setError(data.error);
       } else {
         form.reset();
         toast.success(data.success);
+        router.push("/auth/log-in");
       }
     });
   };
@@ -107,6 +112,8 @@ const RegisterForm = () => {
               </Field>
             )}
           />
+
+          <FormError message={error} />
 
           <Field>
             <Button

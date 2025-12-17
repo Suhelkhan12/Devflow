@@ -1,6 +1,7 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 
 import CardWrapper from "./card-wrapper";
 import { Controller, useForm } from "react-hook-form";
@@ -13,9 +14,18 @@ import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { toast } from "sonner";
+import FormError from "./form-error";
 
 const LoginForm = () => {
+  const [error, setError] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+
+  // for auth error when user uses same email for two diff Oauth providers
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email is already in use with different sign-in method."
+      : "";
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -29,7 +39,7 @@ const LoginForm = () => {
     startTransition(async () => {
       const data = await login(values);
       if (data?.error) {
-        toast.error(data.error);
+        setError(data.error);
       }
     });
   };
@@ -83,6 +93,8 @@ const LoginForm = () => {
               </Field>
             )}
           />
+
+          <FormError message={error || urlError} />
 
           <Field>
             <Button
