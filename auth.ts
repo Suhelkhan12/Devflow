@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const existingUser = await getUserById(user.id!);
 
       // it will not allow a non-verified email from loggin in.
-      if (!existingUser || !existingUser.emailVerified) return false;
+      // if (!existingUser || !existingUser.emailVerified) return false;
 
       // allow to sign in
       return true;
@@ -58,4 +58,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   ...authConfig,
+  debug: true,
 });
