@@ -13,11 +13,12 @@ import { Button } from "../ui/button";
 import { login } from "@/actions/login";
 import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
-import { toast } from "sonner";
 import FormError from "./form-error";
+import FormSuccess from "./form-success";
 
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>(undefined);
+  const [success, setSuccess] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
 
@@ -40,6 +41,8 @@ const LoginForm = () => {
       const data = await login(values);
       if (data?.error) {
         setError(data.error);
+      } else {
+        setSuccess(data?.success);
       }
     });
   };
@@ -95,6 +98,7 @@ const LoginForm = () => {
           />
 
           <FormError message={error || urlError} />
+          <FormSuccess message={success} />
 
           <Field>
             <Button

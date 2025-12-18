@@ -4,7 +4,7 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { LoginFormSchema } from "./schemas";
 import bcrypt from "bcrypt";
-import { getUserByEmail } from "./lib/user";
+import { getUserByEmail } from "@/data/user";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
@@ -22,7 +22,6 @@ export default {
           if (!user || !user.password) return null;
           // comparing the password entered by user and comparing the hash stored in our db
           const passwordMatch = await bcrypt.compare(password, user.password);
-
           if (passwordMatch) return user;
         }
         return null;

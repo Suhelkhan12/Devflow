@@ -1,4 +1,4 @@
-import db from "./prisma";
+import db from "@/lib/prisma";
 import type { User } from "@/app/generated/prisma/client";
 
 /**

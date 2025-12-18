@@ -3,7 +3,7 @@ import authConfig from "./auth.config";
 import { PrismaClient, UserRole } from "@/app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { getUserById } from "./lib/user";
+import { getUserById } from "@/data/user";
 import db from "./lib/prisma";
 
 const adapter = new PrismaPg({
@@ -32,14 +32,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       // allow all OAuth provider logins
-      if (account?.provider !== "credentials") {
-        return true;
-      }
+      if (account?.provider !== "credentials") return true;
 
       const existingUser = await getUserById(user.id!);
+      // if the email of user is not verified, block the login
+      if (!existingUser?.emailVerified) return false;
 
-      // it will not allow a non-verified email from loggin in.
-      if (!existingUser || !existingUser.emailVerified) return false;
+      // todo add 2FA check here
 
       // allow to sign in
       return true;

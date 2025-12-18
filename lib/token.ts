@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from "uuid";
 import db from "./prisma";
-import { getVerificationTokenByEmail } from "@/data/token";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { VerificationToken } from "@/app/generated/prisma/client";
 
 /**

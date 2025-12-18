@@ -19,11 +19,11 @@ import db from "@/lib/prisma";
  *   console.log(token.token);
  * }
  */
-export const getVerificationTokenByEmail = async (email: string): Promise<VerificationToken | null> => {
+export const getVerificationTokenByEmail = async (email: string): Promise<VerificationToken> => {
   try {
-    const verificationToken = await db.verificationToken.findFirst({
+    const verificationToken = (await db.verificationToken.findFirst({
       where: { email },
-    });
+    })) as VerificationToken;
 
     return verificationToken;
   } catch (err) {
@@ -50,11 +50,11 @@ export const getVerificationTokenByEmail = async (email: string): Promise<Verifi
  *   console.log(token.token);
  * }
  */
-export const getVerificationTokenByToken = async (token: string): Promise<VerificationToken | null> => {
+export const getVerificationTokenByToken = async (token: string): Promise<VerificationToken> => {
   try {
-    const verificationToken = await db.verificationToken.findFirst({
+    const verificationToken = (await db.verificationToken.findFirst({
       where: { token },
-    });
+    })) as VerificationToken;
 
     return verificationToken;
   } catch (err) {

@@ -4,6 +4,7 @@ import db from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import * as z from "zod";
 import { getUserByEmail } from "@/data/user";
+import { generateVerificationToken } from "@/lib/token";
 
 export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   //safe parsing using zod method
@@ -38,7 +39,10 @@ export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
     },
   });
 
-  //TODO send verification token email for user to verify the email
+  // generating verification token
+  const verificationToken = generateVerificationToken(email);
+
+  // todo send verification email to the user
 
   return { success: "We've sent a verification email to your inbox." };
 };
