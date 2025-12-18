@@ -3,7 +3,7 @@ import { RegisterFormSchema } from "@/schemas";
 import db from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import * as z from "zod";
-import { getUserByEmail } from "@/lib/user";
+import { getUserByEmail } from "@/data/user";
 
 export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   //safe parsing using zod method
