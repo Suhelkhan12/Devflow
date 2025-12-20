@@ -7,6 +7,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/token";
 import { AuthError } from "next-auth";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   try {
@@ -25,6 +26,8 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
     // if user exists but the email is not verified then generating verification token again
     if (!existingUser.emailVerified) {
       const verificationToken = await generateVerificationToken(existingUser.email);
+      // send verification email when user tries to login without verifying email
+      await sendVerificationEmail(existingUser.name as string, verificationToken.email, verificationToken.token);
 
       return { success: "Please verify your email before logging in." };
     }
