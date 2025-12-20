@@ -20,7 +20,7 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
     const existingUser = await getUserByEmail(email);
     // existingUser.password will be empty for those which signed up using OAuth providers
     if (!existingUser || !existingUser.email || !existingUser.password) {
-      return { error: "Invalid email or password." };
+      return { error: "User does not exist." };
     }
     // if user exists but the email is not verified then generating verification token again
     if (!existingUser.emailVerified) {

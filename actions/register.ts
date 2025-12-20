@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import * as z from "zod";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/token";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   //safe parsing using zod method
@@ -40,9 +41,10 @@ export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   });
 
   // generating verification token
-  const verificationToken = generateVerificationToken(email);
+  const verificationToken = await generateVerificationToken(email);
 
   // todo send verification email to the user
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
   return { success: "We've sent a verification email to your inbox." };
 };
