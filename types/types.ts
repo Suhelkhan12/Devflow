@@ -23,7 +23,7 @@ export interface CardWrapperProps {
   headerLabel: string;
   backBtnLabel: string;
   backBtnHref: string;
-  socialsDisabled: boolean;
+  socialsDisabled?: boolean;
   showSocials?: boolean;
 }
 

@@ -50,7 +50,7 @@ export const VerificationEmail: React.FC<VerificationEmailProps> = ({ userName, 
             style={{
               display: "inline-block",
               padding: "12px 20px",
-              backgroundColor: "#2563eb",
+              backgroundColor: "#ff7000",
               color: "#ffffff",
               borderRadius: "6px",
               fontSize: "14px",

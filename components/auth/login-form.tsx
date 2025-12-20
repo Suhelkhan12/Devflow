@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import CardWrapper from "./card-wrapper";
 import { Controller, useForm } from "react-hook-form";
@@ -15,8 +15,10 @@ import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import FormError from "./form-error";
 import FormSuccess from "./form-success";
+import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>(undefined);
   const [success, setSuccess] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
@@ -43,6 +45,7 @@ const LoginForm = () => {
         setError(data.error);
       } else {
         setSuccess(data?.success);
+        router.push(DEFAULT_LOGIN_REDIRECT);
       }
     });
   };

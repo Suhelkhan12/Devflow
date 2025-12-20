@@ -21,7 +21,7 @@ const CardWrapper = ({
         <Header label={headerLabel} />
       </CardHeader>
       <CardContent>
-        {showSocials && <Socials disabled={socialsDisabled} />}
+        {showSocials && <Socials disabled={socialsDisabled!} />}
         <Separator className="background-light700_dark400 my-4" />
         {children}
       </CardContent>

@@ -18,7 +18,7 @@ export const ROUTES = {
  * Users can access these paths without being logged in.
  * @type {string[]}
  */
-export const PUBLICROUTES = ["/", "/question"];
+export const PUBLICROUTES = ["/", "/question", "/auth/new-verification"];
 
 /**
  * List of routes that will take user to home page.

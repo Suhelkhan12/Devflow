@@ -3,7 +3,6 @@
 import { signIn } from "@/auth";
 import * as z from "zod";
 import { LoginFormSchema } from "@/schemas";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/token";
 import { AuthError } from "next-auth";
@@ -32,7 +31,7 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
       return { success: "Please verify your email before logging in." };
     }
 
-    await signIn("credentials", { email, password, redirectTo: DEFAULT_LOGIN_REDIRECT });
+    await signIn("credentials", { email, password, redirect: false });
   } catch (err) {
     console.log(err);
     if (err instanceof AuthError) {
