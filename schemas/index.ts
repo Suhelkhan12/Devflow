@@ -32,4 +32,8 @@ export const AskQuestionFormSchema = z.object({
     .min(3, "Add atleast 3 tags"),
 });
 
-//.min(100, "Explaination must be at least 100 characters long"),
+export const ResetFormSchema = z.object({
+  email: z.email({
+    error: "Email is required",
+  }),
+});

@@ -1,0 +1,99 @@
+import * as React from "react";
+
+type PasswordResetEmailProps = {
+  userName?: string;
+  resetUrl: string;
+};
+
+export const PasswordResetEmail: React.FC<PasswordResetEmailProps> = ({ userName, resetUrl }) => {
+  return (
+    <div
+      style={{
+        fontFamily: "Arial, Helvetica, sans-serif",
+        backgroundColor: "#f9fafb",
+        padding: "40px 0",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "520px",
+          margin: "0 auto",
+          backgroundColor: "#ffffff",
+          borderRadius: "8px",
+          padding: "32px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        }}
+      >
+        {/* Header */}
+        <h1
+          style={{
+            margin: "0 0 12px",
+            fontSize: "22px",
+            fontWeight: "600",
+            color: "#111827",
+          }}
+        >
+          Reset your password
+        </h1>
+
+        {/* Body */}
+        <p style={{ fontSize: "14px", color: "#374151", lineHeight: "1.6" }}>Hi {userName ?? "there"},</p>
+
+        <p style={{ fontSize: "14px", color: "#374151", lineHeight: "1.6" }}>
+          We received a request to reset your <strong>Devflow</strong> account password. Click the button below to set a
+          new password.
+        </p>
+
+        {/* CTA Button */}
+        <div style={{ margin: "28px 0" }}>
+          <a
+            href={resetUrl}
+            style={{
+              display: "inline-block",
+              padding: "12px 20px",
+              backgroundColor: "#ff7000",
+              color: "#ffffff",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: "600",
+              textDecoration: "none",
+            }}
+          >
+            Reset Password
+          </a>
+        </div>
+
+        {/* Fallback */}
+        <p style={{ fontSize: "12px", color: "#6b7280", lineHeight: "1.6" }}>
+          If the button doesn’t work, copy and paste this link into your browser:
+        </p>
+
+        <p
+          style={{
+            fontSize: "12px",
+            color: "#2563eb",
+            wordBreak: "break-all",
+          }}
+        >
+          {resetUrl}
+        </p>
+
+        {/* Footer */}
+        <hr
+          style={{
+            border: "none",
+            borderTop: "1px solid #e5e7eb",
+            margin: "32px 0",
+          }}
+        />
+
+        <p style={{ fontSize: "12px", color: "#9ca3af" }}>
+          This link will expire in 1 hour. If you didn’t request a password reset, you can safely ignore this email—your
+          password won’t change.
+        </p>
+
+        <p style={{ fontSize: "12px", color: "#9ca3af", marginTop: "16px" }}>— Devflow Team</p>
+      </div>
+    </div>
+  );
+};

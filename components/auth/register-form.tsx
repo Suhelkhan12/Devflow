@@ -31,6 +31,8 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterFormSchema>) => {
+    setError(undefined);
+    setSuccess(undefined);
     startTransition(async () => {
       const data = await register(values);
       if (data.error) {

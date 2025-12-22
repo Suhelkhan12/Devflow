@@ -22,7 +22,7 @@ const CardWrapper = ({
       </CardHeader>
       <CardContent>
         {showSocials && <Socials disabled={socialsDisabled!} />}
-        <Separator className="background-light700_dark400 my-4" />
+        {showSocials && <Separator className="background-light700_dark400 my-4" />}
         {children}
       </CardContent>
       <CardFooter className="flex-center">

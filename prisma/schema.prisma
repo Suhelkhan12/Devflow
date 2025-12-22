@@ -56,3 +56,13 @@ model VerificationToken {
 
   @@unique([email, token])
 }
+
+// for security purpose it is safe to keep tokens separate for each function
+model PasswordResetToken {
+  id      String   @id @default(uuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}

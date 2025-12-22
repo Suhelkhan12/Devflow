@@ -18,13 +18,13 @@ export const ROUTES = {
  * Users can access these paths without being logged in.
  * @type {string[]}
  */
-export const PUBLICROUTES = ["/", "/question", "/auth/new-verification"];
+export const PUBLICROUTES = ["/", "/question", "/auth/new-verification", "/auth/reset-password"];
 
 /**
  * List of routes that will take user to home page.
  * @type {string[]}
  */
-export const AUTHROUTES = ["/auth/log-in", "/auth/sign-up"];
+export const AUTHROUTES = ["/auth/log-in", "/auth/sign-up", "/auth/reset"];
 
 /**
  * The prefix for api authencation routes
