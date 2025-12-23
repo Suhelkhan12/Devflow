@@ -37,3 +37,17 @@ export const ResetFormSchema = z.object({
     error: "Email is required",
   }),
 });
+
+export const NewPasswordFormSchema = z
+  .object({
+    newPassword: z.string({
+      error: "This field is required.",
+    }),
+    confirmPassword: z.string({
+      error: "This field is required.",
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    error: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });

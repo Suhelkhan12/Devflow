@@ -59,10 +59,10 @@ const RegisterForm = () => {
             name={"name"}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-login-name">Name</FieldLabel>
+                <FieldLabel htmlFor="form-register-name">Name</FieldLabel>
                 <Input
                   {...field}
-                  id="form-login-email"
+                  id="form-register-email"
                   aria-invalid={fieldState.invalid}
                   type={"text"}
                   disabled={isPending}
@@ -79,10 +79,10 @@ const RegisterForm = () => {
             name={"email"}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-login-email">Email</FieldLabel>
+                <FieldLabel htmlFor="form-register-email">Email</FieldLabel>
                 <Input
                   {...field}
-                  id="form-login-email"
+                  id="form-register-email"
                   aria-invalid={fieldState.invalid}
                   type={"email"}
                   disabled={isPending}
@@ -99,10 +99,10 @@ const RegisterForm = () => {
             name={"password"}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-login-password">Password</FieldLabel>
+                <FieldLabel htmlFor="form-register-password">Password</FieldLabel>
                 <Input
                   {...field}
-                  id="form-login-password"
+                  id="form-register-password"
                   aria-invalid={fieldState.invalid}
                   type={"password"}
                   disabled={isPending}
