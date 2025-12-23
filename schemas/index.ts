@@ -40,9 +40,13 @@ export const ResetFormSchema = z.object({
 
 export const NewPasswordFormSchema = z
   .object({
-    newPassword: z.string({
-      error: "This field is required.",
-    }),
+    newPassword: z
+      .string({
+        error: "This field is required.",
+      })
+      .min(6, {
+        error: "Minimum of 6 characters required.",
+      }),
     confirmPassword: z.string({
       error: "This field is required.",
     }),
@@ -51,3 +55,13 @@ export const NewPasswordFormSchema = z
     error: "Passwords do not match.",
     path: ["confirmPassword"],
   });
+
+export const NewPasswordServerSchema = z.object({
+  newPassword: z
+    .string({
+      error: "This field is required.",
+    })
+    .min(6, {
+      error: "Minimum of 6 characters required.",
+    }),
+});

@@ -12,8 +12,14 @@ import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import FormError from "./form-error";
 import FormSuccess from "./form-success";
+import { useSearchParams } from "next/navigation";
+import { resetPassword } from "@/actions/reset-password";
 
 const ResetPasswordForm = () => {
+  // getting token from the url
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const [error, setError] = useState<string | undefined>(undefined);
   const [success, setSuccess] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
@@ -31,14 +37,19 @@ const ResetPasswordForm = () => {
     setSuccess(undefined);
 
     startTransition(async () => {
-      console.log(values);
-      form.reset();
+      const data = await resetPassword(token as string, values.newPassword);
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setSuccess(data.success);
+        form.reset();
+      }
     });
   };
 
   return (
     <CardWrapper
-      headerLabel="Forgot your password"
+      headerLabel="Reset your password"
       backBtnHref="/auth/log-in"
       backBtnLabel="Back to log in"
       socialsDisabled={isPending}
@@ -97,7 +108,7 @@ const ResetPasswordForm = () => {
               disabled={isPending}
               className="tarnsition mt-4 w-full cursor-pointer hover:opacity-80"
             >
-              {isPending ? <Spinner /> : "Send reset email"}
+              {isPending ? <Spinner /> : "Update password"}
             </Button>
           </Field>
         </FieldGroup>

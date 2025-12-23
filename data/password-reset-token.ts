@@ -2,7 +2,7 @@ import { PasswordResetToken } from "@/app/generated/prisma/client";
 import db from "@/lib/prisma";
 
 /**
- * Fetches the password reset token associated with a given email address.
+ * Fetches the password reset token associated with a given token.
  *
  * This function queries the `passwordResetToken` table to find a reset token
  * for the provided email. If no token exists, it returns `null`.
