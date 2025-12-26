@@ -1,7 +1,8 @@
-import React from "react";
+import { auth } from "@/auth";
 
-const page = () => {
-  return <div>page</div>;
+const page = async () => {
+  const session = await auth();
+  return <div>{JSON.stringify(session?.user)}</div>;
 };
 
 export default page;

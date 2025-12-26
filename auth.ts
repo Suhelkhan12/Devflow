@@ -18,6 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/log-in",
     error: "/auth/error",
+    signOut: "/",
   },
   events: {
     // this will be used to auto verify email when user is signing in using OAuth providers
