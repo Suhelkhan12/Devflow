@@ -1,14 +1,10 @@
-"use client";
-
 import UserProfile from "../user-profile/user-profle";
 import Logo from "./Logo";
 import MobileNavigation from "./MobileNavigation";
 import ThemeToggle from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
-const Navbar = () => {
-  // const pathname = usePathname();
-  // const isHidden = pathname?.includes("/auth/");
+const Navbar = async () => {
   return (
     <nav
       className={cn(

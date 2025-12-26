@@ -35,7 +35,7 @@ export const generateVerificationToken = async (email: string): Promise<Verifica
   }
 
   // now creating the new token
-  const verificationToken = await db.passwordResetToken.create({
+  const verificationToken = await db.verificationToken.create({
     data: {
       email,
       token,

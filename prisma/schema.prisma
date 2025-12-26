@@ -66,3 +66,5 @@ model PasswordResetToken {
 
   @@unique([email, token])
 }
+
+// todo implement 2FA for the user as well.
