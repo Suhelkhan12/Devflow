@@ -20,11 +20,17 @@ model User {
   image         String?
   password      String?
   role          UserRole  @default(USER)
+  bio           String?
+  location      String?
+  portfolio     String?
+  reputation    Int?      @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   accounts Account[]
+  questions Question[]
+  answers Answer[]
 }
 
 model Account {
@@ -68,3 +74,54 @@ model PasswordResetToken {
 }
 
 // todo implement 2FA for the user as well.
+
+model Question{
+  id String @id @default(uuid())
+  title String 
+  content String
+  upvotes Int @default(0)
+  downvotes  Int @default(0)
+  totalAnswers Int @default(0)
+  views Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  // user will be used as author itself no need to create separte
+  author User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  answers Answer[]
+  tags QuestionTag[]
+}
+
+model Tag{
+  id String @id @default(uuid())
+  name String
+
+  questions QuestionTag[]
+}
+
+// this is how you create many to many rltn
+model QuestionTag{
+  questionId String
+  tagId String
+
+  question Question @relation(fields: [questionId], references: [id])
+  tag Tag @relation(fields: [tagId], references: [id])
+
+  @@id([questionId, tagId])
+}
+
+model Answer{
+  id String @id @default(uuid())
+  upvotes Int @default(0)
+  downvotes Int @default(0)
+  createdAt DateTime @default(now())
+
+  questionId String
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
