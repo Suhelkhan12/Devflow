@@ -32,6 +32,7 @@ model User {
   questions Question[]
   answers   Answer[]
   votes     Vote[]
+  bookmarks Bookmark[]
 }
 
 model Account {
@@ -94,6 +95,7 @@ model Question {
   answers Answer[]
   tags    QuestionTag[]
   votes   Vote[]
+  bookmarks Bookmark[]  
 }
 
 model Tag {
@@ -130,7 +132,7 @@ model Answer {
   votes Vote[]
 }
 
-// this model will be used to keep track of what kind of vote is done by the user
+// this model will be used to keep track of what kind of vote is done by the user on q&a
 enum VotedOn {
   QUESTION
   ANSWER
@@ -159,3 +161,16 @@ model Vote {
   @@unique([voterId, questionId])
   @@unique([voterId, answerId])
 }
+
+// this is simply list of all the questions which has been bookmarked by the user
+model Bookmark{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  questionId String
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
