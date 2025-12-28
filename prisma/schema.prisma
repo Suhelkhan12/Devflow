@@ -28,9 +28,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  accounts Account[]
+  accounts  Account[]
   questions Question[]
-  answers Answer[]
+  answers   Answer[]
+  votes     Vote[]
 }
 
 model Account {
@@ -75,53 +76,86 @@ model PasswordResetToken {
 
 // todo implement 2FA for the user as well.
 
-model Question{
-  id String @id @default(uuid())
-  title String 
-  content String
-  upvotes Int @default(0)
-  downvotes  Int @default(0)
-  totalAnswers Int @default(0)
-  views Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Question {
+  id           String   @id @default(uuid())
+  title        String
+  content      String
+  upvotes      Int      @default(0)
+  downvotes    Int      @default(0)
+  totalAnswers Int      @default(0)
+  views        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   userId String
   // user will be used as author itself no need to create separte
-  author User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  author User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   answers Answer[]
-  tags QuestionTag[]
+  tags    QuestionTag[]
+  votes   Vote[]
 }
 
-model Tag{
-  id String @id @default(uuid())
-  name String
+model Tag {
+  id            String @id @default(uuid())
+  name          String
+  totalQuestion Int    @default(0)
 
   questions QuestionTag[]
 }
 
 // this is how you create many to many rltn
-model QuestionTag{
+model QuestionTag {
   questionId String
-  tagId String
+  tagId      String
 
   question Question @relation(fields: [questionId], references: [id])
-  tag Tag @relation(fields: [tagId], references: [id])
+  tag      Tag      @relation(fields: [tagId], references: [id])
 
   @@id([questionId, tagId])
 }
 
-model Answer{
-  id String @id @default(uuid())
-  upvotes Int @default(0)
-  downvotes Int @default(0)
+model Answer {
+  id        String   @id @default(uuid())
+  upvotes   Int      @default(0)
+  downvotes Int      @default(0)
   createdAt DateTime @default(now())
 
   questionId String
-  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   authorId String
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  votes Vote[]
 }
 
+// this model will be used to keep track of what kind of vote is done by the user
+enum VotedOn {
+  QUESTION
+  ANSWER
+}
+
+enum Votetype {
+  UPVOTE
+  DOWNVOTE
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  votedOn   VotedOn
+  voteType  Votetype
+  createdAt DateTime @default(now())
+
+  voterId String
+  voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
+
+  questionId String?
+  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  answerId String?
+  answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
+
+  @@unique([voterId, questionId])
+  @@unique([voterId, answerId])
+}
