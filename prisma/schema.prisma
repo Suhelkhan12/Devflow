@@ -25,14 +25,15 @@ model User {
   portfolio     String?
   reputation    Int?      @default(0)
 
+  accounts   Account[]
+  questions  Question[]
+  answers    Answer[]
+  votes      Vote[]
+  bookmarks  Bookmark[]
+  activities UserActivity[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  accounts  Account[]
-  questions Question[]
-  answers   Answer[]
-  votes     Vote[]
-  bookmarks Bookmark[]
 }
 
 model Account {
@@ -48,10 +49,10 @@ model Account {
   id_token          String?
   session_state     String?
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -78,24 +79,26 @@ model PasswordResetToken {
 // todo implement 2FA for the user as well.
 
 model Question {
-  id           String   @id @default(uuid())
+  id           String @id @default(uuid())
   title        String
   content      String
-  upvotes      Int      @default(0)
-  downvotes    Int      @default(0)
-  totalAnswers Int      @default(0)
-  views        Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  upvotes      Int    @default(0)
+  downvotes    Int    @default(0)
+  totalAnswers Int    @default(0)
+  views        Int    @default(0)
 
   userId String
   // user will be used as author itself no need to create separte
   author User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  answers Answer[]
-  tags    QuestionTag[]
-  votes   Vote[]
-  bookmarks Bookmark[]  
+  answers    Answer[]
+  tags       QuestionTag[]
+  votes      Vote[]
+  bookmarks  Bookmark[]
+  activities UserActivity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Tag {
@@ -118,10 +121,9 @@ model QuestionTag {
 }
 
 model Answer {
-  id        String   @id @default(uuid())
-  upvotes   Int      @default(0)
-  downvotes Int      @default(0)
-  createdAt DateTime @default(now())
+  id        String @id @default(uuid())
+  upvotes   Int    @default(0)
+  downvotes Int    @default(0)
 
   questionId String
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
@@ -129,7 +131,10 @@ model Answer {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  votes Vote[]
+  votes      Vote[]
+  activities UserActivity[]
+
+  createdAt DateTime @default(now())
 }
 
 // this model will be used to keep track of what kind of vote is done by the user on q&a
@@ -144,10 +149,9 @@ enum Votetype {
 }
 
 model Vote {
-  id        String   @id @default(uuid())
-  votedOn   VotedOn
-  voteType  Votetype
-  createdAt DateTime @default(now())
+  id       String   @id @default(uuid())
+  votedOn  VotedOn
+  voteType Votetype
 
   voterId String
   voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
@@ -158,19 +162,59 @@ model Vote {
   answerId String?
   answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+
   @@unique([voterId, questionId])
   @@unique([voterId, answerId])
 }
 
 // this is simply list of all the questions which has been bookmarked by the user
-model Bookmark{
+model Bookmark {
   id String @id @default(uuid())
-  createdAt DateTime @default(now())
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   questionId String
-  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, questionId])
 }
 
+// for recomendation algorithms
+enum ActivityType {
+  VIEW
+  BOOKMARK
+  UNBOOKMARK
+  UPVOTE
+  DOWNVOTE
+  ASK_QUESTION
+  ANSWER_QUESTION
+}
+
+enum TargetType {
+  QUESTION
+  ANSWER
+  USER
+}
+
+model UserActivity {
+  id     String       @id @default(uuid())
+  type   ActivityType
+  target TargetType
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  questionId String?
+  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  answerId String?
+  answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
