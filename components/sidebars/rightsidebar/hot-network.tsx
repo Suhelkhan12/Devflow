@@ -32,9 +32,9 @@ const HOTNETWORKS = [
 
 const HotNetworkLink = ({ href, text }: HotNetworkLinkProps) => {
   return (
-    <Link href={href} className="group flex justify-between gap-6 transition hover:opacity-70">
-      <p className="max-w-64 text-[14px] font-normal">{text}</p>
-      <ChevronRight className="mt-1 size-3.5 transition-transform group-hover:translate-x-1" />
+    <Link href={href} className="group flex justify-between gap-6 transition">
+      <p className="group-hover:text-primary-500 max-w-64 text-[14px] font-normal transition">{text}</p>
+      <ChevronRight className="group-hover:text-primary-500 mt-1 size-3.5 transition-transform group-hover:translate-x-1" />
     </Link>
   );
 };

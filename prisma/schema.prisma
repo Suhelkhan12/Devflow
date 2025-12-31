@@ -103,7 +103,7 @@ model Question {
 
 model Tag {
   id            String @id @default(uuid())
-  name          String
+  name          String @unique
   totalQuestion Int    @default(0)
 
   questions QuestionTag[]

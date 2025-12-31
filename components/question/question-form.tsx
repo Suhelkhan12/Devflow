@@ -10,9 +10,10 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Tag } from "@/types/types";
-import { KeyboardEventHandler, useRef, useState } from "react";
+import { KeyboardEventHandler, useRef, useState, useTransition } from "react";
 import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";
+import { createQuestion } from "@/actions/create-question";
 
 const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
@@ -20,6 +21,7 @@ const QuestionForm = () => {
   const ref = useRef(null);
   const [tags, setTags] = useState<Tag[]>([]);
   const [tagsInputVal, setTagsInputVal] = useState<string>("");
+  const [isPending, setTransition] = useTransition();
   // this key will be used to reset our editor value on submit
   const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
 
@@ -37,13 +39,19 @@ const QuestionForm = () => {
     form.setValue("questionTags", newTags);
   }
 
-  function onSubmit(data: z.infer<typeof AskQuestionFormSchema>) {
-    console.log(data);
-    toast.success("Question submitted successfully.");
-    form.reset();
-    setTags([]);
-    setTagsInputVal("");
-    setEditorKey(crypto.randomUUID());
+  function onSubmit(values: z.infer<typeof AskQuestionFormSchema>) {
+    setTransition(async () => {
+      const data = await createQuestion(values);
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success(data.success);
+        form.reset();
+        setTags([]);
+        setTagsInputVal("");
+        setEditorKey(crypto.randomUUID());
+      }
+    });
   }
 
   // to enter multile tags related to the question
@@ -166,8 +174,8 @@ const QuestionForm = () => {
           )}
         />
       </FieldGroup>
-      <Field className="mt-20 flex justify-end" orientation={"horizontal"}>
-        <Button type="submit" variant={"primary"} form="form-ask-question">
+      <Field className="mt-10 flex justify-end" orientation={"horizontal"}>
+        <Button type="submit" variant={"primary"} form="form-ask-question" disabled={isPending}>
           Ask Question
         </Button>
       </Field>
