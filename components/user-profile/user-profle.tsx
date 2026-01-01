@@ -7,10 +7,12 @@ const UserProfile = async () => {
   const session = await auth();
   // if user is not logged show nothing
   if (!session) return null;
+  const user = session.user;
+  const userImage = session.user.image ? session.user.image : "https://github.com/shadcn.png";
   return (
-    <Link href={`${ROUTES.PROFILE(session.user.id as string)}`} className="rounded-full max-lg:hidden">
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
+    <Link href={`${ROUTES.PROFILE(user.id as string)}`} className="rounded-full max-lg:hidden">
+      <Avatar className="size-10">
+        <AvatarImage src={userImage} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
     </Link>
