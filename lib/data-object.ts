@@ -7,7 +7,6 @@ export const Navlinks: NavLinkProps[] = [
   { _id: "Tags", href: `${ROUTES.TAGS}`, label: "Tags", icon: "/icons/tag.svg" },
   { _id: "Communities", href: `${ROUTES.COMMUNITIES}`, label: "Communities", icon: "/icons/community.svg" },
   { _id: "Ask a Question", href: `${ROUTES.ASK_QUESTION}`, label: "Ask a Question", icon: "/icons/question.svg" },
-  { _id: "Profile", href: "PROFILE", label: "Profile", icon: "/icons/user.svg" },
 ];
 
 export const NavlinksDesktop: NavLinkProps[] = [

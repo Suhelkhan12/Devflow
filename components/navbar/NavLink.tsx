@@ -26,16 +26,16 @@ export default function NavLink({ _id, href, label, icon, isMobile = false }: Na
   const linkComponent = (
     <div
       className={cn(
-        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 base-medium flex items-center gap-2 p-3 transition",
-        isActive && "primary-gradient base-semibold text-light-900",
+        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 flex items-center gap-2 px-4 py-3 text-sm font-semibold transition",
+        isActive && "primary-gradient text-light-900",
         isProfile && "lg:hidden"
       )}
     >
       <Image
         src={icon}
         alt={_id}
-        width={20}
-        height={20}
+        width={16}
+        height={16}
         preload
         className={`${isActive ? "text-light-900" : "invert-colors"}`}
       />

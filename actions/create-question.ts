@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { AskQuestionFormSchema } from "@/schemas";
 import { auth } from "@/auth";
+import db from "@/lib/prisma";
 
 export const createQuestion = async (values: z.infer<typeof AskQuestionFormSchema>) => {
   // validating the fields
@@ -17,6 +18,18 @@ export const createQuestion = async (values: z.infer<typeof AskQuestionFormSchem
   if (!session) {
     return { error: "Please login to ask the question." };
   }
+
+  // const upsertedTags = await db.$transaction(
+  //   questionTags.map((tag) =>
+  //     db.tag.upsert({
+  //       where: { name: tag.name },
+  //       update: {},
+  //       create: { name: tag.name },
+  //       select: { id: true },
+  //     })
+  //   )
+  // );
+
 
   return { success: "Question submitted successfully." };
 };

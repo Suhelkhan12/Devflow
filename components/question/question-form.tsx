@@ -14,6 +14,7 @@ import { KeyboardEventHandler, useRef, useState, useTransition } from "react";
 import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";
 import { createQuestion } from "@/actions/create-question";
+import { Spinner } from "../ui/spinner";
 
 const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
@@ -129,7 +130,7 @@ const QuestionForm = () => {
                   value={"markdownVal"}
                   id={"form-ask-question-explaination"}
                   aria-invalid={fieldState.invalid}
-                  className="hidden"
+                  hidden
                 />
                 {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
@@ -175,8 +176,14 @@ const QuestionForm = () => {
         />
       </FieldGroup>
       <Field className="mt-10 flex justify-end" orientation={"horizontal"}>
-        <Button type="submit" variant={"primary"} form="form-ask-question" disabled={isPending}>
-          Ask Question
+        <Button
+          type="submit"
+          variant={"primary"}
+          form="form-ask-question"
+          disabled={isPending}
+          className="w-full max-w-80"
+        >
+          {isPending ? <Spinner /> : "Ask Question"}
         </Button>
       </Field>
     </form>

@@ -18,6 +18,7 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
     const { email, password } = validatedFields.data;
 
     const existingUser = await getUserByEmail(email);
+    // if user used the email for OAuth provider
     // existingUser.password will be empty for those which signed up using OAuth providers
     if (!existingUser || !existingUser.email || !existingUser.password) {
       return { error: "User does not exist. Please register." };
