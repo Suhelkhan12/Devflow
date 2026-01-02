@@ -5,6 +5,7 @@ import { TagCardProps } from "@/types/types";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { ROUTES } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 const TagCard = (props: TagCardProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,7 +33,13 @@ const TagCard = (props: TagCardProps) => {
 
   if (props.compact) {
     return props.isButton ? (
-      <button onClick={handleClick}>{content}</button>
+      <button
+        onClick={handleClick}
+        disabled={props.isRemoveDisabled}
+        className={cn(props.isRemoveDisabled && "opacity-50")}
+      >
+        {content}
+      </button>
     ) : (
       <Link href={ROUTES.TAG(props._id)}>{content}</Link>
     );

@@ -34,8 +34,8 @@ export default function NavLink({ _id, href, label, icon, isMobile = false }: Na
       <Image
         src={icon}
         alt={_id}
-        width={16}
-        height={16}
+        width={20}
+        height={20}
         preload
         className={`${isActive ? "text-light-900" : "invert-colors"}`}
       />

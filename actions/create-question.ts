@@ -12,24 +12,48 @@ export const createQuestion = async (values: z.infer<typeof AskQuestionFormSchem
     return { error: "Invalid fields in the question data." };
   }
   // get the fields
-  const { questionTitle, questionExplaination, questionTags } = validatedFields.data;
+  const { questionTitle: title, questionExplaination: content, questionTags: tags } = validatedFields.data;
   // checking the sesssion if user is logged in or not
   const session = await auth();
   if (!session) {
     return { error: "Please login to ask the question." };
   }
+  const userId = session.user.id;
+  if (!userId) {
+    return { error: "Something went wrong!" };
+  }
 
-  // const upsertedTags = await db.$transaction(
-  //   questionTags.map((tag) =>
-  //     db.tag.upsert({
-  //       where: { name: tag.name },
-  //       update: {},
-  //       create: { name: tag.name },
-  //       select: { id: true },
-  //     })
-  //   )
-  // );
+  // putting the tags in the database using upsert so that it can be updated side by side as well
+  const upsertedTags = await db.$transaction(
+    tags.map((tag) =>
+      db.tag.upsert({
+        where: { name: tag.name.toLocaleLowerCase() },
+        update: {
+          totalQuestion: {
+            increment: 1,
+          },
+        },
+        create: { name: tag.name.toLocaleLowerCase(), totalQuestion: 1 },
+        select: { id: true },
+      })
+    )
+  );
 
+  // creating the question here
+  const question = await db.question.create({
+    data: {
+      title,
+      content,
+      userId,
+      tags: {
+        create: upsertedTags.map((tag) => ({
+          tag: {
+            connect: { id: tag.id },
+          },
+        })),
+      },
+    },
+  });
 
-  return { success: "Question submitted successfully." };
+  return { success: "Question submitted successfully.", questionId: question.id };
 };

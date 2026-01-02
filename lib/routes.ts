@@ -8,7 +8,7 @@ export const ROUTES = {
   SING_UP: "/signup",
   LOGIN: "/login",
   PROFILE: (id: string) => `/profile/${id}`,
-  QUESTION: (id: string) => `/question/${id}`,
+  QUESTION: (id: string) => `/questions/${id}`,
   TAG: (tag: string) => `/tags/${tag}`,
   USER: (id: string) => `/profile/${id}`,
 };

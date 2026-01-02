@@ -36,7 +36,7 @@ const MobileNavigation = () => {
           side={"left"}
           className="background-light900_dark200 z-200 flex flex-col justify-between border-0 px-4 pb-4"
         >
-          <SheetHeader>
+          <SheetHeader className="pl-0">
             <SheetTitle className="hidden">Navigation</SheetTitle>
             <Logo isMobile={true} />
           </SheetHeader>

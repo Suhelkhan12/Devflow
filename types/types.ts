@@ -1,3 +1,8 @@
+export interface RouteParams {
+  params: Promise<Record<string, string>>;
+  searchParams: Promise<Record<string, string>>;
+}
+
 export interface NavLinkProps {
   _id: string;
   href: string;
@@ -72,6 +77,7 @@ export interface TagCardProps {
   _id: string;
   name: string;
   numberOfQuestions?: number;
+  isRemoveDisabled?: boolean;
   showCount?: boolean;
   compact?: boolean;
   removeTag?: boolean;

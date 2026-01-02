@@ -15,13 +15,10 @@ import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";
 import { createQuestion } from "@/actions/create-question";
 import { Spinner } from "../ui/spinner";
-import { useRouter } from "next/navigation";
-import { ROUTES } from "@/lib/routes";
 
 const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
-const QuestionForm = () => {
-  const router = useRouter();
+const QuestionEdit = () => {
   const ref = useRef(null);
   const [tags, setTags] = useState<Tag[]>([]);
   const [tagsInputVal, setTagsInputVal] = useState<string>("");
@@ -48,15 +45,12 @@ const QuestionForm = () => {
       const data = await createQuestion(values);
       if (data.error) {
         toast.error(data.error);
-      } else if (!data.questionId) {
-        toast.error("Something went wrong!");
       } else {
         toast.success(data.success);
         form.reset();
         setTags([]);
         setTagsInputVal("");
         setEditorKey(crypto.randomUUID());
-        router.push(ROUTES.QUESTION(data.questionId));
       }
     });
   }
@@ -215,4 +209,4 @@ function EditorSkeleton() {
   );
 }
 
-export default QuestionForm;
+export default QuestionEdit;
