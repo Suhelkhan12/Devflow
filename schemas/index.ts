@@ -32,6 +32,10 @@ export const AskQuestionFormSchema = z.object({
     .min(3, "Add atleast 3 tags"),
 });
 
+export const EditQuestionFormSchema = AskQuestionFormSchema.extend({
+  questionId: z.string().min(1, { error: "Question is not valid" }),
+});
+
 export const ResetFormSchema = z.object({
   email: z.email({
     error: "Email is required",

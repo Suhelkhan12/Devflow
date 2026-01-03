@@ -1,5 +1,7 @@
 import db from "@/lib/prisma";
 import type { User } from "@/app/generated/prisma/client";
+import { auth } from "@/auth";
+import type { Session } from "next-auth";
 
 /**
  * Fetches a user from the database by their email.
@@ -64,4 +66,27 @@ export const getUserById = async (id: string): Promise<User | null> => {
     console.error("Error fetching user by ID:", error);
     throw new Error("Failed to fetch user details from the database.");
   }
+};
+
+/**
+ * Retrieves the current authenticated user session.
+ *
+ * This function is a thin wrapper around the `auth()` call and provides
+ * a safe, centralized way to access the current user session across
+ * server components, server actions, and route handlers.
+ *
+ * @returns {Promise<Session | null>}
+ * - `Session` → when a user is authenticated
+ * - `null` → when no active session exists
+ *
+ * @example
+ * const session = await getUserSession();
+ * if (!session) {
+ *   redirect("/login");
+ * }
+ */
+export const getUserSession = async (): Promise<Session | null> => {
+  const userSession = await auth();
+  if (!userSession) return null;
+  return userSession;
 };
