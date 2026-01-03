@@ -2,6 +2,7 @@
 
 import { getQuestionById, getQuestionTags } from "@/data/question-answer";
 import { getUserSession } from "@/data/user";
+import db from "@/lib/prisma";
 import { EditQuestionFormSchema } from "@/schemas";
 import * as z from "zod";
 
@@ -27,8 +28,7 @@ export const createQuestion = async (values: z.infer<typeof EditQuestionFormSche
     return { error: "This question do not exists." };
   }
   // checking if the question that is being edited whether it is created by the logged in user or someone else
-  const isQuestionBelongToUser = question.userId && userSession.user.id;
-  if (!isQuestionBelongToUser) {
+  if (question.userId !== userSession.user.id) {
     return { error: "You do not have access to edit this question." };
   }
 
@@ -47,6 +47,69 @@ export const createQuestion = async (values: z.infer<typeof EditQuestionFormSche
   const tagsToRemove = [...existingTagNames].filter((tg) => !newTagNames.has(tg));
 
   try {
+    // real update logic
+    // using transaction becoz if anything fails the whole edit will be rolled back
+    await db.$transaction(async (tx) => {
+      // updating question title and questin content
+      await tx.question.update({
+        where: { id: questionId },
+        data: {
+          title,
+          content,
+          updatedAt: new Date(),
+        },
+      });
+
+      //updating tags (remove + add)
+      // removing
+      if (tagsToRemove.length > 0) {
+        const removedTags = await tx.tag.findMany({
+          where: { name: { in: tagsToRemove } },
+          select: { id: true },
+        });
+
+        // removing the relation
+        await tx.questionTag.deleteMany({
+          where: { questionId, tagId: { in: removedTags.map((tg) => tg.id) } },
+        });
+
+        // decreamenting totalQuestion count assosiated with a tag
+        await tx.tag.updateMany({
+          where: { id: { in: removedTags.map((tg) => tg.id) } },
+          data: {
+            totalQuestion: { decrement: 1 },
+          },
+        });
+      }
+
+      // adding
+      if (tagsToAdd.length > 0) {
+        const upsertedTags = await Promise.all(
+          tagsToAdd.map((name) =>
+            tx.tag.upsert({
+              where: { name },
+              update: {
+                totalQuestion: { increment: 1 },
+              },
+              create: {
+                name,
+                totalQuestion: 1,
+              },
+            })
+          )
+        );
+
+        await tx.questionTag.createMany({
+          data: upsertedTags.map((tag) => ({
+            questionId,
+            tagId: tag.id,
+          })),
+          skipDuplicates: true,
+        });
+      }
+    });
+
+    return { success: "Question updated successfully." };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
