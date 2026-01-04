@@ -26,7 +26,7 @@ export default function NavLink({ _id, href, label, icon, isMobile = false }: Na
   const linkComponent = (
     <div
       className={cn(
-        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 flex items-center gap-2 p-2 text-sm font-semibold transition sm:px-4 sm:py-3",
+        "rounded-2 text-dark-light100_light-dark900 hover:bg-light-800 dark:hover:bg-dark-400 flex items-center gap-2 p-2 font-semibold transition sm:px-4 sm:py-3",
         isActive && "primary-gradient text-light-900",
         isProfile && "lg:hidden"
       )}

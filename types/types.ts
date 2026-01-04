@@ -39,26 +39,27 @@ export interface LocalSearchProps {
 }
 
 export interface Tag {
-  _id: string;
+  id: string;
   name: string;
 }
 
 interface Author {
-  _id: string;
+  id: string;
   name: string;
   image: string;
 }
 
 export interface Question {
-  _id: string;
+  id: string;
   title: string;
-  description?: string;
-  tags: Tag[];
-  author: Author;
-  createdAt: string;
+  content: string;
   upvotes: number;
-  answers: number;
+  downvotes: number;
+  totalAnswers: number;
   views: number;
+  createdAt: Date;
+  author: Author;
+  tags: { tag: Tag }[];
 }
 
 export interface MetricProps {
@@ -74,7 +75,7 @@ export interface MetricProps {
 }
 
 export interface TagCardProps {
-  _id: string;
+  id: string;
   name: string;
   numberOfQuestions?: number;
   isRemoveDisabled?: boolean;

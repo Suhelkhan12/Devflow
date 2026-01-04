@@ -33,3 +33,34 @@ export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
     throw new Error("Failed to fetch question tags from the database.");
   }
 };
+
+export const getAllQuestions = async () => {
+  try {
+    const questions = await db.question.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return questions;
+  } catch (error) {
+    console.error("Error fetching questions:", error);
+    return [];
+  }
+};

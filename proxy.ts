@@ -23,10 +23,18 @@ export default auth((req) => {
     return null;
   }
 
-  // public routes can also be visited by not authenticated user
-  // || /^\/question\/[^\/]+$/.test(nextUrl.pathname)
-  const isPublicRoute = PUBLICROUTES.includes(nextUrl.pathname);
-  if (!isLoggedIn && !isPublicRoute) {
+  // function to check if a route is public
+  const isPublicRoute = (pathname: string) => {
+    return PUBLICROUTES.some((route) => {
+      // convert dynamic segments :id into regex
+      const pattern = new RegExp("^" + route.replace(/:[^\/]+/g, "[^/]+") + "$");
+      return pattern.test(pathname);
+    });
+  };
+
+  // usage
+  const pathname = nextUrl.pathname;
+  if (!isLoggedIn && !isPublicRoute(pathname)) {
     return Response.redirect(new URL("/auth/log-in", nextUrl));
   }
 });

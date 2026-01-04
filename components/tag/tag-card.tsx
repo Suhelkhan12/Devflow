@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 const TagCard = (props: TagCardProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.handleRemove!(props._id);
+    props.handleRemove!(props.id);
   };
 
   const content = (
     <>
       <Badge className="background-light800_dark300 font-medium">
-        <span className="text-light-500 text-xs">{props.name}</span>
+        <span className="text-light-500 text-xs">{props.name.at(0)?.toUpperCase() + props.name.slice(1)}</span>
         {props.removeTag && (
           <Image
             src={"/icons/close.svg"}
@@ -41,11 +41,12 @@ const TagCard = (props: TagCardProps) => {
         {content}
       </button>
     ) : (
-      <Link href={ROUTES.TAG(props._id)}>{content}</Link>
+      <Link href={ROUTES.TAG(props.id)}>{content}</Link>
     );
   }
+
   return (
-    <Link href={ROUTES.TAG(props._id)} className="shadow-light100_darknone">
+    <Link href={ROUTES.TAG(props.id)} className="shadow-light100_darknone">
       <article className="background-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]">
         <div className="background-light800_dark400 w-fit rounded-sm px-5 py-1.5">
           <p className="paragraph-semibold text-dark300_light900">{props.name}</p>

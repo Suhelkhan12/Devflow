@@ -5,16 +5,16 @@ import { ROUTES } from "@/lib/routes";
 import Metric from "../Metric";
 import TagCard from "../tag/tag-card";
 
-const QuestionCard = ({ _id, title, tags, author, createdAt, upvotes, answers, views }: Question) => {
+const QuestionCard = ({ id, title, author, createdAt, upvotes, downvotes, totalAnswers, views, tags }: Question) => {
   return (
-    <div className="card-wrapper ring-primary-100 dark:ring-primary-500/50 relative z-10 rounded-[10px] border p-4 transition duration-300 hover:ring-6 sm:px-5 sm:py-4 md:p-6 dark:border-0">
+    <div className="card-wrapper ring-primary-100 dark:ring-primary-500/50 dark:border-dark-300 relative z-10 rounded-[10px] border p-4 transition duration-300 hover:ring-6 sm:px-5 sm:py-4 md:p-6">
       <div className="flex flex-col gap-3.5">
-        <Link href={ROUTES.QUESTION(_id)}>
-          <h3 className="h3-semibold">{title}</h3>
+        <Link href={ROUTES.QUESTION(id)}>
+          <h3 className="h2-semibold">{title}</h3>
         </Link>
-        <div className="w-ful rounded-1 flex flex-wrap gap-2">
+        <div className="rounded-1 flex w-full flex-wrap gap-2">
           {tags.map((tg) => (
-            <TagCard key={tg._id} {...tg} compact={true} />
+            <TagCard key={tg.tag.id} name={tg.tag.name} compact={true} id={tg.tag.id} />
           ))}
         </div>
       </div>
@@ -22,7 +22,7 @@ const QuestionCard = ({ _id, title, tags, author, createdAt, upvotes, answers, v
         <Metric
           imgUrl={author.image}
           alt={author.name}
-          href={ROUTES.USER(author._id)}
+          href={ROUTES.USER(author.id)}
           value={author.name}
           textStyles="body-medium"
           titleStyles="body-regular"
@@ -32,18 +32,24 @@ const QuestionCard = ({ _id, title, tags, author, createdAt, upvotes, answers, v
           <Metric
             imgUrl="/icons/like.svg"
             alt="like-icon"
-            value={`${upvotes}k`}
+            value={`${upvotes - downvotes}`}
             title="Votes"
+            textStyles="small-medium"
+          />
+          <Metric
+            imgUrl="/icons/like.svg"
+            alt="like-icon"
+            value={`${totalAnswers}`}
+            title="Answers"
             textStyles="small-medium"
           />
           <Metric
             imgUrl="/icons/message.svg"
             alt="message-icon"
-            value={`${answers}k`}
-            title="Votes"
+            value={`${views}k`}
+            title="Views"
             textStyles="small-medium"
           />
-          <Metric imgUrl="/icons/eye.svg" alt="eye-icon" value={`${views}k`} title="Votes" textStyles="small-medium" />
         </div>
       </div>
     </div>

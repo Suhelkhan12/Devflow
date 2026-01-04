@@ -82,7 +82,7 @@ const QuestionForm = () => {
       }
 
       //creating new tag and changing field value
-      const newTag = { _id: crypto.randomUUID(), name: formattedValue };
+      const newTag = { id: crypto.randomUUID(), name: formattedValue };
       const updatedTags = [...tags, newTag];
       syncTags(updatedTags);
       setTagsInputVal("");
@@ -90,8 +90,8 @@ const QuestionForm = () => {
   };
 
   // to remove a specific tag
-  const handleRemove = (_id: string) => {
-    const updatedTags = tags.filter((tg) => tg._id !== _id);
+  const handleRemove = (id: string) => {
+    const updatedTags = tags.filter((tg) => tg.id !== id);
     syncTags(updatedTags);
   };
 
@@ -170,7 +170,7 @@ const QuestionForm = () => {
                     <div className="flex items-center gap-x-1.5">
                       {tags.map((tg) => (
                         <TagCard
-                          key={tg._id}
+                          key={tg.id}
                           {...tg}
                           isButton
                           compact

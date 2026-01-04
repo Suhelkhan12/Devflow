@@ -2,10 +2,11 @@ import HomeFilters from "@/components/filters/home-filters";
 import QuestionCard from "@/components/question/question-card";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
-import { Question } from "@/types/types";
+import { getAllQuestions } from "@/data/question-answer";
 import Link from "next/link";
+import { id } from "zod/v4/locales";
 
-const QUESTIONS: Question[] = [
+const QUESTIONS = [
   {
     _id: "1",
     title: "What is Next.js?",
@@ -106,11 +107,15 @@ const page = async ({ searchParams }: searchParams) => {
   //fetching the search params here
   const { query = "", filter = "" } = await searchParams;
 
+  // fetching questions from the database
+  const DB_QUESTIONS = await getAllQuestions();
+
+  console.log(DB_QUESTIONS);
   // filtering the questions based on search params
-  const filteredQuestions = QUESTIONS.filter((q) => {
+  const filteredQuestions = DB_QUESTIONS.filter((q) => {
     const matchesQuery = q.title.toLowerCase().includes((query as string).toLowerCase());
     const matchesFilter = filter
-      ? q.tags.some((tag) => tag.name.toLowerCase() === (filter as string).toLowerCase())
+      ? q.tags.some((tg) => tg.tag.name.toLowerCase() === (filter as string).toLowerCase())
       : true;
     return matchesQuery && matchesFilter;
   });
@@ -130,7 +135,11 @@ const page = async ({ searchParams }: searchParams) => {
       </section>
       <section className="mt-10 flex flex-col gap-6">
         {filteredQuestions.map((q) => (
-          <QuestionCard key={q._id} {...q} />
+          <QuestionCard
+            key={q.id}
+            {...q}
+            author={{ id: q.author.id, name: q.author.name as string, image: q.author.image as string }}
+          />
         ))}
       </section>
     </div>

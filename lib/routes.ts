@@ -1,9 +1,9 @@
 export const ROUTES = {
   HOME: "/",
-  COLLECTIONS: "/collections",
+  COLLECTIONS: "/collection",
   JOBS: "/jobs",
   TAGS: "/tags",
-  COMMUNITIES: "/community",
+  COMMUNITIES: "/communities",
   ASK_QUESTION: "/ask-question",
   SING_UP: "/signup",
   LOGIN: "/login",
@@ -18,7 +18,16 @@ export const ROUTES = {
  * Users can access these paths without being logged in.
  * @type {string[]}
  */
-export const PUBLICROUTES = ["/", "/question", "/auth/new-verification", "/auth/reset-password"];
+export const PUBLICROUTES = [
+  "/",
+  "/questions/:id",
+  "/tags",
+  "/collection",
+  "/communities",
+  "/jobs",
+  "/auth/new-verification",
+  "/auth/reset-password",
+];
 
 /**
  * List of routes that will take user to home page.

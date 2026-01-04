@@ -25,7 +25,7 @@ export const AskQuestionFormSchema = z.object({
   questionTags: z
     .array(
       z.object({
-        _id: z.string(),
+        id: z.string(),
         name: z.string(),
       })
     )
