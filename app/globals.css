@@ -175,6 +175,14 @@ html {
   @apply text-[30px] leading-[42px] font-bold tracking-tighter;
 }
 
+@utility h1-semibold {
+  @apply text-[30px] leading-[42px] font-semibold tracking-tighter;
+}
+
+@utility h1-medium {
+  @apply text-[30px] leading-[42px] font-medium tracking-tighter;
+}
+
 @utility h2-bold {
   @apply text-[24px] leading-[31.2px] font-bold;
 }
@@ -277,7 +285,7 @@ html {
 
 @utility dark-gradient {
   background: linear-gradient(232deg, rgba(23, 28, 35, 0.41) 0%, rgba(19, 22, 28, 0.7) 100%);
-  background: linear-gradient(232deg, rgba(23, 28, 35, 0.41) 0%, rgba(19, 22, 28, 0.7) 100%);
+  /* background: linear-gradient(232deg, rgba(23, 28, 35, 0.41) 0%, rgba(19, 22, 28, 0.7) 100%); */
 }
 
 @utility light-gradient {
@@ -304,7 +312,7 @@ html {
 }
 
 @utility card-wrapper {
-  @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
+  @apply bg-light-900 dark:dark-gradient;
 }
 
 @utility btn {

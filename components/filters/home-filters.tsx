@@ -68,10 +68,9 @@ const HomeFilters = () => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm">Filters:</span>
       {FILTERS.map((ftr) => (
         <Button
-          size={"sm"}
+          size={"lg"}
           key={ftr.name}
           className={cn(
             "bg-light-800 dark:bg-dark-300 text-light-500 body-medium cursor-pointer rounded-lg",

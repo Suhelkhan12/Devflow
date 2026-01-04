@@ -7,10 +7,10 @@ import TagCard from "../tag/tag-card";
 
 const QuestionCard = ({ id, title, author, createdAt, upvotes, downvotes, totalAnswers, views, tags }: Question) => {
   return (
-    <div className="card-wrapper ring-primary-100 dark:ring-primary-500/50 dark:border-dark-300 relative z-10 rounded-[10px] border p-4 transition duration-300 hover:ring-6 sm:px-5 sm:py-4 md:p-6">
+    <div className="card-wrapper ring-primary-500 relative z-10 rounded-[10px] border p-4 transition duration-300 hover:ring-2 sm:px-5 sm:py-4 md:p-6 dark:border-0">
       <div className="flex flex-col gap-3.5">
-        <Link href={ROUTES.QUESTION(id)}>
-          <h3 className="h2-semibold">{title}</h3>
+        <Link href={ROUTES.QUESTION(id)} className="hover:text-primary-500 transition duration-300">
+          <h2 className="h2-semibold">{title}</h2>
         </Link>
         <div className="rounded-1 flex w-full flex-wrap gap-2">
           {tags.map((tg) => (
