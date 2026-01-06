@@ -75,8 +75,8 @@ const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
         setTags([]);
         setTagsInputVal("");
         setEditorKey(crypto.randomUUID());
-        router.push(ROUTES.QUESTION(res.questionId));
       }
+      router.push(ROUTES.QUESTION(res.questionId!));
     });
   }
 

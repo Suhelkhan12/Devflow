@@ -110,7 +110,7 @@ export const updateQuestion = async (values: z.infer<typeof EditQuestionFormSche
       }
     });
 
-    return { success: "Question updated successfully." };
+    return { success: "Question updated successfully.", questionId };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
