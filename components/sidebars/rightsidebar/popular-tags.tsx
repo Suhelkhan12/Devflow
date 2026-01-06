@@ -46,7 +46,7 @@ const PopularTags = () => {
       <div className="flex flex-col gap-4">
         {POPULARTAGS.map((tg) => (
           <div key={tg.id} className="flex items-center justify-between">
-            <Badge className="rouned-md background-light800_dark300" asChild>
+            <Badge className="background-light800_dark300 rounded-md" asChild>
               <Link href="/">{tg.tagname}</Link>
             </Badge>
             <p className="text-xs">{tg.tags}+</p>

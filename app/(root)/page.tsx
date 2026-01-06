@@ -4,100 +4,6 @@ import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { getAllQuestions } from "@/data/question-answer";
 import Link from "next/link";
-import { id } from "zod/v4/locales";
-
-const QUESTIONS = [
-  {
-    _id: "1",
-    title: "What is Next.js?",
-    description: "I want to learn more about Next.js and its features.",
-    tags: [
-      { _id: "1", name: "React" },
-      { _id: "2", name: "JavaScript" },
-    ],
-    author: {
-      _id: "1",
-      name: "John Doe",
-      image: "https://github.com/shadcn.png",
-    },
-    upvotes: 10,
-    answers: 2,
-    views: 150,
-    createdAt: "2025-01-12T10:15:00.000Z",
-  },
-  {
-    _id: "2",
-    title: "How does React Server Components work?",
-    description: "Can someone explain how RSCs differ from traditional client components?",
-    tags: [
-      { _id: "3", name: "React" },
-      { _id: "4", name: "Next.js" },
-    ],
-    author: {
-      _id: "2",
-      name: "Emily Carter",
-      image: "https://github.com/shadcn.png",
-    },
-    upvotes: 25,
-    answers: 5,
-    views: 480,
-    createdAt: "2025-01-12T10:15:00.000Z",
-  },
-  {
-    _id: "3",
-    title: "Best practices for TypeScript in large projects?",
-    description: "Looking for suggestions on structuring and organizing TypeScript code.",
-    tags: [
-      { _id: "5", name: "TypeScript" },
-      { _id: "6", name: "Architecture" },
-    ],
-    author: {
-      _id: "3",
-      name: "Michael Lee",
-      image: "https://github.com/shadcn.png",
-    },
-    upvotes: 18,
-    answers: 3,
-    views: 320,
-    createdAt: "2025-03-18T14:45:00.000Z",
-  },
-  {
-    _id: "4",
-    title: "How do I optimize images in Next.js?",
-    description: "I am confused between using `<Image />` and external loaders.",
-    tags: [
-      { _id: "7", name: "Next.js" },
-      { _id: "8", name: "Performance" },
-    ],
-    author: {
-      _id: "4",
-      name: "Sophia Williams",
-      image: "https://github.com/shadcn.png",
-    },
-    upvotes: 12,
-    answers: 1,
-    views: 210,
-    createdAt: "2025-04-01T19:20:00.000Z",
-  },
-  {
-    _id: "5",
-    title: "What is the difference between REST and GraphQL?",
-    description: "Trying to understand when to choose REST and when GraphQL is better.",
-    tags: [
-      { _id: "9", name: "API" },
-      { _id: "10", name: "GraphQL" },
-    ],
-    author: {
-      _id: "5",
-      name: "David Johnson",
-      image: "https://github.com/shadcn.png",
-    },
-    upvotes: 40,
-    answers: 7,
-    views: 900,
-    createdAt: "2025-05-10T06:55:00.000Z",
-  },
-];
 
 interface searchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -110,7 +16,6 @@ const page = async ({ searchParams }: searchParams) => {
   // fetching questions from the database
   const DB_QUESTIONS = await getAllQuestions();
 
-  console.log(DB_QUESTIONS);
   // filtering the questions based on search params
   const filteredQuestions = DB_QUESTIONS.filter((q) => {
     const matchesQuery = q.title.toLowerCase().includes((query as string).toLowerCase());

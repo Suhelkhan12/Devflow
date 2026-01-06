@@ -5,7 +5,7 @@ const page = () => {
     <section>
       <h1 className="h1-bold font-space-grotesk">Ask a public question</h1>
       <div className="mt-9">
-        <QuestionForm />
+        <QuestionForm mode="create" />
       </div>
     </section>
   );

@@ -55,6 +55,7 @@ export const createQuestion = async (values: z.infer<typeof AskQuestionFormSchem
         },
       },
     });
+
     return { success: "Question submitted successfully.", questionId: question.id };
   } catch (err) {
     console.log(err);

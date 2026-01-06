@@ -6,11 +6,12 @@ import db from "@/lib/prisma";
 import { EditQuestionFormSchema } from "@/schemas";
 import * as z from "zod";
 
-export const createQuestion = async (values: z.infer<typeof EditQuestionFormSchema>) => {
+export const updateQuestion = async (values: z.infer<typeof EditQuestionFormSchema>) => {
   const validatedFields = EditQuestionFormSchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid fields in the question data." };
   }
+
   const {
     questionTitle: title,
     questionExplaination: content,

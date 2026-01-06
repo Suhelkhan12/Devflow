@@ -17,13 +17,26 @@ import { createQuestion } from "@/actions/create-question";
 import { Spinner } from "../ui/spinner";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
+import { updateQuestion } from "@/actions/edit-question";
 
 const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
-const QuestionForm = () => {
+interface QuestionSeedData {
+  id?: string;
+  seedTitle?: string;
+  seedContent?: string;
+  seedTags?: Tag[];
+}
+
+interface QuestionFormProps {
+  mode: "create" | "edit";
+  seedData?: QuestionSeedData;
+}
+
+const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
   const router = useRouter();
   const ref = useRef(null);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>(seedData?.seedTags ?? []);
   const [tagsInputVal, setTagsInputVal] = useState<string>("");
   const [isPending, setTransition] = useTransition();
   // this key will be used to reset our editor value on submit
@@ -32,9 +45,9 @@ const QuestionForm = () => {
   const form = useForm<z.infer<typeof AskQuestionFormSchema>>({
     resolver: zodResolver(AskQuestionFormSchema),
     defaultValues: {
-      questionExplaination: "",
-      questionTitle: "",
-      questionTags: [],
+      questionTitle: seedData?.seedTitle ?? "",
+      questionExplaination: seedData?.seedContent ?? "",
+      questionTags: seedData?.seedTags ?? [],
     },
   });
 
@@ -45,18 +58,24 @@ const QuestionForm = () => {
 
   function onSubmit(values: z.infer<typeof AskQuestionFormSchema>) {
     setTransition(async () => {
-      const data = await createQuestion(values);
-      if (data.error) {
-        toast.error(data.error);
-      } else if (!data.questionId) {
-        toast.error("Something went wrong!");
-      } else {
-        toast.success(data.success);
+      const res =
+        mode === "create"
+          ? await createQuestion(values)
+          : await updateQuestion({ questionId: seedData!.id!, ...values });
+
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+
+      toast.success(mode === "create" ? "Question posted successfully." : "Question updated successfully.");
+
+      if (mode === "create") {
         form.reset();
         setTags([]);
         setTagsInputVal("");
         setEditorKey(crypto.randomUUID());
-        router.push(ROUTES.QUESTION(data.questionId));
+        router.push(ROUTES.QUESTION(res.questionId));
       }
     });
   }
@@ -199,7 +218,7 @@ const QuestionForm = () => {
           disabled={isPending}
           className="w-full sm:max-w-80"
         >
-          {isPending ? <Spinner /> : "Ask Question"}
+          {isPending ? <Spinner /> : mode === "create" ? "Ask Question" : "Save Changes"}
         </Button>
       </Field>
     </form>
