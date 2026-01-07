@@ -1,5 +1,6 @@
 import { Question, Tag } from "@/app/generated/prisma/client";
 import db from "@/lib/prisma";
+import { Prisma } from "@/app/generated/prisma/client";
 
 export const getQuestionById = async (id: string): Promise<Question | null> => {
   try {
@@ -13,31 +14,33 @@ export const getQuestionById = async (id: string): Promise<Question | null> => {
   }
 };
 
-export const getAllQuestions = async () => {
-  try {
-    const questions = await db.question.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          },
-        },
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
+const questionInclude = {
+  author: {
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  },
+  tags: {
+    select: {
+      tag: {
+        select: {
+          id: true,
+          name: true,
         },
       },
+    },
+  },
+};
+
+export const getAllQuestions = async (args: Prisma.QuestionFindManyArgs = {}) => {
+  try {
+    return await db.question.findMany({
+      include: questionInclude,
+      orderBy: { createdAt: "desc" },
+      ...args,
     });
-    return questions;
   } catch (error) {
     console.error("Error fetching questions:", error);
     return [];

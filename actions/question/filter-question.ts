@@ -1,6 +1,7 @@
 "use server";
 
 import { Prisma } from "@/app/generated/prisma/client";
+import { getAllQuestions } from "@/data/question-answer";
 import db from "@/lib/prisma";
 import { QuestionFilterParamsSchema } from "@/schemas";
 import { QuestionFilterParams } from "@/types/types";
@@ -14,7 +15,7 @@ export const filterQuestion = async (filterParams: QuestionFilterParams) => {
   const { page = 1, pageSize = 10, query, filter, sort } = validatedFields.data;
 
   // calculating the page number while pagination
-  const pageSkip = (Number(page) - 1) * pageSize;
+  const skip = (Number(page) - 1) * pageSize;
   const limit = pageSize;
 
   //http://localhost:3000/?filter=react&query=title
@@ -52,6 +53,7 @@ export const filterQuestion = async (filterParams: QuestionFilterParams) => {
   }
 
   try {
+    const questions = await getAllQuestions({ where, orderBy, skip, take: limit });
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong while filering! Please refresh the page." };
