@@ -1,12 +1,10 @@
-"use server";
-
 import { Prisma } from "@/app/generated/prisma/client";
 import { getAllQuestions } from "@/data/question-answer";
 import db from "@/lib/prisma";
 import { QuestionFilterParamsSchema } from "@/schemas";
 import { QuestionFilterParams } from "@/types/types";
 
-export const filterQuestion = async (filterParams: QuestionFilterParams) => {
+export const getQuestions = async (filterParams: QuestionFilterParams) => {
   const validatedFields = QuestionFilterParamsSchema.safeParse(filterParams);
   if (!validatedFields.success) {
     return { error: "Something went wrong! Please refresh the page." };
@@ -14,15 +12,15 @@ export const filterQuestion = async (filterParams: QuestionFilterParams) => {
 
   const { page = 1, pageSize = 10, query, filter, sort } = validatedFields.data;
 
-  // calculating the page number while pagination
+  // creating skip and limit for paginatin
   const skip = (Number(page) - 1) * pageSize;
   const limit = pageSize;
 
-  //http://localhost:3000/?filter=react&query=title
+  // todo we will need to make recommened as well here
 
+  // real filtering logic begins here
   const where: Prisma.QuestionWhereInput = {};
 
-  // if we have query coming to the action
   if (query) {
     where.OR = [
       { title: { contains: query, mode: "insensitive" } },
@@ -30,32 +28,48 @@ export const filterQuestion = async (filterParams: QuestionFilterParams) => {
     ];
   }
 
-  // todo add the filters logic here
+  let orderBy: Prisma.QuestionOrderByWithRelationInput;
 
-  // if we have sort coming to the action
-  let orderBy: Prisma.QuestionMinOrderByAggregateInput;
   switch (filter) {
-    case "newest": {
+    case "newest":
       orderBy = { createdAt: "desc" };
       break;
-    }
-    case "unanswered": {
+    case "unanswered":
       where.totalAnswers = 0;
       orderBy = { createdAt: "desc" };
       break;
-    }
-    case "popular": {
+    case "popular":
       orderBy = { upvotes: "desc" };
-    }
-    default: {
+      break;
+    default:
       orderBy = { createdAt: "desc" };
-    }
+      break;
   }
 
   try {
     const questions = await getAllQuestions({ where, orderBy, skip, take: limit });
+    const totalQuestion = await db.question.count({ where });
+
+    console.log(totalQuestion);
+    return {
+      data: questions,
+      pagination: {
+        page,
+        pageSize,
+        totalQuestion,
+        totalPages: Math.ceil(totalQuestion / pageSize),
+      },
+    };
   } catch (err) {
     console.log(err);
-    return { error: "Something went wrong while filering! Please refresh the page." };
+    return {
+      data: [],
+      pagination: {
+        page: 1,
+        pageSize,
+        totalQuestion: 0,
+        totalPages: 0,
+      },
+    };
   }
 };

@@ -14,33 +14,17 @@ export const getQuestionById = async (id: string): Promise<Question | null> => {
   }
 };
 
-const questionInclude = {
-  author: {
-    select: {
-      id: true,
-      name: true,
-      image: true,
-    },
-  },
-  tags: {
-    select: {
-      tag: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  },
-};
-
 export const getAllQuestions = async (args: Prisma.QuestionFindManyArgs = {}) => {
   try {
-    return await db.question.findMany({
-      include: questionInclude,
+    const questions = await db.question.findMany({
+      include: {
+        author: { select: { id: true, name: true, image: true } },
+        tags: { select: { tag: { select: { id: true, name: true } } } },
+      },
       orderBy: { createdAt: "desc" },
-      ...args,
+      where: args.where,
     });
+    return questions;
   } catch (error) {
     console.error("Error fetching questions:", error);
     return [];

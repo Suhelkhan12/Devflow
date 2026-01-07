@@ -1,8 +1,9 @@
+import { getQuestions } from "@/actions/question/get-all-questions";
 import HomeFilters from "@/components/filters/home-filters";
 import QuestionCard from "@/components/question/question-card";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
-import { getAllQuestions } from "@/data/question-answer";
+
 import Link from "next/link";
 
 interface searchParams {
@@ -11,18 +12,14 @@ interface searchParams {
 
 const page = async ({ searchParams }: searchParams) => {
   //fetching the search params here
-  const { query = "", filter = "" } = await searchParams;
+  const { page, pageSize, query = "", filter = "" } = await searchParams;
 
   // fetching questions from the database
-  const DB_QUESTIONS = await getAllQuestions();
-
-  // filtering the questions based on search params
-  const filteredQuestions = DB_QUESTIONS.filter((q) => {
-    const matchesQuery = q.title.toLowerCase().includes((query as string).toLowerCase());
-    const matchesFilter = filter
-      ? q.tags.some((tg) => tg.tag.name.toLowerCase() === (filter as string).toLowerCase())
-      : true;
-    return matchesQuery && matchesFilter;
+  const { data, pagination } = await getQuestions({
+    page: Number(page) || 1,
+    pageSize: Number(pageSize) || 10,
+    query: query as string,
+    filter: filter as string,
   });
 
   // here we can filter QUESTIONS based on the params if needed
@@ -39,13 +36,14 @@ const page = async ({ searchParams }: searchParams) => {
         <HomeFilters />
       </section>
       <section className="mt-10 flex flex-col gap-6">
-        {filteredQuestions.map((q) => (
-          <QuestionCard
-            key={q.id}
-            {...q}
-            author={{ id: q.author.id, name: q.author.name as string, image: q.author.image as string }}
-          />
-        ))}
+        {data &&
+          data.map((q) => (
+            <QuestionCard
+              key={q.id}
+              {...q}
+              author={{ id: q.author.id, name: q.author.name as string, image: q.author.image as string }}
+            />
+          ))}
       </section>
     </div>
   );

@@ -9,37 +9,21 @@ import Image from "next/image";
 
 const FILTERS = [
   {
-    name: "React",
-    value: "react",
+    name: "Popular",
+    value: "popular",
   },
   {
-    name: "JavaScript",
-    value: "javascript",
+    name: "Newest",
+    value: "newest",
   },
-  // {
-  //   name: "All",
-  //   value: "all",
-  // },
-  // {
-  //   name: "Popular",
-  //   value: "popular",
-  // },
-  // {
-  //   name: "Newest",
-  //   value: "newest",
-  // },
-  // {
-  //   name: "Recommended",
-  //   value: "recommended",
-  // },
-  // {
-  //   name: "Answered",
-  //   value: "answered",
-  // },
-  // {
-  //   name: "Unanswered",
-  //   value: "unanswered",
-  // },
+  {
+    name: "Recommended",
+    value: "recommended",
+  },
+  {
+    name: "Unanswered",
+    value: "unanswered",
+  },
 ];
 
 const HomeFilters = () => {
