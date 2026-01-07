@@ -13,7 +13,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import FormError from "./form-error";
 import FormSuccess from "./form-success";
 import { useSearchParams } from "next/navigation";
-import { resetPassword } from "@/actions/reset-password";
+import { resetPassword } from "@/actions/auth/reset-password";
 
 const ResetPasswordForm = () => {
   // getting token from the url

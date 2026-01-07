@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
+import Image from "next/image";
 
 const FILTERS = [
   {
@@ -68,6 +69,7 @@ const HomeFilters = () => {
 
   return (
     <div className="flex items-center gap-3">
+      <Image src={"/icons/filter.svg"} className="dark:text-white" width={24} height={24} alt="filter icon" />
       {FILTERS.map((ftr) => (
         <Button
           size={"lg"}

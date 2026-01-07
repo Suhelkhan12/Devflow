@@ -29,6 +29,7 @@ const page = async ({ params }: RouteParams) => {
   if (question.userId !== userSession.user.id) {
     redirect(ROUTES.QUESTION(id));
   }
+
   return (
     <QuestionForm
       mode="edit"

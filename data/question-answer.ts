@@ -13,27 +13,6 @@ export const getQuestionById = async (id: string): Promise<Question | null> => {
   }
 };
 
-export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
-  try {
-    const questionTags = await db.questionTag.findMany({
-      where: { questionId: id },
-      select: {
-        tag: {
-          select: {
-            id: true,
-            name: true,
-            totalQuestion: true,
-          },
-        },
-      },
-    });
-    return questionTags.map((qt) => qt.tag);
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to fetch question tags from the database.");
-  }
-};
-
 export const getAllQuestions = async () => {
   try {
     const questions = await db.question.findMany({
@@ -62,5 +41,26 @@ export const getAllQuestions = async () => {
   } catch (error) {
     console.error("Error fetching questions:", error);
     return [];
+  }
+};
+
+export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
+  try {
+    const questionTags = await db.questionTag.findMany({
+      where: { questionId: id },
+      select: {
+        tag: {
+          select: {
+            id: true,
+            name: true,
+            totalQuestion: true,
+          },
+        },
+      },
+    });
+    return questionTags.map((qt) => qt.tag);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch question tags from the database.");
   }
 };

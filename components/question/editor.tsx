@@ -33,13 +33,14 @@ interface EditorProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<any, string>;
   editorRef?: React.MutableRefObject<MDXEditorMethods | null>;
+  readonly: boolean;
 }
 
 /**
  * Extend this Component further with the necessary plugins or props you need.
  * proxying the ref is necessary. Next.js dynamically imported components don't support refs.
  */
-const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
+const Editor: FC<EditorProps> = ({ readonly, resetKey, field, editorRef }) => {
   const toolbar = toolbarPlugin({
     toolbarClassName: "dark:bg-dark-200! bg-light-900!",
     toolbarContents: () => (
@@ -96,6 +97,7 @@ const Editor: FC<EditorProps> = ({ resetKey, field, editorRef }) => {
 
   return (
     <MDXEditor
+      readOnly={readonly}
       key={resetKey}
       onChange={(val) => field.onChange(val)}
       ref={editorRef}

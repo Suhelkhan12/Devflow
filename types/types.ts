@@ -85,3 +85,11 @@ export interface TagCardProps {
   isButton?: boolean;
   handleRemove?: (_id: string) => void;
 }
+
+export interface QuestionFilterParams {
+  page?: number;
+  pageSize?: number;
+  query?: string;
+  filter?: string;
+  sort?: string;
+}

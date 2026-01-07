@@ -69,3 +69,11 @@ export const NewPasswordServerSchema = z.object({
       error: "Minimum of 6 characters required.",
     }),
 });
+
+export const QuestionFilterParamsSchema = z.object({
+  page: z.number().int().positive().default(1),
+  pageSize: z.number().int().positive().default(10),
+  query: z.string().optional(),
+  filter: z.string().optional(),
+  sort: z.string().optional(),
+});

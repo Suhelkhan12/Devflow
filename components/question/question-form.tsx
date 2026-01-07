@@ -13,11 +13,11 @@ import { Tag } from "@/types/types";
 import { KeyboardEventHandler, useRef, useState, useTransition } from "react";
 import TagCard from "../tag/tag-card";
 import { Skeleton } from "../ui/skeleton";
-import { createQuestion } from "@/actions/create-question";
+import { createQuestion } from "@/actions/question/create-question";
 import { Spinner } from "../ui/spinner";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
-import { updateQuestion } from "@/actions/edit-question";
+import { updateQuestion } from "@/actions/question/edit-question";
 
 const EditorComp = dynamic(() => import("./editor"), { ssr: false, loading: () => <EditorSkeleton /> });
 
@@ -150,7 +150,7 @@ const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
                 Detailed explanation of your problem?<span className="text-red-500">*</span>
               </FieldLabel>
               <div className="space-y-2">
-                <EditorComp resetKey={editorKey} editorRef={ref} field={field} />
+                <EditorComp readonly={isPending} resetKey={editorKey} editorRef={ref} field={field} />
                 <Input
                   {...field}
                   value={"markdownVal"}

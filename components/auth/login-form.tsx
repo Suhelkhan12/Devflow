@@ -10,7 +10,7 @@ import * as z from "zod";
 import { LoginFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { login } from "@/actions/login";
+import { login } from "@/actions/auth/login";
 import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import FormError from "./form-error";

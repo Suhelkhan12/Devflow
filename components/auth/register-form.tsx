@@ -9,7 +9,7 @@ import * as z from "zod";
 import { RegisterFormSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { register } from "@/actions/register";
+import { register } from "@/actions/auth/register";
 import { Spinner } from "../ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "../ui/field";
 import { toast } from "sonner";

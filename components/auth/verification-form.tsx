@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Spinner } from "../ui/spinner";
 import { useEffect, useState } from "react";
-import { newVerifcation } from "@/actions/new-verification";
+import { newVerifcation } from "@/actions/auth/new-verification";
 import FormSuccess from "./form-success";
 import FormError from "./form-error";
 

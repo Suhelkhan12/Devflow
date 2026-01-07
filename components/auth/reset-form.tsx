@@ -12,7 +12,7 @@ import { Spinner } from "../ui/spinner";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import FormError from "./form-error";
 import FormSuccess from "./form-success";
-import { resetPasswordMail } from "@/actions/reset-password-mail";
+import { resetPasswordMail } from "@/actions/auth/reset-password-mail";
 
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>(undefined);
