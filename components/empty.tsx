@@ -5,8 +5,8 @@ import Link from "next/link";
 interface EmptyComponentProps {
   heading: string;
   description: string;
-  buttonLabel: string;
-  href: string;
+  buttonLabel?: string;
+  href?: string;
 }
 const Empty = ({ heading, description, buttonLabel, href }: EmptyComponentProps) => {
   return (
@@ -23,9 +23,13 @@ const Empty = ({ heading, description, buttonLabel, href }: EmptyComponentProps)
           <h2 className="h2-bold text-dark200_light900">{heading}</h2>
           <p className="text-dark500_light700">{description}</p>
         </div>
-        <Button asChild variant={"primary"}>
-          <Link href={href}>{buttonLabel}</Link>
-        </Button>
+        {buttonLabel && href ? (
+          <Button asChild variant={"primary"}>
+            <Link href={href}>{buttonLabel}</Link>
+          </Button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

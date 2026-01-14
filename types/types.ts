@@ -93,3 +93,11 @@ export interface QuestionFilterParams {
   filter?: string;
   sort?: string;
 }
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  query: string;
+  filter: string;
+}

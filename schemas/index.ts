@@ -29,7 +29,7 @@ export const AskQuestionFormSchema = z.object({
         name: z.string(),
       })
     )
-    .min(3, "Add atleast 3 tags"),
+    .min(1, "Add atleast 1 tags"),
 });
 
 export const EditQuestionFormSchema = AskQuestionFormSchema.extend({

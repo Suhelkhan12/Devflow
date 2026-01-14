@@ -23,6 +23,8 @@ export const getAllQuestions = async (args: Prisma.QuestionFindManyArgs = {}) =>
       },
       orderBy: { createdAt: "desc" },
       where: args.where,
+      skip: args.skip,
+      take: args.take,
     });
     return questions;
   } catch (error) {
