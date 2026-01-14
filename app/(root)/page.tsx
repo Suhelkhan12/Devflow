@@ -3,6 +3,7 @@ import Empty from "@/components/empty";
 import HomeFilters from "@/components/filters/home-filters";
 import PaginationComponent from "@/components/question/pagination";
 import QuestionCard from "@/components/question/question-card";
+import RootTop from "@/components/question/root-top";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -19,7 +20,7 @@ const page = async ({ searchParams }: searchParams) => {
   // fetching questions from the database
   const { data, pagination } = await getQuestions({
     page: currentPage,
-    pageSize: Number(pageSize) || 2,
+    pageSize: Number(pageSize) || 5,
     query: query as string,
     filter: filter as string,
   });
@@ -27,16 +28,7 @@ const page = async ({ searchParams }: searchParams) => {
   // here we can filter QUESTIONS based on the params if needed
   return (
     <div className="font-inter flex flex-col">
-      <section className="flex flex-col gap-7.5">
-        <div className="flex-between">
-          <h1 className="h1-bold font-space-grotesk">All question</h1>
-          <Button variant={"primary"} asChild>
-            <Link href={"/ask-question"}>Ask a question</Link>
-          </Button>
-        </div>
-        <LocalSearch route="/" placeholder="Search for questions here..." />
-        <HomeFilters />
-      </section>
+      <RootTop />
       <section className="mt-10 flex flex-col gap-6">
         {data && data.length > 0 ? (
           data.map((q) => (
@@ -53,7 +45,6 @@ const page = async ({ searchParams }: searchParams) => {
           />
         )}
       </section>
-
       <PaginationComponent
         currentPage={pagination?.page as number}
         totalPages={pagination?.totalPages as number}

@@ -10,7 +10,7 @@ export const getQuestions = async (filterParams: QuestionFilterParams) => {
     return { error: "Something went wrong! Please refresh the page." };
   }
 
-  const { page = 1, pageSize = 2, query, filter, sort } = validatedFields.data;
+  const { page = 1, pageSize = 5, query, filter, sort } = validatedFields.data;
 
   // creating skip and limit for paginatin
   const skip = (Number(page) - 1) * pageSize;

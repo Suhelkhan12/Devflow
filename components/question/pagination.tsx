@@ -6,6 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 import { PaginationProps } from "@/types/types";
 
 const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }: PaginationProps) => {
@@ -37,7 +38,10 @@ const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }
         {/* previous */}
         <PaginationItem>
           {/* just in case we are on first page and we don't go to the unknown page */}
-          <PaginationPrevious href={createUrl(Math.max(currentPage - 1, 1))} />
+          <PaginationPrevious
+            href={createUrl(Math.max(currentPage - 1, 1))}
+            className="hover:text-primary-500 transition"
+          />
         </PaginationItem>
 
         {/* page number */}
@@ -45,7 +49,14 @@ const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }
           const pageNumber = index + 1;
           return (
             <PaginationItem key={pageNumber}>
-              <PaginationLink href={createUrl(pageNumber)} isActive={pageNumber === currentPage}>
+              <PaginationLink
+                href={createUrl(pageNumber)}
+                isActive={pageNumber === currentPage}
+                className={cn(
+                  pageNumber === currentPage ? "bg-primary-500 border-0" : "",
+                  "hover:ring-primary-500 hover:ring-1"
+                )}
+              >
                 {pageNumber}
               </PaginationLink>
             </PaginationItem>
@@ -54,7 +65,10 @@ const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }
 
         {/* next */}
         <PaginationItem>
-          <PaginationNext href={createUrl(Math.max(currentPage + 1, totalPages))} />
+          <PaginationNext
+            href={createUrl(Math.max(currentPage + 1, totalPages))}
+            className="hover:text-primary-500 transition"
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
