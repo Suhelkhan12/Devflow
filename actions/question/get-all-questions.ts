@@ -48,7 +48,6 @@ export const getQuestions = async (filterParams: QuestionFilterParams) => {
 
   try {
     const questions = await getAllQuestions({ where, orderBy, skip, take: limit });
-    console.log(questions.length);
     const totalQuestion = await db.question.count({ where });
 
     return {

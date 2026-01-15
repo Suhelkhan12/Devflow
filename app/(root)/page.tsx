@@ -1,12 +1,8 @@
 import { getQuestions } from "@/actions/question/get-all-questions";
 import Empty from "@/components/empty";
-import HomeFilters from "@/components/filters/home-filters";
 import PaginationComponent from "@/components/question/pagination";
 import QuestionCard from "@/components/question/question-card";
 import RootTop from "@/components/question/root-top";
-import LocalSearch from "@/components/search/LocalSearch";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 interface searchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -45,13 +41,7 @@ const page = async ({ searchParams }: searchParams) => {
           />
         )}
       </section>
-      <PaginationComponent
-        currentPage={pagination?.page as number}
-        totalPages={pagination?.totalPages as number}
-        baseUrl="/"
-        query={query as string}
-        filter={filter as string}
-      />
+      <PaginationComponent currentPage={pagination?.page as number} totalPages={pagination?.totalPages as number} />
     </div>
   );
 };

@@ -15,7 +15,12 @@ const TagCard = (props: TagCardProps) => {
 
   const content = (
     <>
-      <Badge className="bg-primary-100 dark:bg-primary-500/50 ring-primary-500/50 rounded-md transition duration-300 hover:ring-1">
+      <Badge
+        className={cn(
+          "bg-light-800 dark:bg-dark-300 text-light-500 body-medium border-primary-100 dark:border-primary-500/10 cursor-pointer rounded-sm border transition duration-300",
+          "hover:bg-primary-100 dark:hover:bg-dark-400"
+        )}
+      >
         <span className="">{props.name.at(0)?.toUpperCase() + props.name.slice(1)}</span>
         {props.removeTag && (
           <Image

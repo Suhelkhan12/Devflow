@@ -97,7 +97,4 @@ export interface QuestionFilterParams {
 export interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  baseUrl: string;
-  query: string;
-  filter: string;
 }

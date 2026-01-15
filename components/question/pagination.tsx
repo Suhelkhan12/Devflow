@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination,
   PaginationContent,
@@ -6,10 +8,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { formUrlQuery } from "@/lib/url";
 import { cn } from "@/lib/utils";
 import { PaginationProps } from "@/types/types";
+import { useSearchParams } from "next/navigation";
 
-const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }: PaginationProps) => {
+const PaginationComponent = ({ currentPage, totalPages }: PaginationProps) => {
+  const searchParams = useSearchParams();
   //when in the db question number is less than 10
   if (totalPages <= 1) return null;
 
@@ -22,14 +27,11 @@ const PaginationComponent = ({ currentPage, totalPages, filter, query, baseUrl }
         No client-side fetching needed.
      */
   const createUrl = (page: number) => {
-    const params = new URLSearchParams();
-    params.set("page", page.toString());
-
-    // adding query and filter to the url if they exits
-    if (query) params.set("query", query.toString());
-    if (filter) params.set("filter", filter.toString());
-
-    return `${baseUrl}?${params.toString()}`;
+    return formUrlQuery({
+      params: searchParams.toString(),
+      key: "page",
+      value: page.toString(),
+    });
   };
 
   return (
