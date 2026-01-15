@@ -43,6 +43,14 @@ export interface Tag {
   name: string;
 }
 
+export interface TagWithCount extends Tag {
+  totalQuestion: number;
+}
+
+export interface TagList {
+  tags: TagWithCount[];
+}
+
 interface Author {
   id: string;
   name: string;

@@ -51,7 +51,7 @@ const TagFilter = () => {
       <SelectTrigger className="text-dark500_light400 dark:border-dark-400 background-light800_dark200 w-45 cursor-pointer rounded-lg px-4 py-6">
         <SelectValue placeholder="Filter tags" />
       </SelectTrigger>
-      <SelectContent side={"bottom"} position={"popper"} className="dark:border-dark-400">
+      <SelectContent side={"bottom"} position={"popper"} className="dark:border-dark-400 background-light900_dark200">
         <SelectGroup>
           <div className="mb-3 flex items-center justify-between">
             <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>

@@ -17,7 +17,7 @@ const TagCard = (props: TagCardProps) => {
     <>
       <Badge
         className={cn(
-          "bg-light-800 dark:bg-dark-300 text-light-500 body-medium border-primary-100 dark:border-primary-500/10 cursor-pointer rounded-sm border transition duration-300",
+          "background-light800_dark300 text-light-500 body-medium border-primary-100 dark:border-primary-500/10 cursor-pointer rounded-sm border transition duration-300",
           "hover:bg-primary-100 dark:hover:bg-dark-400"
         )}
       >
@@ -51,13 +51,14 @@ const TagCard = (props: TagCardProps) => {
   }
 
   return (
-    <Link href={ROUTES.TAG(props.id)} className="shadow-light100_darknone">
-      <article className="background-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]">
-        <div className="background-light800_dark400 w-fit rounded-sm px-5 py-1.5">
-          <p className="paragraph-semibold text-dark300_light900">{props.name}</p>
+    <Link href={ROUTES.TAG(props.id)} className="rounded-xl border dark:border-0">
+      <article className="background-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-6 py-8">
+        <div className="background-light800_dark300 w-fit rounded-sm px-5 py-1.5">
+          <p className="paragraph-semibold text-dark300_light900 capitalize">{props.name}</p>
         </div>
 
         <p className="small-medium text-dark400_light500 mt-3.5">
+          {props.numberOfQuestions}
           <span className="body-semibold primary-text-gradient mr-2.5">{props.numberOfQuestions}+</span>
           Questions
         </p>
