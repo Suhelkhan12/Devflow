@@ -1,4 +1,6 @@
 "use client";
+
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Select,
@@ -13,29 +15,20 @@ import { Button } from "../ui/button";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
 
 const TAGFILTERS = [
-  {
-    id: "1",
-    label: "Most Answered",
-    value: "most_answered",
-  },
-  {
-    id: "2",
-    label: "Recently Added",
-    value: "recent",
-  },
-  {
-    id: "3",
-    label: "Alphabetical (A–Z)",
-    value: "alphabetical",
-  },
+  { id: "1", label: "Most Answered", value: "most_answered" },
+  { id: "2", label: "Recently Added", value: "recent" },
+  { id: "3", label: "Alphabetical (A–Z)", value: "alphabetical" },
 ];
 
 const TagFilter = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  // state to control Select value
+  const [selectedFilter, setSelectedFilter] = useState<string | undefined>(searchParams.get("filter") ?? undefined);
+
   const onValueChange = (value: string) => {
-    // adding the filter
+    setSelectedFilter(value); // update UI
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
       key: "filter",
@@ -44,7 +37,8 @@ const TagFilter = () => {
     router.push(newUrl);
   };
 
-  const onClick = () => {
+  const onClickClear = () => {
+    setSelectedFilter(undefined); // reset Select UI
     const newUrl = removeKeysFromQuery({
       params: searchParams.toString(),
       keysToRemove: ["filter"],
@@ -53,7 +47,7 @@ const TagFilter = () => {
   };
 
   return (
-    <Select onValueChange={onValueChange} defaultValue={searchParams.get("filter") ?? undefined}>
+    <Select value={selectedFilter} onValueChange={onValueChange}>
       <SelectTrigger className="text-dark500_light400 dark:border-dark-400 background-light800_dark200 w-45 cursor-pointer rounded-lg px-4 py-6">
         <SelectValue placeholder="Filter tags" />
       </SelectTrigger>
@@ -61,7 +55,7 @@ const TagFilter = () => {
         <SelectGroup>
           <div className="mb-3 flex items-center justify-between">
             <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>
-            <Button variant={"link"} size={"sm"} className="text-xs" onClick={onClick}>
+            <Button variant={"link"} size={"sm"} className="text-xs" onClick={onClickClear}>
               Clear
             </Button>
           </div>

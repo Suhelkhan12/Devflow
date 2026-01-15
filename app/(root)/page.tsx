@@ -1,8 +1,8 @@
 import { getQuestions } from "@/actions/question/get-all-questions";
-import Empty from "@/components/empty";
 import PaginationComponent from "@/components/question/pagination";
-import QuestionCard from "@/components/question/question-card";
+import QuestionList from "@/components/question/question-list";
 import RootTop from "@/components/question/root-top";
+import { Question } from "@/types/types";
 
 interface searchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -24,23 +24,11 @@ const page = async ({ searchParams }: searchParams) => {
   // here we can filter QUESTIONS based on the params if needed
   return (
     <div className="font-inter flex flex-col">
+      {/* top section */}
       <RootTop />
-      <section className="mt-10 flex flex-col gap-6">
-        {data && data.length > 0 ? (
-          data.map((q) => (
-            <QuestionCard
-              key={q.id}
-              {...q}
-              author={{ id: q.author.id, name: q.author.name as string, image: q.author.image as string }}
-            />
-          ))
-        ) : (
-          <Empty
-            heading="It’s quiet here 👀"
-            description="No questions yet. Ask the first one and get the conversation going!"
-          />
-        )}
-      </section>
+      {/* rendering questions */}
+      <QuestionList data={data as Question[]} />
+      {/* pagination */}
       <PaginationComponent currentPage={pagination?.page as number} totalPages={pagination?.totalPages as number} />
     </div>
   );
