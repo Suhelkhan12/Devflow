@@ -53,12 +53,3 @@ export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
     throw new Error("Failed to fetch question tags from the database.");
   }
 };
-
-export const getAllTags = async (): Promise<Tag[] | null> => {
-  try {
-    return await db.tag.findMany();
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to fetch tags from database.");
-  }
-};

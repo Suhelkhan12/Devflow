@@ -51,8 +51,11 @@ const TagCard = (props: TagCardProps) => {
   }
 
   return (
-    <Link href={ROUTES.TAG(props.id)} className="rounded-xl border dark:border-0">
-      <article className="background-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-6 py-8">
+    <Link
+      href={ROUTES.TAG(props.id)}
+      className="ring-primary-500 rounded-xl border transition duration-300 hover:ring-1 dark:border-0"
+    >
+      <article className="background-light900_dark200 light-border flex w-full flex-col rounded-xl border px-6 py-8">
         <div className="background-light800_dark300 w-fit rounded-sm px-5 py-1.5">
           <p className="paragraph-semibold text-dark300_light900 capitalize">{props.name}</p>
         </div>

@@ -106,3 +106,8 @@ export interface PaginationProps {
   currentPage: number;
   totalPages: number;
 }
+
+export interface TagFilterParams {
+  query?: string;
+  filter?: string;
+}

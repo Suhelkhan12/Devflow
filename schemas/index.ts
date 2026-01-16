@@ -77,3 +77,8 @@ export const QuestionFilterParamsSchema = z.object({
   filter: z.string().optional(),
   sort: z.string().optional(),
 });
+
+export const TagFilterParamsSchema = z.object({
+  query: z.string().optional(),
+  filter: z.string().optional(),
+});

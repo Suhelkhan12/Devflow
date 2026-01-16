@@ -15,9 +15,8 @@ import { Button } from "../ui/button";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
 
 const TAGFILTERS = [
-  { id: "1", label: "Most Answered", value: "most_answered" },
-  { id: "2", label: "Recently Added", value: "recent" },
-  { id: "3", label: "Alphabetical (A–Z)", value: "alphabetical" },
+  { id: "1", label: "Most Questions", value: "most_questions" },
+  { id: "2", label: "Alphabetical (A–Z)", value: "alphabetical" },
 ];
 
 const TagFilter = () => {
