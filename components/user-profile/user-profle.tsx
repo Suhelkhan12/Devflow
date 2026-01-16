@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ROUTES } from "@/lib/routes";
 import { auth } from "@/auth";
@@ -13,7 +14,9 @@ const UserProfile = async () => {
     <Link href={`${ROUTES.PROFILE(user.id as string)}`} className="rounded-full max-lg:hidden">
       <Avatar className="size-10">
         <AvatarImage src={userImage} />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback>
+          <Image src={"/icons/user.svg"} alt="user icons" width={20} height={20} className="invert-colors" />
+        </AvatarFallback>
       </Avatar>
     </Link>
   );

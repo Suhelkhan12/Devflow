@@ -7,7 +7,7 @@ import TagCard from "../tag/tag-card";
 
 const QuestionCard = ({ id, title, author, createdAt, upvotes, downvotes, totalAnswers, views, tags }: Question) => {
   return (
-    <div className="card-wrapper ring-primary-500/50 relative z-10 rounded-[10px] border p-4 transition duration-300 hover:ring-1 sm:px-5 sm:py-4 md:p-6 dark:border-0">
+    <div className="card-wrapper dark:border-dark-400 hover:border-primary-500 dark:hover:border-primary-500 relative z-10 rounded-[10px] border p-4 transition duration-300 sm:px-5 sm:py-4 md:p-6">
       <div className="flex flex-col items-start gap-3.5">
         <Link href={ROUTES.QUESTION(id)} className="hover:text-primary-500 transition duration-300">
           <h2 className="h2-semibold">{title}</h2>

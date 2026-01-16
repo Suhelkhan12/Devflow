@@ -1,5 +1,6 @@
 import { Tag } from "@/types/types";
 import TagCard from "./tag-card";
+import Empty from "../empty";
 
 interface TagWithCount extends Tag {
   totalQuestion: number;
@@ -8,7 +9,16 @@ interface TagWithCount extends Tag {
 interface TagList {
   tags: TagWithCount[];
 }
+
 const TagList = ({ tags }: TagList) => {
+  if (tags.length === 0) {
+    return (
+      <Empty
+        heading="No tags available"
+        description="Tags will appear here once they are created. Start by adding your first tag."
+      />
+    );
+  }
   return (
     <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {tags.map((tg) => (

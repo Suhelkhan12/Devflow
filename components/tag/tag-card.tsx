@@ -17,8 +17,7 @@ const TagCard = (props: TagCardProps) => {
     <>
       <Badge
         className={cn(
-          "background-light800_dark300 text-light-500 body-medium border-primary-100 dark:border-primary-500/10 cursor-pointer rounded-sm border transition duration-300",
-          "hover:bg-primary-100 dark:hover:bg-dark-400"
+          "background-light800_dark300 text-light-500 body-medium dark:border-dark-400 border-light-700 cursor-pointer rounded-sm border transition duration-300"
         )}
       >
         <span className="">{props.name.at(0)?.toUpperCase() + props.name.slice(1)}</span>
@@ -53,10 +52,10 @@ const TagCard = (props: TagCardProps) => {
   return (
     <Link
       href={ROUTES.TAG(props.id)}
-      className="ring-primary-500 rounded-xl border transition duration-300 hover:ring-1 dark:border-0"
+      className="dark:border-dark-400 hover:border-primary-500 dark:hover:border-primary-500 rounded-xl border transition duration-300"
     >
       <article className="background-light900_dark200 light-border flex w-full flex-col rounded-xl border px-6 py-8">
-        <div className="background-light800_dark300 w-fit rounded-sm px-5 py-1.5">
+        <div className="background-light800_dark300 border-light-700 dark:border-dark-400 w-fit rounded-sm border px-5 py-1.5">
           <p className="paragraph-semibold text-dark300_light900 capitalize">{props.name}</p>
         </div>
 
