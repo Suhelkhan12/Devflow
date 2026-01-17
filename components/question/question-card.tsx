@@ -20,10 +20,10 @@ const QuestionCard = ({ id, title, author, createdAt, upvotes, downvotes, totalA
       </div>
       <div className="flex-between mt-6 flex-wrap gap-3">
         <Metric
-          imgUrl={author.image}
-          alt={author.name}
+          imgUrl={author.image!}
+          alt={author.name!}
           href={ROUTES.USER(author.id)}
-          value={author.name}
+          value={author.name!}
           textStyles="body-medium"
           titleStyles="body-regular"
           title={`- asked ${getTimeStamp(new Date(createdAt))}`}

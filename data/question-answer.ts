@@ -42,6 +42,7 @@ export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
           select: {
             id: true,
             name: true,
+            description: true,
             totalQuestion: true,
           },
         },
@@ -51,5 +52,38 @@ export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch question tags from the database.");
+  }
+};
+
+export const getTagById = async (id: string) => {
+  try {
+    const tag = await db.tag.findUnique({
+      where: { id },
+      include: {
+        questions: {
+          include: {
+            question: {
+              include: {
+                author: {
+                  select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                  },
+                },
+                tags: {
+                  include: { tag: true },
+                },
+              },
+            },
+          },
+          orderBy: { question: { createdAt: "desc" } },
+        },
+      },
+    });
+    return tag;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch tag details from the database.");
   }
 };

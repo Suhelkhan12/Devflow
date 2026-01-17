@@ -54,8 +54,8 @@ export interface TagList {
 
 interface Author {
   id: string;
-  name: string;
-  image: string;
+  name?: string;
+  image?: string;
 }
 
 export interface Question {
@@ -86,7 +86,7 @@ export interface MetricProps {
 export interface TagCardProps {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   numberOfQuestions?: number;
   isRemoveDisabled?: boolean;
   showCount?: boolean;
