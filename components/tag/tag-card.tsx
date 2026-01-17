@@ -58,7 +58,7 @@ const TagCard = (props: TagCardProps) => {
         <div className="background-light800_dark300 border-light-700 dark:border-dark-400 w-fit rounded-sm border px-5 py-1.5">
           <p className="paragraph-semibold text-dark300_light900 capitalize">{props.name}</p>
         </div>
-        <p className="text-dark400_light500 mt-2.5 text-sm">{props.description}</p>
+        <p className="text-dark500_light700 mt-2.5 text-sm">{props.description}</p>
         <p className="small-medium text-dark400_light500 mt-3.5">
           <span className="body-semibold primary-text-gradient mr-2.5">{props.numberOfQuestions}+</span>
           Questions

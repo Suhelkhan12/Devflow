@@ -55,6 +55,10 @@ html {
   --font-space-grotesk: var(--font-space-grotesk);
 }
 
+html {
+  overflow-y: scroll;
+}
+
 @layer base {
   *,
   ::after,

@@ -11,8 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "../ui/button";
-import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
+import { formUrlQuery } from "@/lib/url";
 
 const TAGFILTERS = [
   { id: "1", label: "Most Questions", value: "most_questions" },
@@ -36,15 +35,6 @@ const TagFilter = () => {
     router.push(newUrl);
   };
 
-  const onClickClear = () => {
-    setSelectedFilter(undefined); // reset Select UI
-    const newUrl = removeKeysFromQuery({
-      params: searchParams.toString(),
-      keysToRemove: ["filter"],
-    });
-    router.push(newUrl);
-  };
-
   return (
     <Select value={selectedFilter} onValueChange={onValueChange}>
       <SelectTrigger className="text-dark500_light400 dark:border-dark-400 background-light800_dark200 w-45 cursor-pointer rounded-lg px-4 py-6">
@@ -52,12 +42,8 @@ const TagFilter = () => {
       </SelectTrigger>
       <SelectContent side={"bottom"} position={"popper"} className="dark:border-dark-400 background-light900_dark200">
         <SelectGroup>
-          <div className="mb-3 flex items-center justify-between">
-            <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>
-            <Button variant={"link"} size={"sm"} className="text-xs" onClick={onClickClear}>
-              Clear
-            </Button>
-          </div>
+          <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>
+
           {TAGFILTERS.map((tg) => (
             <SelectItem
               key={tg.id}
