@@ -43,12 +43,13 @@ export interface Tag {
   name: string;
 }
 
-export interface TagWithCount extends Tag {
+export interface TagWithCountAndDescription extends Tag {
   totalQuestion: number;
+  description: string;
 }
 
 export interface TagList {
-  tags: TagWithCount[];
+  tags: TagWithCountAndDescription[];
 }
 
 interface Author {
@@ -85,6 +86,7 @@ export interface MetricProps {
 export interface TagCardProps {
   id: string;
   name: string;
+  description: string;
   numberOfQuestions?: number;
   isRemoveDisabled?: boolean;
   showCount?: boolean;

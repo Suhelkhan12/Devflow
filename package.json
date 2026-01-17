@@ -13,7 +13,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mdxeditor/editor": "^3.51.0",
     "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.2.0",
+    "@prisma/client": "^6.19.2",
     "@prisma/extension-accelerate": "^3.0.1",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",

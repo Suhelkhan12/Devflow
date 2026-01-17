@@ -1,13 +1,9 @@
-import { Tag } from "@/types/types";
+import { TagWithCountAndDescription } from "@/types/types";
 import TagCard from "./tag-card";
 import Empty from "../empty";
 
-interface TagWithCount extends Tag {
-  totalQuestion: number;
-}
-
 interface TagList {
-  tags: TagWithCount[];
+  tags: TagWithCountAndDescription[];
 }
 
 const TagList = ({ tags }: TagList) => {
@@ -22,7 +18,13 @@ const TagList = ({ tags }: TagList) => {
   return (
     <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {tags.map((tg) => (
-        <TagCard key={tg.id} id={tg.id} name={tg.name} numberOfQuestions={tg.totalQuestion} />
+        <TagCard
+          key={tg.id}
+          id={tg.id}
+          name={tg.name}
+          numberOfQuestions={tg.totalQuestion}
+          description={tg.description}
+        />
       ))}
     </div>
   );
