@@ -40,7 +40,7 @@ const LocalSearch = ({ route, placeholder }: LocalSearchProps) => {
   }, [searchQuery, router, route]);
 
   return (
-    <div className={cn("min-w-lg max-lg:hidden")}>
+    <div className={cn("min-w-lg")}>
       <Input
         value={searchQuery}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}

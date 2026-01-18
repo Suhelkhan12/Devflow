@@ -54,8 +54,8 @@ export interface TagList {
 
 interface Author {
   id: string;
-  name?: string;
-  image?: string;
+  name: string | null;
+  image: string | null;
 }
 
 export interface Question {
