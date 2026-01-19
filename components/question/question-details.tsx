@@ -3,6 +3,7 @@ import Metric from "../Metric";
 import { ROUTES } from "@/lib/routes";
 import { getTimeStamp } from "@/lib/utils";
 import TagCard from "../tag/tag-card";
+import QuestionContentPreview from "./question-content-preview";
 
 const QuestionDetails = (props: Question) => {
   return (
@@ -29,19 +30,19 @@ const QuestionDetails = (props: Question) => {
         <Metric
           imgUrl="/icons/message.svg"
           alt="like-icon"
-          value={`${props.totalAnswers}`}
+          value={`${new Intl.NumberFormat().format(props.totalAnswers)}`}
           title="Answers"
           textStyles="small-medium"
         />
         <Metric
           imgUrl="/icons/eye.svg"
           alt="message-icon"
-          value={`${props.views}`}
+          value={`${new Intl.NumberFormat().format(props.views)}`}
           title="Views"
           textStyles="small-medium"
         />
       </div>
-      <div className="mt-5 md:mt-7">Question content will be rendered here.</div>
+      <QuestionContentPreview content={props.content} />
       <div className="mt-5 flex items-center gap-4 md:mt-7">
         {props.tags.map((tag) => (
           <TagCard key={tag.tag.id} name={tag.tag.name} id={tag.tag.id} compact />
