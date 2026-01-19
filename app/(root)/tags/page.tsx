@@ -1,6 +1,6 @@
 import { getTags } from "@/actions/tags/get-all-tags";
 import LocalSearch from "@/components/search/LocalSearch";
-import TagFilter from "@/components/tag/tag-filter";
+import TagFilter from "@/components/filters/tag-filter";
 import TagList from "@/components/tag/tags-list";
 import { RouteParams, TagWithCountAndDescription } from "@/types/types";
 

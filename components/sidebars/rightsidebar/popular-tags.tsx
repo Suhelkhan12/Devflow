@@ -1,3 +1,4 @@
+import TagCard from "@/components/tag/tag-card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
@@ -46,9 +47,7 @@ const PopularTags = () => {
       <div className="flex flex-col gap-4">
         {POPULARTAGS.map((tg) => (
           <div key={tg.id} className="flex items-center justify-between">
-            <Badge className="background-light800_dark300 rounded-md" asChild>
-              <Link href="/">{tg.tagname}</Link>
-            </Badge>
+            <TagCard key={tg.id} name={tg.tagname} compact id={String(tg.id)} />
             <p className="text-xs">{tg.tags}+</p>
           </div>
         ))}

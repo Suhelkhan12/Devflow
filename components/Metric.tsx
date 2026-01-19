@@ -21,7 +21,7 @@ const Metric = (props: MetricProps) => {
     </>
   );
   return props.href ? (
-    <Link href={props.href} className="flex-center gap-1">
+    <Link href={props.href} className="flex items-center gap-1">
       {metricContent}
     </Link>
   ) : (

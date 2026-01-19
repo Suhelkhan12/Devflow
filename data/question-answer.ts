@@ -1,11 +1,29 @@
-import { Question, Tag } from "@/app/generated/prisma/client";
 import db from "@/lib/prisma";
 import { Prisma } from "@/app/generated/prisma/client";
 
-export const getQuestionById = async (id: string): Promise<Question | null> => {
+export const getQuestionById = async (id: string) => {
   try {
     const question = await db.question.findUnique({
       where: { id },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
     });
     return question;
   } catch (err) {
@@ -33,7 +51,7 @@ export const getAllQuestions = async (args: Prisma.QuestionFindManyArgs = {}) =>
   }
 };
 
-export const getQuestionTags = async (id: string): Promise<Tag[] | null> => {
+export const getQuestionTags = async (id: string) => {
   try {
     const questionTags = await db.questionTag.findMany({
       where: { questionId: id },

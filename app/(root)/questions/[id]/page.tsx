@@ -1,18 +1,22 @@
-import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/lib/routes";
+import Empty from "@/components/empty";
+import QuestionDetails from "@/components/question/question-details";
+import { getQuestionById } from "@/data/question-answer";
 import { RouteParams } from "@/types/types";
-import Link from "next/link";
 
 const page = async ({ params }: RouteParams) => {
   const { id } = await params;
-  return (
-    <div className="flex flex-col gap-2">
-      <p>{JSON.stringify(id)}</p>
-      <Button asChild variant={"primary"}>
-        <Link href={ROUTES.QUESTIONEDIT(id)}>Edit Question</Link>
-      </Button>
-    </div>
-  );
+  const question = await getQuestionById(id);
+  if (!question)
+    return (
+      <Empty
+        heading="Question not available"
+        description="The question you’re looking for doesn’t exist or may have been removed. Please go back to the home page and try again."
+        href="/"
+        buttonLabel="Back to home"
+      />
+    );
+
+  return <QuestionDetails {...question} />;
 };
 
 export default page;

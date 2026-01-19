@@ -17,7 +17,7 @@ const TagCard = (props: TagCardProps) => {
     <>
       <Badge
         className={cn(
-          "background-light800_dark300 text-light-500 body-medium dark:border-dark-400 border-light-700 cursor-pointer rounded-sm border transition duration-300"
+          "background-light800_dark300 text-light-500 body-medium dark:border-dark-400 border-light-700 hover:border-primary-500 dark:hover:border-primary-500 cursor-pointer rounded-sm border transition duration-300"
         )}
       >
         <span className="">{props.name.at(0)?.toUpperCase() + props.name.slice(1)}</span>

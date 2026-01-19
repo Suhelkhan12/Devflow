@@ -74,8 +74,8 @@ export interface Question {
 export interface MetricProps {
   imgUrl: string;
   alt: string;
-  value: string | number;
-  title: string;
+  value?: string | number;
+  title?: string;
   href?: string; // for user only
   textStyles?: string;
   imgStyles?: string;
