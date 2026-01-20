@@ -43,10 +43,13 @@ const QuestionDetails = (props: Question) => {
         />
       </div>
       <QuestionContentPreview content={props.content} />
-      <div className="mt-5 flex items-center gap-4 md:mt-7">
-        {props.tags.map((tag) => (
-          <TagCard key={tag.tag.id} name={tag.tag.name} id={tag.tag.id} compact />
-        ))}
+      <div className="mt-5 flex flex-col gap-2 md:mt-7">
+        <h3 className="h3-semibold">Associated tags:</h3>
+        <div className="flex items-center gap-4">
+          {props.tags.map((tag) => (
+            <TagCard key={tag.tag.id} name={tag.tag.name} id={tag.tag.id} compact />
+          ))}
+        </div>
       </div>
     </>
   );
