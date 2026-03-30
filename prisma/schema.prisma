@@ -106,7 +106,7 @@ model Question {
 model Tag {
   id            String @id @default(uuid())
   name          String @unique
-  description   String
+  description   String?
   totalQuestion Int    @default(0)
 
   questions QuestionTag[]

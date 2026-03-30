@@ -1,4 +1,12 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import Logo from "./Logo";
 import NavLink from "./NavLink";
@@ -43,7 +51,9 @@ const MobileNavigation = () => {
           <SheetDescription asChild className="p-0">
             <section className="flex flex-col gap-3.5">
               {Navlinks.map((l) => (
-                <NavLink key={l._id} {...l} />
+                <SheetClose key={l._id}>
+                  <NavLink {...l} />
+                </SheetClose>
               ))}
             </section>
           </SheetDescription>

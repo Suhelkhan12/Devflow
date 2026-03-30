@@ -11,7 +11,7 @@ const page = async ({ searchParams }: RouteParams) => {
   return (
     <section>
       <h1 className="h1-bold font-space-grotesk">Tags</h1>
-      <div className="mt-10 flex items-center gap-8">
+      <div className="mt-10 flex flex-col flex-col-reverse items-start gap-4 md:flex-row md:items-center md:gap-8">
         <LocalSearch route="/" placeholder="Search by tag name..." />
         <TagFilter />
       </div>
