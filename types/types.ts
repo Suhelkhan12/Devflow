@@ -113,3 +113,8 @@ export interface TagFilterParams {
   query?: string;
   filter?: string;
 }
+
+export interface TrackQuestionViewsParams {
+  userId: string;
+  questionId: string;
+}
