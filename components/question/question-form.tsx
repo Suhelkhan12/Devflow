@@ -146,18 +146,18 @@ const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
           name="questionExplaination"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="question-title" className="body-regular font-medium">
+              <FieldLabel htmlFor="question-explaination" className="body-regular font-medium">
                 Detailed explanation of your problem?<span className="text-red-500">*</span>
               </FieldLabel>
               <div className="space-y-2">
                 <EditorComp readonly={isPending} resetKey={editorKey} editorRef={ref} field={field} />
-                <Input
+                {/* <Input
                   {...field}
                   value={"markdownVal"}
                   id={"form-ask-question-explaination"}
                   aria-invalid={fieldState.invalid}
                   hidden
-                />
+                /> */}
                 {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Introduce the problem and expand on what you put in the title. Minimum 20 characters.

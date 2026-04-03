@@ -4,6 +4,7 @@ import { ROUTES } from "@/lib/routes";
 import { getTimeStamp } from "@/lib/utils";
 import TagCard from "../tag/tag-card";
 import QuestionContentPreview from "./question-content-preview";
+import AnswerForm from "../answer/answer-form";
 
 const QuestionDetails = (props: Question) => {
   return (
@@ -20,7 +21,7 @@ const QuestionDetails = (props: Question) => {
         <div className="flex items-center gap-2.5"> votes</div>
       </div>
       <h2 className="h2-semibold">{props.title}</h2>
-      <div className="mt-3 flex items-center gap-4 md:mt-4">
+      <section className="mt-3 flex items-center gap-4 md:mt-4">
         <Metric
           imgUrl="/icons/time.svg"
           alt="like-icon"
@@ -41,16 +42,19 @@ const QuestionDetails = (props: Question) => {
           title="Views"
           textStyles="small-medium"
         />
-      </div>
+      </section>
       <QuestionContentPreview content={props.content} />
-      <div className="mt-5 flex flex-col gap-2 md:mt-7">
+      <section className="mt-5 flex flex-col gap-2 md:mt-7">
         <h3 className="h3-semibold">Associated tags:</h3>
         <div className="flex items-center gap-4">
           {props.tags.map((tag) => (
             <TagCard key={tag.tag.id} name={tag.tag.name} id={tag.tag.id} compact />
           ))}
         </div>
-      </div>
+      </section>
+      <section className="mt-10">
+        <AnswerForm />
+      </section>
     </>
   );
 };

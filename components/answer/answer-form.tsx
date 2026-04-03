@@ -1,0 +1,102 @@
+"use client";
+
+import { AnswerFormSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import z from "zod";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import dynamic from "next/dynamic";
+import { Skeleton } from "../ui/skeleton";
+import { useRef, useState, useTransition } from "react";
+import { Button } from "../ui/button";
+import { Spinner } from "../ui/spinner";
+import Image from "next/image";
+
+const EditorComp = dynamic(() => import("@/components/question/editor"), {
+  ssr: false,
+  loading: () => <EditorSkeleton />,
+});
+
+const AnswerForm = () => {
+  const ref = useRef(null);
+  const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
+  const [isPending, setTransition] = useTransition();
+
+  const form = useForm<z.infer<typeof AnswerFormSchema>>({
+    resolver: zodResolver(AnswerFormSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof AnswerFormSchema>) {
+    setTransition(async () => {
+      console.log(values);
+      form.reset();
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setEditorKey(crypto.randomUUID());
+    });
+  }
+  return (
+    <form id="form-answer" onSubmit={form.handleSubmit(onSubmit)}>
+      <FieldGroup>
+        <Controller
+          control={form.control}
+          name="content"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <div className="flex items-center justify-between">
+                <FieldLabel htmlFor="question-explaination" className="body-regular font-medium">
+                  Detailed explanation of your problem?<span className="text-red-500">*</span>
+                </FieldLabel>
+                {/* todo this will used to generate AI response */}
+                <Button variant={"primary"} disabled={isPending}>
+                  <div className="flex items-center gap-2">
+                    Generate using AI <Image src={"/icons/ai.svg"} width={16} height={16} alt="ai log" />
+                  </div>
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <EditorComp readonly={isPending} resetKey={editorKey} editorRef={ref} field={field} />
+                {/* <Input
+                  {...field}
+                  value={"markdownVal"}
+                  id={"form-answer-content"}
+                  aria-invalid={fieldState.invalid}
+                  hidden
+                /> */}
+                {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
+                <FieldDescription className="text-light-500 body-regular mt-0.5">
+                  Explain the answer in detail and provide any relevant information that can help others understand your
+                  solution.
+                </FieldDescription>
+              </div>
+            </Field>
+          )}
+        />
+      </FieldGroup>
+      <Field className="mt-5 flex justify-end" orientation={"horizontal"}>
+        <Button
+          type="submit"
+          variant={"primary"}
+          form="form-answer"
+          disabled={isPending}
+          className="w-full sm:max-w-80"
+        >
+          {isPending ? <Spinner /> : "Post Your Answer"}
+        </Button>
+      </Field>
+    </form>
+  );
+};
+
+function EditorSkeleton() {
+  return (
+    <Skeleton className="flex h-full min-h-96 flex-col gap-2">
+      <div className="background-light800_dark300 min-h-10 rounded-sm"></div>
+      <div className="background-light800_dark300 min-h-80 rounded-sm"></div>
+    </Skeleton>
+  );
+}
+
+export default AnswerForm;

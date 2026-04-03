@@ -82,3 +82,7 @@ export const TagFilterParamsSchema = z.object({
   query: z.string().optional(),
   filter: z.string().optional(),
 });
+
+export const AnswerFormSchema = z.object({
+  content: z.string().min(100, "Answer must be at least 100 characters long"),
+});
