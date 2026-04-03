@@ -11,13 +11,16 @@ import { useRef, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import Image from "next/image";
+import { Input } from "../ui/input";
+import { createAnswer } from "@/actions/answer/create-answer";
+import { toast } from "sonner";
 
 const EditorComp = dynamic(() => import("@/components/question/editor"), {
   ssr: false,
   loading: () => <EditorSkeleton />,
 });
 
-const AnswerForm = () => {
+const AnswerForm = ({ questionId }: { questionId: string }) => {
   const ref = useRef(null);
   const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
   const [isPending, setTransition] = useTransition();
@@ -26,14 +29,20 @@ const AnswerForm = () => {
     resolver: zodResolver(AnswerFormSchema),
     defaultValues: {
       content: "",
+      questionId,
     },
   });
 
   function onSubmit(values: z.infer<typeof AnswerFormSchema>) {
     setTransition(async () => {
-      console.log(values);
+      const res = await createAnswer(values);
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success(res.success);
+
       form.reset();
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       setEditorKey(crypto.randomUUID());
     });
   }
@@ -58,13 +67,7 @@ const AnswerForm = () => {
               </div>
               <div className="space-y-2">
                 <EditorComp readonly={isPending} resetKey={editorKey} editorRef={ref} field={field} />
-                {/* <Input
-                  {...field}
-                  value={"markdownVal"}
-                  id={"form-answer-content"}
-                  aria-invalid={fieldState.invalid}
-                  hidden
-                /> */}
+                {/* <Input {...field} value={"ks"} id={"form-answer-content"} aria-invalid={fieldState.invalid} hidden /> */}
                 {fieldState.error && <FieldError className="text-xs text-red-500" errors={[fieldState.error]} />}
                 <FieldDescription className="text-light-500 body-regular mt-0.5">
                   Explain the answer in detail and provide any relevant information that can help others understand your

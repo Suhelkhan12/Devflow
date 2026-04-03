@@ -126,6 +126,8 @@ model QuestionTag {
 
 model Answer {
   id        String @id @default(uuid())
+  content   String
+
   upvotes   Int    @default(0)
   downvotes Int    @default(0)
 
