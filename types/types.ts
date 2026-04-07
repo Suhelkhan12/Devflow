@@ -71,6 +71,15 @@ export interface Question {
   tags: { tag: Tag }[];
 }
 
+export interface Answer {
+  id: string;
+  author: Author;
+  content: string;
+  upvotes: number;
+  downvotes: number;
+  createdAt: Date;
+}
+
 export interface MetricProps {
   imgUrl: string;
   alt: string;
@@ -96,7 +105,7 @@ export interface TagCardProps {
   handleRemove?: (_id: string) => void;
 }
 
-export interface QuestionFilterParams {
+export interface FilterParams {
   page?: number;
   pageSize?: number;
   query?: string;
@@ -116,5 +125,9 @@ export interface TagFilterParams {
 
 export interface TrackQuestionViewsParams {
   userId: string;
+  questionId: string;
+}
+
+export interface AnswerFilterParams extends FilterParams {
   questionId: string;
 }

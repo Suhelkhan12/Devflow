@@ -1,16 +1,16 @@
 import { Prisma } from "@/app/generated/prisma/client";
 import { getAllQuestions } from "@/data/question-answer";
 import db from "@/lib/prisma";
-import { QuestionFilterParamsSchema } from "@/schemas";
-import { QuestionFilterParams } from "@/types/types";
+import { FilterParamsSchema } from "@/schemas";
+import { FilterParams } from "@/types/types";
 
-export const getQuestions = async (filterParams: QuestionFilterParams) => {
-  const validatedFields = QuestionFilterParamsSchema.safeParse(filterParams);
+export const getQuestions = async (filterParams: FilterParams) => {
+  const validatedFields = FilterParamsSchema.safeParse(filterParams);
   if (!validatedFields.success) {
     return { error: "Something went wrong! Please refresh the page." };
   }
 
-  const { page = 1, pageSize = 5, query, filter, sort } = validatedFields.data;
+  const { page = 1, pageSize = 5, query, filter } = validatedFields.data;
 
   // creating skip and limit for paginatin
   const skip = (Number(page) - 1) * pageSize;
@@ -42,7 +42,7 @@ export const getQuestions = async (filterParams: QuestionFilterParams) => {
       orderBy = { upvotes: "desc" };
       break;
     default:
-      orderBy = { createdAt: "desc" };
+      orderBy = { createdAt: "asc" };
       break;
   }
 

@@ -52,9 +52,6 @@ const QuestionDetails = (props: Question) => {
           ))}
         </div>
       </section>
-      <section className="mt-10">
-        <AnswerForm questionId={props.id} />
-      </section>
     </>
   );
 };

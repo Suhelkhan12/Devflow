@@ -1,6 +1,5 @@
 import { TrackQuestionViewsParams } from "@/types/types";
 import db from "./prisma";
-import { error } from "console";
 
 export async function trackQuestionViews({ userId, questionId }: TrackQuestionViewsParams) {
   try {

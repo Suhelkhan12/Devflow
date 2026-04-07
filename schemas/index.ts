@@ -70,7 +70,7 @@ export const NewPasswordServerSchema = z.object({
     }),
 });
 
-export const QuestionFilterParamsSchema = z.object({
+export const FilterParamsSchema = z.object({
   page: z.number().int().positive().default(1),
   pageSize: z.number().int().positive().default(10),
   query: z.string().optional(),
@@ -84,6 +84,13 @@ export const TagFilterParamsSchema = z.object({
 });
 
 export const AnswerFormSchema = z.object({
-  questionId: z.string(),
   content: z.string().min(100, "Answer must be at least 100 characters long"),
+});
+
+export const AnswerFormServerSchema = AnswerFormSchema.extend({
+  questionId: z.string(),
+});
+
+export const AnswerFilterParamsSchema = FilterParamsSchema.extend({
+  questionId: z.string(),
 });

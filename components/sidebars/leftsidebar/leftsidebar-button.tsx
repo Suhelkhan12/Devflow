@@ -12,7 +12,13 @@ const LeftSidebarButton = async () => {
       {session ? (
         <LogoutButton>
           <Button variant={"primary"} className="w-full">
-            <Image src={"/icons/logout.svg"} alt="logout icon" width={20} height={20} className="dark:invert-colors" />
+            <Image
+              src={"/icons/logout.svg"}
+              alt="logout icon"
+              width={20}
+              height={20}
+              className="dark:invert-colors w-5"
+            />
             Logout
           </Button>
         </LogoutButton>

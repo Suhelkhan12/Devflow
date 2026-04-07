@@ -1,3 +1,4 @@
+import AnswerForm from "@/components/answer/answer-form";
 import Empty from "@/components/empty";
 import QuestionDetails from "@/components/question/question-details";
 import { getQuestionById } from "@/data/question-answer";
@@ -27,7 +28,11 @@ const page = async ({ params }: RouteParams) => {
     });
   }
 
-  return <QuestionDetails {...question} />;
+  return (
+    <>
+      <QuestionDetails {...question} /> <AnswerForm questionId={id} />
+    </>
+  );
 };
 
 export default page;

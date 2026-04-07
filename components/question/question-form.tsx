@@ -38,7 +38,7 @@ const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
   const ref = useRef(null);
   const [tags, setTags] = useState<Tag[]>(seedData?.seedTags ?? []);
   const [tagsInputVal, setTagsInputVal] = useState<string>("");
-  const [isPending, setTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   // this key will be used to reset our editor value on submit
   const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
 
@@ -57,7 +57,7 @@ const QuestionForm = ({ mode, seedData }: QuestionFormProps) => {
   }
 
   function onSubmit(values: z.infer<typeof AskQuestionFormSchema>) {
-    setTransition(async () => {
+    startTransition(async () => {
       const res =
         mode === "create"
           ? await createQuestion(values)

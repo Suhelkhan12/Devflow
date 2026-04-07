@@ -37,7 +37,7 @@ export default function NavLink({ _id, href, label, icon, isMobile = false }: Na
         width={20}
         height={20}
         preload
-        className={`${isActive ? "text-light-900" : "invert-colors"}`}
+        className={`${isActive ? "text-light-900" : "invert-colors"} w-5`}
       />
       {label}
     </div>

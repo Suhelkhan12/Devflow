@@ -105,3 +105,20 @@ export const getTagById = async (id: string) => {
     throw new Error("Failed to fetch tag details from the database.");
   }
 };
+
+export const getAllAnswers = async (args: Prisma.AnswerFindManyArgs = {}) => {
+  try {
+    const answers = await db.answer.findMany({
+      include: {
+        author: { select: { id: true, name: true, image: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      skip: args.skip,
+      take: args.take,
+    });
+    return answers;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};

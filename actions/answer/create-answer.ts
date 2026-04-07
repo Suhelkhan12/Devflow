@@ -1,13 +1,13 @@
 "use server";
 
 import * as z from "zod";
-import { AnswerFormSchema } from "@/schemas";
+import { AnswerFormServerSchema } from "@/schemas";
 import db from "@/lib/prisma";
 import { getUserSession } from "@/data/user";
 import { revalidatePath } from "next/cache";
 
-export const createAnswer = async (values: z.infer<typeof AnswerFormSchema>) => {
-  const validatedFields = AnswerFormSchema.safeParse(values);
+export const createAnswer = async (values: z.infer<typeof AnswerFormServerSchema>) => {
+  const validatedFields = AnswerFormServerSchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid fields in the answer data." };
   }
