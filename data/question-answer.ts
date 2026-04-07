@@ -106,12 +106,13 @@ export const getTagById = async (id: string) => {
   }
 };
 
-export const getAllAnswers = async (args: Prisma.AnswerFindManyArgs = {}) => {
+export const getAllAnswers = async (id: string, args: Prisma.AnswerFindManyArgs = {}) => {
   try {
     const answers = await db.answer.findMany({
       include: {
         author: { select: { id: true, name: true, image: true } },
       },
+      where: { questionId: id },
       orderBy: { createdAt: "desc" },
       skip: args.skip,
       take: args.take,

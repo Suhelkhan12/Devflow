@@ -39,7 +39,7 @@ export const getAnswers = async (filterParams: AnswerFilterParams) => {
   }
 
   try {
-    const answers = await getAllAnswers({ orderBy, skip, take: limit });
+    const answers = await getAllAnswers(questionId, { orderBy, skip, take: limit });
     const totalAnswers = await db.answer.count({ where: { questionId } });
     return {
       data: answers,

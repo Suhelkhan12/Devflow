@@ -7,10 +7,11 @@ interface EmptyComponentProps {
   description: string;
   buttonLabel?: string;
   href?: string;
+  fullHeight?: boolean;
 }
-const Empty = ({ heading, description, buttonLabel, href }: EmptyComponentProps) => {
+const Empty = ({ heading, description, buttonLabel, href, fullHeight }: EmptyComponentProps) => {
   return (
-    <div className="flex-center font-inter flex h-full flex-col gap-8">
+    <div className={`flex-center font-inter flex flex-col gap-8 ${fullHeight ? "h-full" : "mt-10"}`}>
       <Image
         src={"/images/not-found.svg"}
         alt="page not found image which will be rendered when server give 404 and no such page exists"

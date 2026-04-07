@@ -4,7 +4,6 @@ import { ROUTES } from "@/lib/routes";
 import { getTimeStamp } from "@/lib/utils";
 import TagCard from "../tag/tag-card";
 import QuestionContentPreview from "./question-content-preview";
-import AnswerForm from "../answer/answer-form";
 
 const QuestionDetails = (props: Question) => {
   return (
