@@ -23,3 +23,7 @@ export function getTimeStamp(date: Date): string {
     return `${Math.floor(secondsPast / 31104000)} years ago`;
   }
 }
+
+export function pluralize(count: number, word: string) {
+  return `${count} ${count === 1 ? word : word + "s"}`;
+}

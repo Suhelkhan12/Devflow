@@ -9,3 +9,13 @@ export const Navlinks: NavLinkProps[] = [
   { _id: "Tags", href: `${ROUTES.TAGS}`, label: "Tags", icon: "/icons/tag.svg" },
   { _id: "Communities", href: `${ROUTES.COMMUNITIES}`, label: "Communities", icon: "/icons/community.svg" },
 ];
+
+export const TAGFILTERS = [
+  { id: "1", label: "Most Questions", value: "most_questions" },
+  { id: "2", label: "Alphabetical (A–Z)", value: "alphabetical" },
+];
+
+export const ANSWER_FILTERS = [
+  { id: "1", label: "Highest Upvotes", value: "highest_upvotes" },
+  { id: "2", label: "Highest Downvotes", value: "highest_downvotes" },
+];

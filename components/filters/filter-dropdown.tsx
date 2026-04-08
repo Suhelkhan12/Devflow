@@ -12,18 +12,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formUrlQuery } from "@/lib/url";
+import { FilterOption } from "@/types/types";
 
-const TAGFILTERS = [
-  { id: "1", label: "Most Questions", value: "most_questions" },
-  { id: "2", label: "Alphabetical (A–Z)", value: "alphabetical" },
-];
-
-const TagFilter = () => {
+const TagFilter = ({ filters }: { filters: FilterOption[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   // state to control Select value
-  const [selectedFilter, setSelectedFilter] = useState<string | undefined>(searchParams.get("filter") ?? undefined);
+  const [selectedFilter, setSelectedFilter] = useState<string>(searchParams.get("filter") ?? "");
 
   const onValueChange = (value: string) => {
     setSelectedFilter(value); // update UI
@@ -44,13 +40,13 @@ const TagFilter = () => {
         <SelectGroup>
           <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>
 
-          {TAGFILTERS.map((tg) => (
+          {filters.map((fl) => (
             <SelectItem
-              key={tg.id}
-              value={tg.value}
+              key={fl.id}
+              value={fl.value}
               className="text-dark500_light400 hover:bg-primary-100/50 dark:hover:bg-primary-500/5 data-[state=checked]:bg-primary-100 data-[state=checked]:dark:bg-primary-500/10 cursor-pointer py-2.5 capitalize transition duration-300"
             >
-              {tg.label}
+              {fl.label}
             </SelectItem>
           ))}
         </SelectGroup>

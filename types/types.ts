@@ -131,3 +131,9 @@ export interface TrackQuestionViewsParams {
 export interface AnswerFilterParams extends FilterParams {
   questionId: string;
 }
+
+export interface FilterOption {
+  id: string;
+  label: string;
+  value: string;
+}

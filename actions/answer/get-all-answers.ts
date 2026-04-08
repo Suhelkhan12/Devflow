@@ -24,17 +24,14 @@ export const getAnswers = async (filterParams: AnswerFilterParams) => {
   let orderBy: Prisma.AnswerOrderByWithRelationInput;
 
   switch (filter) {
-    case "newest":
-      orderBy = { createdAt: "desc" };
-      break;
-    case "highestupvoted":
+    case "highest_upvotes":
       orderBy = { upvotes: "desc" };
       break;
-    case "highestdownvoted":
+    case "highest_downvotes":
       orderBy = { downvotes: "desc" };
       break;
     default:
-      orderBy = { createdAt: "asc" };
+      orderBy = { createdAt: "desc" };
       break;
   }
 
