@@ -3,7 +3,7 @@ import Metric from "../Metric";
 import { ROUTES } from "@/lib/routes";
 import { getTimeStamp } from "@/lib/utils";
 import TagCard from "../tag/tag-card";
-import QuestionContentPreview from "./question-content-preview";
+import ContentPreview from "./question-content-preview";
 
 const QuestionDetails = (props: Question) => {
   return (
@@ -42,7 +42,7 @@ const QuestionDetails = (props: Question) => {
           textStyles="small-medium"
         />
       </section>
-      <QuestionContentPreview content={props.content} />
+      <ContentPreview content={props.content} />
       <section className="mt-5 flex flex-col gap-2 md:mt-7">
         <h3 className="h3-semibold">Associated tags:</h3>
         <div className="flex items-center gap-4">

@@ -6,8 +6,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html {
-  scrollbar-gutter: stable;
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* globals.css */
+.scrollbar-stable {
+  overflow-y: scroll;
 }
 
 @theme {

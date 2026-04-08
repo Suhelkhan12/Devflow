@@ -11,11 +11,13 @@ export const Navlinks: NavLinkProps[] = [
 ];
 
 export const TAGFILTERS = [
-  { id: "1", label: "Most Questions", value: "most_questions" },
-  { id: "2", label: "Alphabetical (A–Z)", value: "alphabetical" },
+  { id: "1", label: "Clear filters", value: "clear" },
+  { id: "2", label: "Most Questions", value: "most_questions" },
+  { id: "3", label: "Alphabetical (A–Z)", value: "alphabetical" },
 ];
 
 export const ANSWER_FILTERS = [
-  { id: "1", label: "Highest Upvotes", value: "highest_upvotes" },
-  { id: "2", label: "Highest Downvotes", value: "highest_downvotes" },
+  { id: "1", label: "Clear filters", value: "clear" },
+  { id: "2", label: "Highest Upvotes", value: "highest_upvotes" },
+  { id: "3", label: "Highest Downvotes", value: "highest_downvotes" },
 ];

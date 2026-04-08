@@ -11,10 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { formUrlQuery } from "@/lib/url";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
 import { FilterOption } from "@/types/types";
 
-const TagFilter = ({ filters }: { filters: FilterOption[] }) => {
+const FilterDropdown = ({ filters }: { filters: FilterOption[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -22,21 +22,51 @@ const TagFilter = ({ filters }: { filters: FilterOption[] }) => {
   const [selectedFilter, setSelectedFilter] = useState<string>(searchParams.get("filter") ?? "");
 
   const onValueChange = (value: string) => {
-    setSelectedFilter(value); // update UI
-    const newUrl = formUrlQuery({
-      params: searchParams.toString(),
-      key: "filter",
-      value,
-    });
+    const isClear = value === "clear";
+
+    setSelectedFilter(isClear ? "" : value);
+
+    let newUrl;
+
+    if (isClear) {
+      // ✅ remove filter param completely
+      newUrl = removeKeysFromQuery({
+        params: searchParams.toString(),
+        keysToRemove: ["filter"],
+      });
+    } else {
+      // ✅ set filter param
+      newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "filter",
+        value,
+      });
+    }
+
     router.push(newUrl);
   };
 
+  const onOpenChange = (open: boolean) => {
+    console.log("helo");
+    const body = document.body;
+    if (open) {
+      body.classList.add("scrollbar-stable");
+    } else {
+      body.classList.remove("scrollbar-stable");
+    }
+  };
+
   return (
-    <Select value={selectedFilter} onValueChange={onValueChange}>
+    <Select value={selectedFilter} onValueChange={onValueChange} onOpenChange={onOpenChange}>
       <SelectTrigger className="text-dark500_light400 dark:border-dark-400 background-light800_dark200 w-45 cursor-pointer rounded-lg px-4 py-6">
         <SelectValue placeholder="Filter tags" />
       </SelectTrigger>
-      <SelectContent side={"bottom"} position={"popper"} className="dark:border-dark-400 background-light900_dark200">
+      <SelectContent
+        side={"bottom"}
+        position={"popper"}
+        align={"start"}
+        className="dark:border-dark-400 background-light900_dark200"
+      >
         <SelectGroup>
           <SelectLabel className="text-primary-500 font-medium">Filters</SelectLabel>
 
@@ -55,4 +85,4 @@ const TagFilter = ({ filters }: { filters: FilterOption[] }) => {
   );
 };
 
-export default TagFilter;
+export default FilterDropdown;

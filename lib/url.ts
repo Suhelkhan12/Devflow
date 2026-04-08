@@ -3,7 +3,7 @@ import qs from "query-string";
 type FormUrlQueryTypes = {
   params: string;
   key: string;
-  value: string;
+  value: string | null;
 };
 
 export const formUrlQuery = ({ params, key, value }: FormUrlQueryTypes): string => {

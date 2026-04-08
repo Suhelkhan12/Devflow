@@ -7,10 +7,10 @@ Code.theme = {
   lightSelector: "html.light",
 };
 
-const QuestionContentPreview = ({ content = "" }: { content: string }) => {
+const ContentPreview = ({ content = "" }: { content: string }) => {
   const formatedContent = content.replace(/\\/g, "").replace(/&#x20;/g, "");
   return (
-    <section className="markdown mt-5 grid wrap-break-word md:mt-7">
+    <section className="markdown mt-5 grid wrap-break-word">
       <MDXRemote
         source={formatedContent}
         components={{
@@ -21,4 +21,4 @@ const QuestionContentPreview = ({ content = "" }: { content: string }) => {
   );
 };
 
-export default QuestionContentPreview;
+export default ContentPreview;
