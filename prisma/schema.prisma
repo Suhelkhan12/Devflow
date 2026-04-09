@@ -150,7 +150,7 @@ enum VotedOn {
   QUESTION
   ANSWER
 }
-
+  
 enum Votetype {
   UPVOTE
   DOWNVOTE
