@@ -141,6 +141,8 @@ model Answer {
   activities UserActivity[]
 
   createdAt DateTime @default(now())
+
+  @@unique([authorId, questionId])
 }
 
 // this model will be used to keep track of what kind of vote is done by the user on q&a
