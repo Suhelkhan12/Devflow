@@ -3,40 +3,30 @@ generator client {
   output   = "../app/generated/prisma"
 }
 
-// prisma/schema.prisma
 datasource db {
-  provider  = "postgresql"
-  // url  	    = env("DATABASE_URL")
-  // uncomment next line if you use Prisma <5.10
-  // directUrl = env("DATABASE_URL_UNPOOLED")
-}
-enum UserRole {
-  ADMIN
-  USER
+  provider = "postgresql"
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  createdAt     DateTime       @default(now())
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          UserRole  @default(USER)
+  role          UserRole       @default(USER)
+  updatedAt     DateTime       @updatedAt
   bio           String?
   location      String?
   portfolio     String?
-  reputation    Int?      @default(0)
-
-  accounts   Account[]
-  questions  Question[]
-  answers    Answer[]
-  votes      Vote[]
-  bookmarks  Bookmark[]
-  activities UserActivity[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  reputation    Int?           @default(0)
+  accounts      Account[]
+  answers       Answer[]
+  bookmarks     Bookmark[]
+  questions     Question[]
+  activities    UserActivity[]
+  votes         Vote[]
 }
 
 model Account {
@@ -51,11 +41,9 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -69,7 +57,6 @@ model VerificationToken {
   @@unique([email, token])
 }
 
-// for security purpose it is safe to keep tokens separate for each function
 model PasswordResetToken {
   id      String   @id @default(uuid())
   email   String
@@ -79,119 +66,115 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
-// todo implement 2FA for the user as well.
-
 model Question {
-  id           String @id @default(uuid())
+  id           String         @id @default(uuid())
   title        String
   content      String
-  upvotes      Int    @default(0)
-  downvotes    Int    @default(0)
-  totalAnswers Int    @default(0)
-  views        Int    @default(0)
-
-  userId String
-  // user will be used as author itself no need to create separte
-  author User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  answers    Answer[]
-  tags       QuestionTag[]
-  votes      Vote[]
-  bookmarks  Bookmark[]
-  activities UserActivity[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  upvotes      Int            @default(0)
+  downvotes    Int            @default(0)
+  totalAnswers Int            @default(0)
+  views        Int            @default(0)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  userId       String
+  answers      Answer[]
+  bookmarks    Bookmark[]
+  author       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags         QuestionTag[]
+  activities   UserActivity[]
+  votes        Vote[]
 }
 
 model Tag {
-  id            String @id @default(uuid())
-  name          String @unique
+  id            String        @id @default(uuid())
+  name          String        @unique
+  totalQuestion Int           @default(0)
   description   String?
-  totalQuestion Int    @default(0)
-
-  questions QuestionTag[]
+  questions     QuestionTag[]
 }
 
-// this is how you create many to many rltn
 model QuestionTag {
   questionId String
   tagId      String
-
-  question Question @relation(fields: [questionId], references: [id])
-  tag      Tag      @relation(fields: [tagId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+  tag        Tag      @relation(fields: [tagId], references: [id])
 
   @@id([questionId, tagId])
 }
 
 model Answer {
-  id        String @id @default(uuid())
-  content   String
-
-  upvotes   Int    @default(0)
-  downvotes Int    @default(0)
-
+  id         String         @id @default(uuid())
+  upvotes    Int            @default(0)
+  downvotes  Int            @default(0)
+  createdAt  DateTime       @default(now())
   questionId String
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-
-  votes      Vote[]
+  authorId   String
+  content    String
+  author     User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  question   Question       @relation(fields: [questionId], references: [id], onDelete: Cascade)
   activities UserActivity[]
-
-  createdAt DateTime @default(now())
-
+  votes      Vote[]
   @@unique([authorId, questionId])
 }
 
-// this model will be used to keep track of what kind of vote is done by the user on q&a
-enum VotedOn {
-  QUESTION
-  ANSWER
-}
-  
-enum Votetype {
-  UPVOTE
-  DOWNVOTE
-}
-
 model Vote {
-  id       String   @id @default(uuid())
-  votedOn  VotedOn
-  voteType Votetype
-
-  voterId String
-  voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
-
+  id         String    @id @default(uuid())
+  votedOn    VotedOn
+  voteType   Votetype
+  createdAt  DateTime  @default(now())
+  voterId    String
   questionId String?
+  answerId   String?
+  answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
   question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  answerId String?
-  answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
+  voter      User      @relation(fields: [voterId], references: [id], onDelete: Cascade)
 
   @@unique([voterId, questionId])
   @@unique([voterId, answerId])
 }
 
-// this is simply list of all the questions which has been bookmarked by the user
 model Bookmark {
-  id String @id @default(uuid())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  userId     String
   questionId String
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, questionId])
 }
 
-// for recomendation algorithms
+model UserActivity {
+  id         String       @id @default(uuid())
+  type       ActivityType
+  target     TargetType
+  userId     String
+  questionId String?
+  answerId   String?
+  createdAt  DateTime     @default(now())
+  answer     Answer?      @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  question   Question?    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId, type])
+  @@index([userId, createdAt])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum VotedOn {
+  QUESTION
+  ANSWER
+}
+
+enum Votetype {
+  UPVOTE
+  DOWNVOTE
+}
+
 enum ActivityType {
   VIEW
   BOOKMARK
@@ -206,24 +189,4 @@ enum TargetType {
   QUESTION
   ANSWER
   USER
-}
-
-model UserActivity {
-  id     String       @id @default(uuid())
-  type   ActivityType
-  target TargetType
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  questionId String?
-  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  answerId String?
-  answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([userId, createdAt])
-  @@unique([userId, questionId, type])
 }
