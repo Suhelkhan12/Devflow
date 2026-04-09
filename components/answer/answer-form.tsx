@@ -7,7 +7,7 @@ import z from "zod";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
-import { useRef, useState, useTransition } from "react";
+import { SetStateAction, useRef, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import Image from "next/image";
@@ -19,7 +19,13 @@ const EditorComp = dynamic(() => import("@/components/question/editor"), {
   loading: () => <EditorSkeleton />,
 });
 
-const AnswerForm = ({ questionId }: { questionId: string }) => {
+const AnswerForm = ({
+  questionId,
+  hasSubmited,
+}: {
+  questionId: string;
+  hasSubmited: React.Dispatch<SetStateAction<boolean>>;
+}) => {
   const ref = useRef(null);
   const [editorKey, setEditorKey] = useState<string>(crypto.randomUUID());
   const [isPending, startTransition] = useTransition();
@@ -39,6 +45,8 @@ const AnswerForm = ({ questionId }: { questionId: string }) => {
         toast.error(res.error);
         return;
       }
+      // set submitted to true to trigger re-fetching of answers in the parent component
+      hasSubmited(true);
       toast.success(res.success);
 
       form.reset();

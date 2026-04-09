@@ -23,6 +23,18 @@ export const createAnswer = async (values: z.infer<typeof AnswerFormServerSchema
   }
 
   try {
+    //checking if user has already answered the question because we are allowing only one answer per user per question
+    const existingAnser = await db.answer.findFirst({
+      where: {
+        authorId: userId,
+        questionId,
+      },
+    });
+
+    if (existingAnser) {
+      return { error: "You have already answered this question." };
+    }
+
     await db.$transaction([
       db.answer.create({
         data: {

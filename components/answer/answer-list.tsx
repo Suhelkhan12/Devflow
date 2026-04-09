@@ -26,7 +26,7 @@ const AnswerList = ({ answers }: AnswerListProps) => {
 
 function AnswerUI({ answer }: { answer: Answer }) {
   return (
-    <div className="flex flex-col">
+    <div className="mb-10 flex flex-col">
       <div className="flex-between">
         <Metric
           imgUrl={answer.author.image!}

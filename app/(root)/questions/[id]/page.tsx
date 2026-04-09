@@ -1,5 +1,5 @@
 import { getAnswers } from "@/actions/answer/get-all-answers";
-import AnswerForm from "@/components/answer/answer-form";
+import AnswerFormWrapper from "@/components/answer/answer-form-wrapper";
 import AnswerList from "@/components/answer/answer-list";
 import Empty from "@/components/empty";
 import QuestionDetails from "@/components/question/question-details";
@@ -44,7 +44,7 @@ const page = async ({ params, searchParams }: RouteParams) => {
     <>
       <QuestionDetails {...question} />
       <Separator className="bg-primary-500 mt-10" />
-      <AnswerForm questionId={id} />
+      <AnswerFormWrapper questionId={id} />
       <Separator className="bg-primary-500 mt-10" />
       {data && data.length > 0 ? (
         <AnswerList answers={data} />
