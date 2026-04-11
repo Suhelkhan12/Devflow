@@ -5,6 +5,7 @@ import { AnswerFormServerSchema } from "@/schemas";
 import db from "@/lib/prisma";
 import { getUserSession } from "@/data/user";
 import { revalidatePath } from "next/cache";
+import { ROUTES } from "@/lib/routes";
 
 export const createAnswer = async (values: z.infer<typeof AnswerFormServerSchema>) => {
   const validatedFields = AnswerFormServerSchema.safeParse(values);
@@ -53,7 +54,7 @@ export const createAnswer = async (values: z.infer<typeof AnswerFormServerSchema
     ]);
 
     // revalidating the path
-    revalidatePath(`/questions/${questionId}`);
+    //revalidatePath(ROUTES.QUESTION(questionId));
     return { success: "Answer submitted successfully." };
   } catch (error) {
     console.error("Create Answer Error:", error);

@@ -52,7 +52,7 @@ export interface TagList {
   tags: TagWithCountAndDescription[];
 }
 
-interface Author {
+export interface Author {
   id: string;
   name: string | null;
   image: string | null;
@@ -78,6 +78,10 @@ export interface Answer {
   upvotes: number;
   downvotes: number;
   createdAt: Date;
+}
+
+export interface OptimisticAnswer extends Answer {
+  isOptimistic: boolean;
 }
 
 export interface MetricProps {

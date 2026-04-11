@@ -9,6 +9,7 @@ interface AnswerFormWrapperProps {
 
 const AnswerFormWrapper = ({ questionId }: AnswerFormWrapperProps) => {
   const [submitted, setSubmitted] = useState<boolean>(false);
+
   if (submitted) {
     return (
       <div className="mt-10 flex items-center gap-3 rounded-md border border-green-400 bg-green-100 p-4 text-green-800">
