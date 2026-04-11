@@ -5,21 +5,23 @@ import { Button } from "../ui/button";
 
 const ProfileTop = () => {
   return (
-    <section className="flex items-start justify-between gap-8">
-      <div className="flex items-center gap-5">
-        <ImageWithFallback
-          src={"/images/Suhel.png"}
-          alt="user profile picture"
-          width={140}
-          height={140}
-          className="ring-primary-500 rounded-full ring-2"
-        />
+    <section className="flex flex-col-reverse items-start justify-between gap-8 lg:flex-row">
+      <div className="flex flex-col gap-5 md:flex-row md:items-center">
+        <div className="w-full max-w-36">
+          <ImageWithFallback
+            src={"/images/Suhel.png"}
+            alt="user profile picture"
+            width={140}
+            height={140}
+            className="ring-primary-500 rounded-full ring-2"
+          />
+        </div>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <h1 className="h1-bold">Suhel khan</h1>
             <p className="text-xs italic">@lslsdjflsjdflsdjflsfjssdjflsd</p>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-5">
             <div className="flex items-center gap-1">
               <ImageWithFallback src={"/icons/link.svg"} alt="link icon" width={16} height={16} />
               <Link href={"https://example.com"} className="text-blue-400" target="_blank">
