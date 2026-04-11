@@ -1,6 +1,7 @@
 import React from "react";
 import ImageWithFallback from "../ImageWithNoSource";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const ProfileTop = () => {
   return (
@@ -21,7 +22,9 @@ const ProfileTop = () => {
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-1">
               <ImageWithFallback src={"/icons/link.svg"} alt="link icon" width={16} height={16} />
-              <Link href={"https://example.com"}>https://example.com</Link>
+              <Link href={"https://example.com"} className="text-blue-400" target="_blank">
+                https://example.com
+              </Link>
             </div>
             <div className="flex items-center gap-1">
               <ImageWithFallback src={"/icons/location.svg"} alt="localtion icon" width={16} height={16} />
@@ -32,12 +35,18 @@ const ProfileTop = () => {
               <span>Joined January 2023</span>
             </div>
           </div>
-          <p>
+          <p className="max-w-4xl">
             Launch your development career with project-based coaching - showcase your skills with practical development
             experience and land the coding career of your dreams. Check out jsmastery.pro
           </p>
         </div>
       </div>
+      <Button
+        variant={"default"}
+        className="background-light700_dark300 border-light-700 dark:border-dark-400 cursor-pointer border hover:shadow-sm"
+      >
+        Edit your profile
+      </Button>
     </section>
   );
 };

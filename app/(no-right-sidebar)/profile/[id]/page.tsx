@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import ProfileStats from "@/components/profile/profile-stats";
 import ProfileTop from "@/components/profile/profile-top";
 
 const page = async () => {
@@ -6,6 +7,7 @@ const page = async () => {
   return (
     <>
       <ProfileTop />
+      <ProfileStats />
     </>
   );
 };
