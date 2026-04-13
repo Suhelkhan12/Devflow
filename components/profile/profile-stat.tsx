@@ -36,7 +36,7 @@ const ProfileStat = ({ medalType, count = 0, isFirst }: Props) => {
   return (
     <div
       className={cn(
-        "dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex items-center justify-center gap-3.5 rounded-lg border px-5 py-4 shadow md:justify-start",
+        "dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex justify-center gap-3.5 rounded-lg border px-5 py-4 shadow md:items-center md:justify-start",
         isFirst && "flex justify-around"
       )}
     >

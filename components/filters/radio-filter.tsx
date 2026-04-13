@@ -1,9 +1,34 @@
+"use client";
+
 import { Field, FieldContent, FieldLabel, FieldTitle } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { formUrlQuery } from "@/lib/url";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const RadioFilter = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [selectedValue, setSelectedValue] = useState<string>(searchParams.get("filter") || "questions");
+
+  const onValueChange = (value: "questions" | "answers") => {
+    setSelectedValue(value);
+
+    //constructing url for url based filtering
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: "filter",
+      value,
+    });
+    router.push(newUrl);
+  };
   return (
-    <RadioGroup className="background-light800_dark300 2 flex w-xs gap-0 overflow-hidden rounded-lg">
+    <RadioGroup
+      className="background-light800_dark300 2 flex w-52 gap-0 overflow-hidden rounded-lg md:w-xs"
+      defaultValue={selectedValue}
+      onValueChange={onValueChange}
+    >
       {/* Questions */}
       <FieldLabel htmlFor="questions" className="w-1/2 cursor-pointer">
         <div className="relative w-full">
@@ -19,7 +44,6 @@ const RadioFilter = () => {
           </Field>
         </div>
       </FieldLabel>
-
       {/* Answers */}
       <FieldLabel htmlFor="answers" className="w-1/2 cursor-pointer">
         <div className="relative w-full">

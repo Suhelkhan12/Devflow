@@ -1,3 +1,4 @@
+"use client";
 import RadioFilter from "../filters/radio-filter";
 
 const ProfileQuestionsAnswers = () => {
