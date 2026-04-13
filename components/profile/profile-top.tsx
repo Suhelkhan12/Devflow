@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 const ProfileTop = () => {
   return (
     <section className="flex flex-col-reverse items-start justify-between gap-8 lg:flex-row">
-      <div className="flex flex-col gap-5 md:flex-row md:items-center">
+      <div className="flex flex-col gap-5 md:flex-row">
         <div className="w-full max-w-36">
           <ImageWithFallback
             src={"/images/Suhel.png"}
@@ -45,7 +45,7 @@ const ProfileTop = () => {
       </div>
       <Button
         variant={"default"}
-        className="background-light700_dark300 border-light-700 dark:border-dark-400 cursor-pointer border hover:shadow-sm"
+        className="background-light800_dark400! text-primary-500 dark:border-dark-400 cursor-pointer border hover:shadow-sm"
       >
         Edit your profile
       </Button>

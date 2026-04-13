@@ -7,7 +7,7 @@ const LoginSigninButtons = () => {
       <AuthButton route="/auth/log-in">
         <Button
           variant={"default"}
-          className="background-light800_dark400! text-primary-500 w-full cursor-pointer hover:shadow-sm"
+          className="background-light800_dark400! text-primary-500 dark:border-dark-400 w-full cursor-pointer border hover:shadow-sm"
         >
           Log in
         </Button>

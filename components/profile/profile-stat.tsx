@@ -20,7 +20,7 @@ const ProfileStat = ({ medalType, count = 0, isFirst }: Props) => {
   // 👇 first card (questions/answers)
   if (isFirst) {
     return (
-      <div className="dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex items-center justify-around rounded-lg border px-5 py-4">
+      <div className="dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex items-center justify-around rounded-lg border px-5 py-4 shadow">
         <div className="flex flex-col font-medium">
           150
           <span className="paragraph-regular">Questions</span>
@@ -36,7 +36,7 @@ const ProfileStat = ({ medalType, count = 0, isFirst }: Props) => {
   return (
     <div
       className={cn(
-        "dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex items-center justify-center gap-3.5 rounded-lg border px-5 py-4 md:justify-start",
+        "dark:border-dark-300 background-light800_darkgradient border-light-700 shadow-light100_dark100 flex items-center justify-center gap-3.5 rounded-lg border px-5 py-4 shadow md:justify-start",
         isFirst && "flex justify-around"
       )}
     >
