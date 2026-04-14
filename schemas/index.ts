@@ -94,3 +94,8 @@ export const AnswerFormServerSchema = AnswerFormSchema.extend({
 export const AnswerFilterParamsSchema = FilterParamsSchema.extend({
   questionId: z.string(),
 });
+
+export const AiAnswerSchema = z.object({
+  question: z.string(),
+  content: z.string(),
+});

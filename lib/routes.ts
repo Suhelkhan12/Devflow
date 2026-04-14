@@ -42,6 +42,7 @@ export const AUTHROUTES = ["/auth/log-in", "/auth/sign-up", "/auth/reset"];
  * @type {string}
  */
 export const APIAuthPrefix = "/api/auth";
+export const APIAiAnswerPrefix = "/api/ai-answer";
 
 /**
  * This route will be the one where a user will be redirected to by default when they login/signup

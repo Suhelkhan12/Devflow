@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
-import { DEFAULT_LOGIN_REDIRECT, PUBLICROUTES, APIAuthPrefix, AUTHROUTES } from "@/lib/routes";
+import { DEFAULT_LOGIN_REDIRECT, PUBLICROUTES, APIAuthPrefix, AUTHROUTES, APIAiAnswerPrefix } from "@/lib/routes";
 
 const { auth } = NextAuth(authConfig);
 
@@ -11,7 +11,7 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
   // we don't want to protect all these routes because they are our routes which will be used for authencation
-  const isApiAuthRoute = nextUrl.pathname.startsWith(APIAuthPrefix);
+  const isApiAuthRoute = nextUrl.pathname.startsWith(APIAuthPrefix) || nextUrl.pathname.startsWith(APIAiAnswerPrefix);
   if (isApiAuthRoute) return null;
 
   // already logged in user will be able to go to these pages and will not be able to go to these pages and will be redirected back to "/" route or if user is logged out they will be redirected to the auth page
