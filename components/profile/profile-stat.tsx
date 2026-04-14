@@ -45,6 +45,7 @@ const ProfileStat = ({ medalType, count = 0, isFirst }: Props) => {
         alt={`${type} medal`}
         width={40}
         height={40}
+        className="size-10"
       />
       <div className="flex flex-col items-start">
         <span className="text-lg font-semibold">{count}</span>

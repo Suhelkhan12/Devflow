@@ -18,7 +18,7 @@ const ProfileTop = () => {
         </div>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
-            <h1 className="h1-bold">Suhel khan</h1>
+            <h1 className="h1-bold tracking-wide">Suhel khan</h1>
             <p className="text-xs italic">@lslsdjflsjdflsdjflsfjssdjflsd</p>
           </div>
           <div className="flex flex-wrap items-center gap-5">
