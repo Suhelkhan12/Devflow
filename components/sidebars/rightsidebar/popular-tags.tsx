@@ -1,54 +1,16 @@
 import TagCard from "@/components/tag/tag-card";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+import db from "@/lib/prisma";
 
-const POPULARTAGS = [
-  {
-    id: 1,
-    tagname: "JavaScript",
-    tags: 8362,
-  },
-  {
-    id: 2,
-    tagname: "Python",
-    tags: 3453,
-  },
-  {
-    id: 3,
-    tagname: "C++",
-    tags: 9874,
-  },
-  {
-    id: 4,
-    tagname: "Java",
-    tags: 3456,
-  },
-  {
-    id: 5,
-    tagname: "TypeScript",
-    tags: 8762,
-  },
-  {
-    id: 6,
-    tagname: "Go",
-    tags: 6543,
-  },
-  {
-    id: 7,
-    tagname: "Rust",
-    tags: 12312,
-  },
-];
-
-const PopularTags = () => {
+const PopularTags = async () => {
+  const tags = await db.tag.findMany();
   return (
     <div className="flex flex-col justify-between gap-6">
       <h2 className="h3-semibold font-space-grotesk">Popular tags</h2>
       <div className="flex flex-col gap-4">
-        {POPULARTAGS.map((tg) => (
+        {tags.map((tg) => (
           <div key={tg.id} className="flex items-center justify-between">
-            <TagCard key={tg.id} name={tg.tagname} compact id={String(tg.id)} />
-            <p className="text-xs">{tg.tags}+</p>
+            <TagCard key={tg.id} name={tg.name} compact id={String(tg.id)} />
+            <p className="text-xs">{tg.totalQuestion}+</p>
           </div>
         ))}
       </div>
